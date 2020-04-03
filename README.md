@@ -111,15 +111,6 @@ diff -u dir1.txt dir2.txt > diff_dir_1_2.txt
 du -sh ~/duke/sct_testing/large/
 du -sh ~/duke/sct_testing/DataLad-large/
 ```
-## Testing
-- how does it work
-- who can connect to it
-- how to fetch data from another station
-- how to add data
-- who can add data
-- what is the versioning strategy/convention
-- how is duke windows file system dealing with data fetching (we’ve seen errors in the past)
-- how is duke/grappelli backuping dealing with git-annex
 
 # Documentation
 
