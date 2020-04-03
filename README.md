@@ -1,10 +1,9 @@
-Repo that deals with datalad aspects for internal use
+This repository deals with datalad usage and maintenance for managing the internal database at NeuroPoly Lab.
 
 - [Installing datalad](#installing-datalad)
 - [Adding a new dataset](#adding-a-new-dataset)
-- [Create Datalad dataset](#create-datalad-dataset)
-- [Datalad systemic checkup for changes](#datalad-systemic-checkup-for-changes)
-- [Testing](#testing)
+- [Regular usage (for users)](#regular-usage-for-users)
+- [Maintenance (for IT staff)](#maintenance-for-it-staff)
 ---------------------------------------------
 
 # Installing datalad
