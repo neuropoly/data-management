@@ -4,6 +4,7 @@ This repository deals with datalad usage and maintenance for managing the intern
 - [Adding a new dataset](#adding-a-new-dataset)
 - [Regular usage (for users)](#regular-usage-for-users)
 - [Maintenance (for IT staff)](#maintenance-for-it-staff)
+- [Documentation](#documentation)
 ---------------------------------------------
 
 # Installing datalad
@@ -120,5 +121,12 @@ du -sh ~/duke/sct_testing/DataLad-large/
 - how is duke windows file system dealing with data fetching (we’ve seen errors in the past)
 - how is duke/grappelli backuping dealing with git-annex
 
+# Documentation
 
-
+Here is a list of useful links:
+- http://www.repronim.org/ohbm2018-training/03-01-reproin/
+- https://neurostars.org/t/how-to-crawl-with-datalad/2754
+- http://git-annex.branchable.com/special_remotes/
+- https://github.com/khanlab/datalad/wiki
+- https://neurostars.org/t/datalad-setting-up-a-special-remote-with-google-cloud-platform-storage-bucket/1929
+- https://neurostars.org/t/upload-to-openneuro/2112/3
