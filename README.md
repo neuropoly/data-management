@@ -1,6 +1,8 @@
 # Datalad
 Repo that deals with datalad aspects for internal use
+
 - [Requirements][#requirements]
+- [Install on ubuntu 18.04][#how-to-install-datalad-on-ubuntu-1804]
 ## Requirements
 
 Datalad equires Python, Git, git-annex, and potentially Pythons package manager pip.
