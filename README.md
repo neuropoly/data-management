@@ -125,3 +125,4 @@ Here is a list of useful links:
 - https://github.com/khanlab/datalad/wiki
 - https://neurostars.org/t/datalad-setting-up-a-special-remote-with-google-cloud-platform-storage-bucket/1929
 - https://neurostars.org/t/upload-to-openneuro/2112/3
+- http://handbook.datalad.org/en/latest/
