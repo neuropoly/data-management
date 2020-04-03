@@ -1,5 +1,6 @@
 # Datalad
 Repo that deals with datalad aspects for internal use
+- [Requirements][#requirements]
 ## Requirements
 
 Datalad equires Python, Git, git-annex, and potentially Pythons package manager pip.
