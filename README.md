@@ -1,8 +1,11 @@
 # Datalad
 Repo that deals with datalad aspects for internal use
 
-- [Requirements][#requirements]
-- [Install on ubuntu 18.04][#how-to-install-datalad-on-ubuntu-1804]
+- [Requirements](#requirements)
+- [Install on ubuntu 18.04](#how-to-install-datalad-on-ubuntu-1804)
+- [Create Datalad dataset](#create-datalad-dataset)
+- [Datalad systemic checkup for changes](#datalad-systemic-checkup-for-changes)
+- [Testing](#testing)
 ---------------------------------------------
 ## Requirements
 
