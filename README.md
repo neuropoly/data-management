@@ -112,6 +112,10 @@ du -sh ~/duke/sct_testing/large/
 du -sh ~/duke/sct_testing/DataLad-large/
 ```
 
+## Testing procedure
+
+See [wiki page](https://github.com/neuropoly/datalad/wiki/testing-datalad).
+
 # Documentation
 
 Here is a list of useful links:
