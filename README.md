@@ -88,6 +88,14 @@ datalad save -m "DETAILS_ABOUT_CHANGES" FILEPATH
 
 # Maintenance (for IT staff)
 
+## Migrate to DATALAD
+
+1. Rename `sct_testing/large` to `sct_testing/large_bids`
+2. Create DATALAD dataset *large* under `sct_testing/`
+3. Remove `.DS_Store` files from `sct_testing/large_bids`
+4. Copy the contents from `sct_testing/large_bids` to `sct_testing/large` 
+5. Save DATALAD dataset *large*
+
 ## Datalad systemic checkup for changes
 
 One can add the checkup in the cron job of the system:
