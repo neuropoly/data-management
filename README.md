@@ -88,6 +88,15 @@ datalad save -m "DETAILS_ABOUT_CHANGES" FILEPATH
 
 # Maintenance (for IT staff)
 
+## Check log of all changes
+
+```
+git log
+# Nicer looking output (add this as an alias 'glg' to your .bashrc)
+git log --pretty=oneline --decorate --all --graph
+```
+
+
 ## Datalad systemic checkup for changes
 
 One can add the checkup in the cron job of the system:
