@@ -88,7 +88,7 @@ datalad save -m "DETAILS_ABOUT_CHANGES" FILEPATH
 
 # Maintenance (for IT staff)
 
-## Migrate to DATALAD
+## Migrate a dataset to DataLad
 
 1. Rename `sct_testing/large` to `sct_testing/large_bids`
 `mv sct_testing/large sct_testing/large_bids`
