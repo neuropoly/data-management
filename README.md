@@ -90,25 +90,21 @@ datalad save -m "DETAILS_ABOUT_CHANGES" FILEPATH
 
 ## Migrate a dataset to DataLad
 
-1. Rename `sct_testing/large` to `sct_testing/large_tmp`
-
-`mv sct_testing/large sct_testing/large_tmp`
-
-2. Create DATALAD dataset *large* under `sct_testing/`
-
-`datalad create -c text2git sct_testing`
-
-3. Remove `.DS_Store` files from `sct_testing/large_tmp`
-
-`find . -name \.DS_Store -type f -delete`
-
-4. Copy the contents from `sct_testing/large_tmp` to `sct_testing/large`
-
-`cp -a sct_testing/large_tmp/. sct_testing/large`
-
-5. Save DATALAD dataset *large*
-
-`datalad save -m "initial save"`
+```bash
+# Go to directory that you would like to transform into datalad folder
+cd sct_testing/large
+# Remove ugly Apple-related files
+find . -name '.DS_Store' -type f -delete
+# Rename folder of interest to temp
+cd ..
+mv sct_testing/large sct_testing/large_tmp
+# Create datalad folder
+datalad create -c text2git large
+# Copy the contents from temp folder
+cp -a large_tmp/. large
+# Save DataLad dataset
+cd large
+datalad save -m "initial save"
 
 ## Check log of all changes
 
