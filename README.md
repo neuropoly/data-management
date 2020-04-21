@@ -87,7 +87,7 @@ datalad save -m "DETAILS_ABOUT_CHANGES" FILEPATH
 ```
 
 # Maintenance (for IT staff)
-
+All maintenance operations should be done via a Linux station inside NeuroPoly's VLAN (e.g. joplin, abbey).
 ## Migrate a dataset to DataLad
 
 ```bash
@@ -105,11 +105,12 @@ cp -a large_tmp/. large
 # Save DataLad dataset
 cd large
 datalad save -m "initial save"
-
+```
 ## Check log of all changes
-
 ```
 git log
+
+```
 # Nicer looking output (add this as an alias 'glg' to your .bashrc)
 git log --pretty=oneline --decorate --all --graph
 ```
