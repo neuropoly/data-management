@@ -87,16 +87,33 @@ datalad save -m "DETAILS_ABOUT_CHANGES" FILEPATH
 ```
 
 # Maintenance (for IT staff)
+All maintenance operations should be done via a Linux station inside NeuroPoly's VLAN (e.g. joplin, abbey).
+## Migrate a dataset to DataLad
 
+```bash
+# Go to directory that you would like to transform into datalad folder
+cd sct_testing/large
+# Remove ugly Apple-related files
+find . -name '.DS_Store' -type f -delete
+# Rename folder of interest to temp
+cd ..
+mv sct_testing/large sct_testing/large_tmp
+# Create datalad folder
+datalad create -c text2git large
+# Copy the contents from temp folder
+cp -a large_tmp/. large
+# Save DataLad dataset
+cd large
+datalad save -m "initial save"
+```
 ## Check log of all changes
-
 ```
 git log
+
+```
 # Nicer looking output (add this as an alias 'glg' to your .bashrc)
 git log --pretty=oneline --decorate --all --graph
 ```
-
-
 ## Datalad systemic checkup for changes
 
 One can add the checkup in the cron job of the system:
