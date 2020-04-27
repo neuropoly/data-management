@@ -133,7 +133,7 @@ git log
 
 ```
 
-## Add tag to datalad dataset
+## Add/remove tag to datalad dataset
 ```
 datalad save -m "MESSAGE" --version-tag "X.Y.Z" 
 ```
@@ -141,6 +141,11 @@ datalad save -m "MESSAGE" --version-tag "X.Y.Z"
 If you want to add a tag to an existing commit:
 ```
 git tag -a X.Y.Z COMMIT_HASH -m "MESSAGE"
+```
+
+If you want to remove the tag:
+```
+git tag -d TAG
 ```
 
 ## Datalad systemic checkup for changes
