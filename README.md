@@ -137,7 +137,7 @@ git log
 
 ## Add tag to datalad dataset
 ```
-datalad save -m "MESAGE" --version-tag "X.Y.Z" 
+datalad save -m "MESSAGE" --version-tag "X.Y.Z" 
 ```
 
 If you want to add a tag to an existing commit:
