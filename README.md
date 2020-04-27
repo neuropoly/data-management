@@ -63,12 +63,13 @@ Add .gitignore in the dataset root with the following contents (for OSX):
 ```
 
 # Regular usage (for users)
+
 ## Get the list of available versions of a dataset
 ```
 git tag -l
 ```
 
-## Get the list of available versions of a dataset
+## Checkout to specific tag version of a dataset
 ```
 git checkout TAG
 ```
