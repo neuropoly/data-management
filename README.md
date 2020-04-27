@@ -63,27 +63,14 @@ Add .gitignore in the dataset root with the following contents (for OSX):
 ```
 
 # Regular usage (for users)
-
-## Check dataset status
-
-In order to check for untracked changes, use the command: 
-
+## Get the list of available versions of a dataset
 ```
-datalad status
+git tag -l
 ```
 
-## Save changes to dataset
-
-To save all changes, use the command:
-
+## Get the list of available versions of a dataset
 ```
-datalad save -m "DETAILS_ABOUT_CHANGES"
-```
-
-To save changes for specific file, use the command:
-
-```
-datalad save -m "DETAILS_ABOUT_CHANGES" FILEPATH
+git checkout TAG
 ```
 
 ## How to come back to previous state of repository
@@ -112,14 +99,51 @@ cp -a large_tmp/. large
 cd large
 datalad save -m "initial save"
 ```
+
+## Check dataset status
+
+In order to check for untracked changes, use the command: 
+
+```
+datalad status
+```
+
+## Save changes to dataset
+
+To save all changes, use the command:
+
+```
+datalad save -m "DETAILS_ABOUT_CHANGES"
+```
+
+To save changes for specific file, use the command:
+
+```
+datalad save -m "DETAILS_ABOUT_CHANGES" FILEPATH
+```
+
+# Nicer looking output (add this as an alias 'glg' to your .bashrc)
+```
+git log --pretty=oneline --decorate --all --graph
+```
+
+
 ## Check log of all changes
 ```
 git log
 
 ```
-# Nicer looking output (add this as an alias 'glg' to your .bashrc)
-git log --pretty=oneline --decorate --all --graph
+
+## Add tag to datalad dataset
 ```
+datalad save -m "MESAGE" --version-tag "X.Y.Z" 
+```
+
+If you want to add a tag to an existing commit:
+```
+git tag -a  X.Y.Z COMMIT_HASH -m "MESSAGE"
+```
+
 ## Datalad systemic checkup for changes
 
 One can add the checkup in the cron job of the system:
