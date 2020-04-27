@@ -142,7 +142,7 @@ datalad save -m "MESSAGE" --version-tag "X.Y.Z"
 
 If you want to add a tag to an existing commit:
 ```
-git tag -a  X.Y.Z COMMIT_HASH -m "MESSAGE"
+git tag -a X.Y.Z COMMIT_HASH -m "MESSAGE"
 ```
 
 ## Datalad systemic checkup for changes
