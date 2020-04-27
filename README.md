@@ -76,9 +76,7 @@ git checkout TAG
 
 ## How to come back to previous state of repository
 
-You can use `git checkout` for finding a previous version of the dataset. [ref](http://handbook.datalad.org/en/latest/basics/101-137-history.html#viewing-previous-versions-of-files-and-datasets)
-
-More info [here](http://handbook.datalad.org/en/latest/basics/101-137-history.html).
+You can use `git checkout HASH` to come back to a previous version of the dataset. More details [here](http://handbook.datalad.org/en/latest/basics/101-137-history.html#viewing-previous-versions-of-files-and-datasets).
 
 # Maintenance (for IT staff)
 All maintenance operations should be done via a Linux station inside NeuroPoly's VLAN (e.g. joplin, abbey).
