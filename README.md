@@ -64,27 +64,19 @@ Add .gitignore in the dataset root with the following contents (for OSX):
 
 # Regular usage (for users)
 
-## Check dataset status
-
-In order to check for untracked changes, use the command: 
-
+## Get the list of available versions of a dataset
 ```
-datalad status
+git tag -l
 ```
 
-## Save changes to dataset
-
-To save all changes, use the command:
-
+## Checkout to specific tag version of a dataset
 ```
-datalad save -m "DETAILS_ABOUT_CHANGES"
+git checkout TAG
 ```
 
-To save changes for specific file, use the command:
+## How to come back to previous state of repository
 
-```
-datalad save -m "DETAILS_ABOUT_CHANGES" FILEPATH
-```
+You can use `git checkout HASH` to come back to a previous version of the dataset. More details [here](http://handbook.datalad.org/en/latest/basics/101-137-history.html#viewing-previous-versions-of-files-and-datasets).
 
 # Maintenance (for IT staff)
 All maintenance operations should be done via a Linux station inside NeuroPoly's VLAN (e.g. joplin, abbey).
@@ -106,14 +98,61 @@ cp -a large_tmp/. large
 cd large
 datalad save -m "initial save"
 ```
+
+## Check dataset status
+
+In order to check for untracked changes, use the command: 
+
+```
+datalad status
+```
+
+## Save changes to dataset
+
+Make sure to remove the .DS_Store files before each save:
+```
+find . -name '.DS_Store' -type f -delete
+```
+
+To save all changes, use the command:
+
+```
+datalad save -m "DETAILS_ABOUT_CHANGES"
+```
+
+To save changes for specific file, use the command:
+
+```
+datalad save -m "DETAILS_ABOUT_CHANGES" FILEPATH
+```
+
+# Nicer looking output (add this as an alias 'glg' to your .bashrc)
+```
+git log --pretty=oneline --decorate --all --graph
+```
+
+
 ## Check log of all changes
 ```
 git log
 
 ```
-# Nicer looking output (add this as an alias 'glg' to your .bashrc)
-git log --pretty=oneline --decorate --all --graph
+
+## Add/remove tag to datalad dataset
 ```
+datalad save -m "MESSAGE" --version-tag "X.Y" 
+```
+
+If you want to add a tag to an existing commit:
+```
+git tag -a X.Y COMMIT_HASH -m "MESSAGE"
+```
+
+If you want to remove the tag:
+```
+git tag -d TAG
+```
+
 ## Datalad systemic checkup for changes
 
 One can add the checkup in the cron job of the system:
