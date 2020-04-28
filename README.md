@@ -109,6 +109,11 @@ datalad status
 
 ## Save changes to dataset
 
+Make sure to remove the .DS_Store files before each save:
+```
+find . -name '.DS_Store' -type f -delete
+```
+
 To save all changes, use the command:
 
 ```
@@ -135,12 +140,12 @@ git log
 
 ## Add/remove tag to datalad dataset
 ```
-datalad save -m "MESSAGE" --version-tag "X.Y.Z" 
+datalad save -m "MESSAGE" --version-tag "X.Y" 
 ```
 
 If you want to add a tag to an existing commit:
 ```
-git tag -a X.Y.Z COMMIT_HASH -m "MESSAGE"
+git tag -a X.Y COMMIT_HASH -m "MESSAGE"
 ```
 
 If you want to remove the tag:
