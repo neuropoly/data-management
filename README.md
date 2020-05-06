@@ -99,6 +99,27 @@ cd large
 datalad save -m "initial save"
 ```
 
+## Migrate Datalad dataset from duke to nvme joplin
+
+```bash
+# Create datalad folder
+datalad create -c text2git large
+cd /mnt/nvme/datalad/
+datalad create -c text2git large
+rsync -av --progress ~/duke/sct_testing/large/ /mnt/nvme/datalad/large/ --exclude .DS_Store --exclude .datalad/ --exclude .git*
+#Modify file to reflect version 1.0
+nano /mnt/nvme/datalad/large/CHANGES.md
+datalad save -m "initial save" --version-tag "1.0"
+```
+
+## Nightly backup to duke
+This will be added in the cron job of the system admin since it requires grmes credentials for the mount.
+The sync has to be done before 9pm (time when nightly backup is made of duke on grappelli).
+
+```bash
+0 18 * * * rsync -av --progress /mnt/nvme/datalad/large/ ~/duke/sct_testing/large/
+```
+
 ## Check dataset status
 
 In order to check for untracked changes, use the command: 
