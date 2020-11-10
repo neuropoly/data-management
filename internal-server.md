@@ -7,32 +7,47 @@ Initial setup
 
 **Prerequisites**
 
-**TEMPORARY PREREQUISITE**: I'm waiting on TI to set up DNS for the server; in the meantime:
+**TEMPORARY PREREQUISITE**: I'm waiting on IT to set up DNS for the server; in the meantime:
 ```
 (echo Host data.neuro.polymtl.ca; echo HostName 132.207.65.204) >> ~/.ssh/config
 ```
 
-0. You must be using a unix OS:
-    * Linux
-    * BSD
-    * macOS
-    * If you use Windows you can either install a Linux virtual machine using e.g. [VirtualBox](https://virtualbox.org/), or use [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
-1. Make sure you have `git` and `git-annex` installed.
-    `git-annex` must be version 8 or higher; if you are using macOS, `brew install git-annex` will be sufficient; on Linux, your system, but notably with **Ubuntu** you must be using 20.10 or later; if you are using an older, we recommend installing conda and then `conda install git-annex`.
+0. You must have a unix OS. `git-annex` is simply not compatible with anything else:
+    * _Linux_
+    * _BSD_
+    * _macOS_
+    * if you have Windows you can either
+	* use [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+        * install a Linux virtual machine using e.g. [VirtualBox](https://virtualbox.org/)
+1. Make sure you have `git` and `git-annex>=8` installed.
+    Make sure `git-annex version` reports version 8 or higher!
+    * **Linux**
+        * **Arch**: `pacman -Sy git-annex`
+        * **Fedora/RedHat/CentOS**: `dnf install git-annex`
+        * **Debian/Ubuntu**: `apt-get install git-annex`, but **you must be using Ubuntu 20.10** or **Debian Testing**
+        * if you are on an older system and can't upgrade, you can try [installing `conda`](https://docs.conda.io/en/latest/miniconda.html) and then `conda install git-annex`.
+    * **BSD**:
+        * OpenBSD: _untested_
+        * FreeBSD: _untested_
+        * NetBSD: _untested_
+    * **macOS**: `brew install git-annex`
 2. Make sure you have an ssh key.
-    If not, run `ssh-keygen`. Your keys will be in `~/.ssh/
-4. Give your ssh public key to one of the server admins and ask for their consent jcohen@polymtl.ca, alexandru.foias@polymtl.ca
-  This should look like
-  ```
-  ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJwsjlem+acuTOZGyNQKjyI7kJe9ULkhZo7N04QfC/tA user@laptop
-  ```
-  or
-  ```
-  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDE+b5vj+WvS5l6j56NF/leMpC2xT7JUCMUWDAqvWoVmNZ7UR3dGXQeTPTlmPmxPGD2Hk9/zFzxO2kYOt9o4lHQ0QQSKLUmTyuieyJE26wL1ZiLilmTgvgMxxkxvInF/Vr78V5Ll72zAmXzUxVSvuDGY2GRjnLreYheiqg1F3xTuD68uWInX8ZwA7NDtKpoZ7Aat063vD79WBrtiCfvAMbM8QhC3294zxqAjjy9fxs+TMTqAxtKdaWCA/eCs7sx9uvtFcj2Q9jxCMB3br5HyPLotgJMoIMt+fywj+vQG907LODRcqm9J0+ih+38/3Y6aqECMkHA9WWIfFywwjeA7EGr user@laptop
-  ````
-  
+    * If not, run `ssh-keygen`. Your keys will be in the hidden folder `~/.ssh/`.
+4. Give your ssh public key -- that is, the contents of `~/.ssh/id_rsa.pub` or `~/.ssh/id_ed25519.pub`, making sure to use the **.pub** file -- to one of the server admins and ask for their consent to granting you access.
+    * A pubkey should look like
+      ```
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDE+b5vj+WvS5l6j56NF/leMpC2xT7JUCMUWDAqvWoVmNZ7UR3dGXQeTPTlmPmxPGD2Hk9/zFzxO2kYOt9o4lHQ0QQSKLUmTyuieyJE26wL1ZiLilmTgvgMxxkxvInF/Vr78V5Ll72zAmXzUxVSvuDGY2GRjnLreYheiqg1F3xTuD68uWInX8ZwA7NDtKpoZ7Aat063vD79WBrtiCfvAMbM8QhC3294zxqAjjy9fxs+TMTqAxtKdaWCA/eCs7sx9uvtFcj2Q9jxCMB3br5HyPLotgJMoIMt+fywj+vQG907LODRcqm9J0+ih+38/3Y6aqECMkHA9WWIfFywwjeA7EGr user@laptop
+      ```
+      or
+      ```
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJwsjlem+acuTOZGyNQKjyI7kJe9ULkhZo7N04QfC/tA user@laptop
+      ```
+    * Current server admins are:
+        * jcohen@polymtl.ca
+        * alexandru.foias@polymtl.ca
+        * nick.guenther@polymtl.ca
 1. *If connecting from off-campus*, connect to [polyvpn](http://www.polymtl.ca/si/reseaux/acces-securise-rvp-ou-vpn).
-    1. Verify connectivity by `ping data.neuro.polymtl.ca`. If **you cannot** then you need to double-check your VPN connection; make sure it is connected, and *ask the Poly network admins* if you are in a group that has access to this server.
+    * Verify connectivity by `ping data.neuro.polymtl.ca`. If **you cannot** then you need to double-check your VPN connection; make sure it is connected, and *ask the Poly network admins* if you are firewalled from this server.
 3. Verify you have access to the server by `ssh git@data.neuro.polymtl.ca help`. Again, if it hangs, triple-check your VPN. A successful connection looks like:
 
 ```
@@ -53,6 +68,9 @@ list of remote commands available:
 	readme
 	writable
 ```
+
+Usage
+-----
 
 Using data:
 
