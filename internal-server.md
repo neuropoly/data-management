@@ -1,6 +1,7 @@
 
-# Accessing and managing your private datasets on git://data.neuro.polymtl.ca.
+# Private datasets (git://data.neuro.polymtl.ca).
 
+Much of our data is under medical ethics protections, and needs to be kept off the general internet. We have a custom server, locked down behind a VPN, with 1 terabyte of storage available. `git-annex` (and therefore `datalad`) can store and retrieve data from it in a
 
 Initial setup
 -------------
@@ -11,6 +12,7 @@ Initial setup
     ```
     (echo Host data.neuro.polymtl.ca; echo HostName 132.207.65.204) >> ~/.ssh/config
     ```
+    
 0. You must have a unix OS. `git-annex` is simply not compatible with anything else:
     * _Linux_
     * _BSD_
