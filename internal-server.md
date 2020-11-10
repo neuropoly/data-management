@@ -15,11 +15,11 @@ Initial setup
     (echo Host data.neuro.polymtl.ca; echo HostName 132.207.65.204) >> ~/.ssh/config
     ```
     
-0. You must have a unix OS. `git-annex` is simply not compatible with anything else:
+0. You must have a unix OS. `git-annex` is simply not compatible with anything else.
     * _Linux_
     * _BSD_
     * _macOS_
-    * if you have Windows you can either
+    * if *Windows*, either
 	* use [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
         * install a Linux virtual machine using e.g. [VirtualBox](https://virtualbox.org/)
 1. Make sure you have `git` and `git-annex>=8` installed.
@@ -28,7 +28,7 @@ Initial setup
         * **Arch**: `pacman -Sy git-annex`
         * **Fedora/RedHat/CentOS**: `dnf install git-annex`
         * **Debian/Ubuntu**: `apt-get install git-annex`, but **you must be using Ubuntu 20.10** or **Debian Testing**
-        * if you are on an older system and can't upgrade, you can try [installing `conda`](https://docs.conda.io/en/latest/miniconda.html) and then `conda install git-annex`.
+        * if on an older system and can't upgrade, you can try [installing `conda`](https://docs.conda.io/en/latest/miniconda.html) and then `conda install git-annex`.
     * **BSD**:
         * OpenBSD: _untested_
         * FreeBSD: _untested_
