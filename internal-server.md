@@ -7,11 +7,10 @@ Initial setup
 
 **Prerequisites**
 
-**TEMPORARY PREREQUISITE**: I'm waiting on IT to set up DNS for the server; in the meantime:
-```
-(echo Host data.neuro.polymtl.ca; echo HostName 132.207.65.204) >> ~/.ssh/config
-```
-
+-1. **TEMPORARY PREREQUISITE**: I'm waiting on IT to set up DNS for the server; in the meantime:
+    ```
+    (echo Host data.neuro.polymtl.ca; echo HostName 132.207.65.204) >> ~/.ssh/config
+    ```
 0. You must have a unix OS. `git-annex` is simply not compatible with anything else:
     * _Linux_
     * _BSD_
