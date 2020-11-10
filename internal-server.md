@@ -50,26 +50,26 @@ Initial setup
         * nick.guenther@polymtl.ca
 1. *If connecting from off-campus*, connect to [polyvpn](http://www.polymtl.ca/si/reseaux/acces-securise-rvp-ou-vpn).
     * Verify connectivity by `ping data.neuro.polymtl.ca`. If **you cannot** then you need to double-check your VPN connection; make sure it is connected, and *ask the Poly network admins* if you are firewalled from this server.
-3. Verify you have access to the server by `ssh git@data.neuro.polymtl.ca help`. Again, if it hangs, triple-check your VPN. A successful connection looks like:
+3. Verify you have access to the server by `ssh git@data.neuro.polymtl.ca help`. If it hangs, triple-check your VPN. If it rejects you, ask if others are having the same problem. A successful connection looks like:
 
-```
-$ ssh git@data.neuro.polymtl.ca help
-Enter passphrase for key '/home/kousu/.ssh/id_ed25519.neuropoly': 
-hello yourusername, this is git@data running gitolite3 3.6.11-2 (Debian) on git 2.27.0
-
-list of remote commands available:
-
-	D
-	create
-	desc
-	git-annex-shell
-	help
-	info
-	keys
-	perms
-	readme
-	writable
-```
+    ```
+    $ ssh git@data.neuro.polymtl.ca help
+    Enter passphrase for key '/home/kousu/.ssh/id_ed25519.neuropoly': 
+    hello yourusername, this is git@data running gitolite3 3.6.11-2 (Debian) on git 2.27.0
+    
+    list of remote commands available:
+    
+    	D
+    	create
+    	desc
+    	git-annex-shell
+    	help
+    	info
+    	keys
+    	perms
+    	readme
+    	writable
+    ```
 
 Usage
 -----
