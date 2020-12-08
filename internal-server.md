@@ -48,6 +48,7 @@ Initial setup
         * jcohen@polymtl.ca
         * alexandru.foias@polymtl.ca
         * nick.guenther@polymtl.ca
+	* These people have their personal ssh keys in `~root/.ssh/authorized_keys` (i.e. they can `ssh root@data.neuro.polymtl.ca`); they also have the _shared_ root password in their password managers, which should never be needed but for low-level rescue maintenance on the system.
 1. *If connecting from off-campus*, connect to [polyvpn](http://www.polymtl.ca/si/reseaux/acces-securise-rvp-ou-vpn).
     * Verify connectivity by `ping data.neuro.polymtl.ca`. If **you cannot** then you need to double-check your VPN connection; make sure it is connected, and *ask the Poly network admins* if you are firewalled from this server.
 3. Verify you have access to the server by `ssh git@data.neuro.polymtl.ca help`. If it hangs, triple-check your VPN. If it rejects you, ask if others are having the same problem. A successful connection looks like:
@@ -130,7 +131,39 @@ Sysadmin Guide
 
 In case something goes wrong, here are some notes about getting underneath gitolite to fix things up.
 
+
+### Infrastructure
+
 `data.neuro.polymtl.ca` should have IP address `132.207.65.204`. It is a virtual machine running on polymtl.ca's on-premises Xen cluster. dge.informatique@polymtl.ca manages this cluster, including its backups, and can help you out in an emergency.
+
+
+### Notifications
+
+You should consider adding your email to `~root/.forward` so that you receive OS notifications from the system:
+
+```
+sudo sh -c 'echo your.email@example.com >> ~root/.forward'
+```
+
+
+
+### Monitoring
+
+We're running [netdata](https://netdata.cloud) which provides useful charts and history. Netdata [does not have built in authentication](https://github.com/netdata/netdata/issues/70#issuecomment-220866829), and there are many firewalls at Polytechnique anyway, so the best way to access it is:
+
+1. Log in
+```
+ssh -L 19999:localhost:19999 data.neuro.polymtl.ca
+```
+2. Visit https://localhost:19999
+
+Netdata is currently configured to keep 1 week of history.
+
+Netdata will send an email to `root@` if something is amiss; this is why it is a good idea to get yourself in `~root/.forward`.
+
+### Gitolite
+
+gitolite is the main application on this server.
 
 gitolite keeps its configuration in two places: the baseline system in `~git/.gitolite.rc`, and repo definitions and permissions in the repository. Gitolite considers a "gitolite admin" to be anyone with write access to, so to nominate new admins you need to edit.
 
@@ -160,16 +193,6 @@ git add -u && gitolite push  # this is the difference
 [`keys`](https://github.com/kousu/gitolite-mods/blob/master/keys) is a combination and simplification of [`sskm`](https://gitolite.com/gitolite/contrib/sskm.html) and [`ukm`](https://gitolite.com/gitolite/contrib/ukm.html), written by nick.guenther@polymtl.ca.
 
 
-
-[`netdata`](https://www.netdata.cloud/) is installed on the server: it provides useful logs of what the system is up to, for tracing crashes and performance problems; it's configured with 1 week of logs. But it is installed with lazy access control: in order to access it, you need to first authenticate via ssh by doing:
-
-```
-ssh -L 19999:localhost:19999 data.neuro.polymtl.ca
-```
-
-Then visit https://localhost:19999.
-
-
 References
 
 * [gitolite: help for emergencies](https://gitolite.com/gitolite/emergencies.html)
@@ -179,6 +202,9 @@ References
 ### Backups
 
 We have no backup plan in place yet. For now, just make sure to take a complete.
+
+Not totally true! We're backing up to `sftp://neuropoly-backup@elm.criugm.qc.ca`. watch this space.
+
 
 
 
