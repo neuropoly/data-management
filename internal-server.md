@@ -71,9 +71,38 @@ Initial setup
 Usage
 -----
 
-Using data:
+To see what datasets you have available, use `info`, for example:
 
-TODO
+```
+$ ssh git@data.neuro.polymtl.ca info
+hello admin, this is git@data running gitolite3 3.6.11-2 (Debian) on git 2.27.0
+ R W C  CREATOR/..*
+ R W C  datasets/..*
+ R W    datasets/data-single-subject
+ R W    datasets/sct-testing-large
+ R W    datasets/uk-biobank
+```
+
+To download an existing repository use `git clone`:
+
+```
+$ git clone git@data.neuro.polymtl.ca:datasets/data-single-subject
+$ cd data-single-subject
+$ # TODO: git config annex.thin=true ?
+$ git annex get .
+```
+
+To upload a new repository, pick a name that follows one of the patterns you have "C" (for "Create") permission on and do:
+
+```
+$ git remote add origin git@data.neuro.polymtl.ca:datasets/my-new-repo
+$ git push origin # ??
+```
+
+Note that you have personal space under "CREATOR", so if your username is "zamboni"  then you can:
+
+```
+```
 
 Submodules:
 (Ref: the datalad handbook)
