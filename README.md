@@ -7,6 +7,14 @@ This repository deals with datalad usage and maintenance for managing the intern
 - [Documentation](#documentation)
 ---------------------------------------------
 
+# Accessing the Internal Server
+
+See [Internal Server](./internal-server.md).
+
+----
+
+TODO: update all this
+
 # Installing datalad
 
 ## Requirements
