@@ -113,7 +113,7 @@ $ git commit # and write a useful commit message
 $ git annex sync #??????
 ```
 
-Then ask one of that dataset's reviewers to look at your.
+Then ask one of that dataset's reviewers to [look at your pull request](#Reviewing-Pull-Requests).
 
 
 ### New repository
