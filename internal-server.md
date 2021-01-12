@@ -77,13 +77,15 @@ To see what datasets you have available, use `info`, for example:
 
 ```
 $ ssh git@data.neuro.polymtl.ca info
-hello admin, this is git@data running gitolite3 3.6.11-2 (Debian) on git 2.27.0
+hello zamboni, this is git@data running gitolite3 3.6.11-2 (Debian) on git 2.27.0
  R W C  CREATOR/..*
  R W C  datasets/..*
  R W    datasets/data-single-subject
  R W    datasets/sct-testing-large
  R W    datasets/uk-biobank
 ```
+
+You are identified to the server by your ssh keys, butNotice that this tells you the username you are known to 
 
 ### Download
 
@@ -93,6 +95,7 @@ To download an existing repository use `git clone`:
 $ git clone git@data.neuro.polymtl.ca:datasets/data-single-subject
 $ cd data-single-subject
 $ # TODO: git config annex.thin=true ?
+$ git annex init
 $ git annex get .
 ```
 
@@ -103,9 +106,14 @@ So, to make changes to a dataset, make a working branch and work there:
 
 ```
 $ git checkout -b working-branch
+$ # edit your files, add new ones, etc
+$ git add -p
+$ git add path/to/new/file
+$ git commit # and write a useful commit message
+$ git annex sync #??????
 ```
 
-Then ask . You can find out
+Then ask one of that dataset's reviewers to look at your.
 
 
 ### New repository
@@ -117,7 +125,7 @@ $ git remote add origin git@data.neuro.polymtl.ca:datasets/my-new-repo
 $ git push origin # ??
 ```
 
-Note that you have personal space under "CREATOR", so if your username is "zamboni"  then you can:
+Note that you have personal space under "CREATOR", so if your username is "zamboni" then you can:
 
 ```
 $ git remote add origin git@data.neuro.polymtl.ca:zamboni/project1
@@ -126,7 +134,7 @@ $ git push origin
 
 ### Permissions
 
-You can grant others permissions to your repositories by :
+You can grant others permissions to your repositories by:
 
 ```
 TODO
@@ -140,10 +148,11 @@ Uploading data:
 
 TODO
 
+### Reviewing Pull Requests
 
-```
-ssh git@data.neuro.polymtl.ca
-```
+To integrate
+
+**NB** `git-annex` is not well-suited to a pull-request flow. It is mostly designed for a single person to share data among many computers, not for multiple people to share data between a few computers. We can make it work but it needs some care.
 
 Admin Guide
 -----------
