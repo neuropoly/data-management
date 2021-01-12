@@ -71,6 +71,8 @@ Initial setup
 Usage
 -----
 
+### List
+
 To see what datasets you have available, use `info`, for example:
 
 ```
@@ -83,6 +85,8 @@ hello admin, this is git@data running gitolite3 3.6.11-2 (Debian) on git 2.27.0
  R W    datasets/uk-biobank
 ```
 
+### Download
+
 To download an existing repository use `git clone`:
 
 ```
@@ -91,6 +95,20 @@ $ cd data-single-subject
 $ # TODO: git config annex.thin=true ?
 $ git annex get .
 ```
+
+### Upload
+
+Despite not being hosted on Github, we are still using a [pull-request workflow](https://guides.github.com/introduction/flow/).
+So, to make changes to a dataset, make a working branch and work there:
+
+```
+$ git checkout -b working-branch
+```
+
+Then ask . You can find out
+
+
+### New repository
 
 To upload a new repository, pick a name that follows one of the patterns you have "C" (for "Create") permission on and do:
 
@@ -102,7 +120,18 @@ $ git push origin # ??
 Note that you have personal space under "CREATOR", so if your username is "zamboni"  then you can:
 
 ```
+$ git remote add origin git@data.neuro.polymtl.ca:zamboni/project1
+$ git push origin
 ```
+
+### Permissions
+
+You can grant others permissions to your repositories by :
+
+```
+TODO
+```
+
 
 Submodules:
 (Ref: the datalad handbook)
