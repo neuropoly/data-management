@@ -150,7 +150,7 @@ TODO
 
 ### Reviewing Pull Requests
 
-To integrate
+To integrate someone's changes
 
 **NB** `git-annex` is not well-suited to a pull-request flow. It is mostly designed for a single person to share data among many computers, not for multiple people to share data between a few computers. We can make it work but it needs some care.
 
