@@ -116,6 +116,24 @@ $ git annex sync #??????
 Then ask one of that dataset's reviewers to [look at your pull request](#Reviewing-Pull-Requests).
 
 
+
+### Add secondary devices
+
+Like with Github, you can authorize any number of secondary devices.
+
+For example, to authorize yourself from `server2`, log in to `server2` and make an ssh key if one doesn't exist (`ssh-keygen`), copy it (`~/.ssh/id_rsa.pub`) to a device that is already authenticated (e.g. as `~/id_rsa.server2.pub`), then authorize yourself by:
+
+```
+cat ~/id_rsa-server2.pub | ssh git@data.neuro.polymtl.ca keys add @server2
+```
+
+Test it by running, from `server2`
+
+```
+ssh git@data.neuro.polymtl.ca info
+```
+
+
 ### New repository
 
 To upload a new repository, pick a name that follows one of the patterns you have "C" (for "Create") permission on and do:
@@ -140,21 +158,6 @@ You can grant others permissions to your repositories by:
 TODO
 ```
 
-### Add secondary devices
-
-Like with Github, you can authorize any number of secondary devices.
-
-For example, to authorize yourself from `server2`, log in to `server2` and make an ssh key if one doesn't exist (`ssh-keygen`), copy it (`~/.ssh/id_rsa.pub`) to a device that is already authenticated (e.g. as `~/id_rsa.server2.pub`), then authorize yourself by:
-
-```
-cat ~/id_rsa-server2.pub | ssh git@data.neuro.polymtl.ca keys add zamboni@server2
-```
-
-Test it by running, from `server2`
-
-```
-ssh git@data.neuro.polymtl.ca info
-```
 
 ### Submodules:
 (Ref: the datalad handbook)
@@ -175,14 +178,28 @@ Datasets are stored as git repositories on the server, with the bulk of their da
 
 `gitolite` manages users and their permissions. Each user has a namespace to themselves where they can make repos named `data.neuro.polymtl.ca:$user/$repo.git` (like Github), and there is also a shared space `data.neuro.polymtl.ca:datasets/*` intended for lab-wide datasets.
 
+## Add users
 
-To grant access to a lab member:
+To grant access to a lab member, [as above](#add-secondary-devices), ask the lab member to generate an ssh key using `ssh-keygen` and have them send you the *public key*. Save it to a file `id_rsa.zamboni.pub` and add them with
 
 ```
+cat id_rsa.zamboni.pub | ssh git@data.neuro.polymtl.ca keys add zamboni
 ```
+
+You can also paste the key in, followed by `ctrl-d`; this looks like:
+
+```
+$ ssh git@data.neuro.polymtl.ca keys add zamboni
+Enter passphrase for key '/home/kousu/.ssh/id_rsa.github': 
+please supply the new key on STDIN (e.g. cat you.pub | ssh gitolite@git.example.com keys add @laptop).
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID11N3hQpJP4Okivd5xO3N0CuO24ioMwXYv+l/1PM/+z zamboni@laptop
+Added SHA256:hwil2tmaw/prgIBX5odO8vOAj2i38gPrUGjGZnnkVvo : zamboni.pub
+```
+
+### Manage Repos
 
 As admin, you can also delete user's repos (using `D`), revoke or add permissions to their repos (using `perms`)
-
+[TODO]
 
 If you need to add new namespaces or finer grained permissions, first, reconsider if the extra complexity and the _risk of locking yourself out_ is worth it. Everything you should need to manage the lab should be doable via `ssh git@data.neuro.polymtl.ca help`. If you are sure, then review [gitolite's permissions model](https://gitolite.com/gitolite/conf.html) and [official docs for this use case](https://gitolite.com/gitolite/fool_proof_setup.html#administration-tasks), then:
 
