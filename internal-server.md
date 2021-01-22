@@ -140,13 +140,24 @@ You can grant others permissions to your repositories by:
 TODO
 ```
 
+### Add secondary devices
 
-Submodules:
+Like with Github, you can authorize any number of secondary devices.
+
+For example, to authorize yourself from `server2`, log in to `server2` and make an ssh key if one doesn't exist (`ssh-keygen`), copy it (`~/.ssh/id_rsa.pub`) to a device that is already authenticated (e.g. as `~/id_rsa.server2.pub`), then authorize yourself by:
+
+```
+cat ~/id_rsa-server2.pub | ssh git@data.neuro.polymtl.ca keys add zamboni@server2
+```
+
+Test it by running, from `server2`
+
+```
+ssh git@data.neuro.polymtl.ca info
+```
+
+### Submodules:
 (Ref: the datalad handbook)
-
-Uploading data:
-
-TODO
 
 ### Reviewing Pull Requests
 
