@@ -22,7 +22,7 @@ Initial setup
     * **Linux**
         * **Arch**: `pacman -Sy git-annex`
         * **Fedora/RedHat/CentOS**: `dnf install git-annex`
-        * **Debian/Ubuntu**: `apt-get install git-annex`, but **you must be using Ubuntu 20.10** or **Debian Testing**
+        * **Debian/Ubuntu**: `apt-get install git-annex`, but **you must be using Ubuntu 20.04** or **Debian Testing** or higher.
         * if on an older system and can't upgrade, you can try [installing `conda`](https://docs.conda.io/en/latest/miniconda.html) and then `conda install git-annex`.
     * **BSD**:
         * OpenBSD: _untested_
