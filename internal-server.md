@@ -147,6 +147,7 @@ $ git add README; git commit -m "Initial commit"
 $ (echo "*   annex.largefiles=anything"; echo "*.nii.gz   filter=annex"; echo "*.nii   filter=annex") > .gitattributes
 $ git add .gitattributes; git commit -m "Configure git-annex"
 $ git annex init
+$ git annex dead here # make sure *this* copy isn't shared to others; the repo should be shared via the server
 $ # copy in or create initial files
 $ git add .
 $ # verify your .nii.gz files were annexed
