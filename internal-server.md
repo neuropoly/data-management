@@ -136,6 +136,24 @@ ssh git@data.neuro.polymtl.ca info
 
 ### New repository
 
+To make a new repo:
+
+```
+$ mkdir my-new-repo
+$ cd my-new-repo
+$ git init
+$ touch README # and hopefully write something useful in this too
+$ git add README; git commit -m "Initial commit"
+$ (echo "*   annex.largefiles=anything"; echo "*.nii.gz   filter=annex"; echo "*.nii   filter=annex") > .gitattributes
+$ git add .gitattributes; git commit -m "Configure git-annex"
+$ git annex init
+$ # copy in or create initial files
+$ git add .
+$ # verify your .nii.gz files were annexed
+$ git annex whereis
+$ git commit
+```
+
 To upload a new repository, pick a name that follows one of the patterns you have "C" (for "Create") permission on and do:
 
 ```
