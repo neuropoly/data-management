@@ -110,7 +110,7 @@ $ # edit your files, add new ones, etc
 $ git add -p
 $ git add path/to/new/file
 $ git commit # and write a useful commit message
-$ git annex sync #??????
+$ git annex sync --content
 ```
 
 Then ask one of that dataset's reviewers to [look at your pull request](#Reviewing-Pull-Requests).
