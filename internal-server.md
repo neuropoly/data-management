@@ -187,6 +187,28 @@ To integrate someone's changes
 
 **NB** `git-annex` is not well-suited to a pull-request flow. It is mostly designed for a single person to share data among many computers, not for multiple people to share data between a few computers. We can make it work but it needs some care.
 
+
+## Troubleshooting
+
+### `rm: cannot remove`
+
+When trying to get rid of a git-annex dataset, you will run into, for example:
+
+```
+$ rm -rf data-single-subject/
+[...]
+rm: cannot remove 'data-single-subject/.git/annex/objects/mF/GV/SHA256E-s1082687--290a43b80da6f608e3d47107f3b6c05e98eebe56ed4eea633748c08bd1a7837a.nii.gz/SHA256E-s1082687--290a43b80da6f608e3d47107f3b6c05e98eebe56ed4eea633748c08bd1a7837a.nii.gz': Permission denied
+rm: cannot remove 'data-single-subject/.git/annex/objects/Vq/vF/SHA256E-s15564390--7d3e45f0d4c67f31883b76eafc6cfdca1c1591590e2243dc8d443b07616b3609.nii.gz/SHA256E-s15564390--7d3e45f0d4c67f31883b76eafc6cfdca1c1591590e2243dc8d443b07616b3609.nii.gz': Permission denied
+rm: cannot remove 'data-single-subject/.git/annex/objects/79/G6/SHA256E-s7183853--3262ac5d6c5f573720c5e508da47608bd9fa49d6cd4dd547f75046c1a2f0d5b6.nii.gz/SHA256E-s7183853--3262ac5d6c5f573720c5e508da47608bd9fa49d6cd4dd547f75046c1a2f0d5b6.nii.gz': Permission denied
+```
+
+This is because git-annex tries extra hard to make it hard to lose data, by marking its contents read-only. If you really intend to erase a dataset then:
+
+```
+$ chmod -R +w data-single-subject/.git/annex/
+$ rm -rf data-single-subject/
+``````
+
 Admin Guide
 -----------
 
