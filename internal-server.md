@@ -201,10 +201,42 @@ TODO
 
 ### Reviewing Pull Requests
 
-To integrate someone's changes
+If someone asks you to review their changes on branch `xy/branchname`:
+
+```
+git annex sync --content
+git checkout xy/branchname
+```
+
+Then look at the branch to see if it looks right to you.
+
+To investigate what changed:
+
+```
+git log --stat master..HEAD # to see
+git log -p master..HEAD
+git diff master..HEAD
+```
+
+Also, it's a good idea to run:
+
+```
+git annex whereis
+```
+
+To check that all the annexed files have been uploaded.
+
 
 **NB** `git-annex` is not well-suited to a pull-request flow. It is mostly designed for a single person to share data among many computers, not for multiple people to share data between a few computers. We can make it work but it needs some care.
 
+
+If you approve and want to commit:
+
+```
+git checkout master
+git pull --ff-only xy/branchname # or use git pull --squash xy/branchname
+git push
+```
 
 ## Troubleshooting
 
