@@ -238,6 +238,15 @@ git merge --ff-only xy/branchname # or use git pull --squash xy/branchname
 git push
 ```
 
+(Optional) Clean up the branch:
+
+```
+git branch -d xy/branchname
+git branch -d synced/xy/branchname   # redundancy
+git push origin :xy/branchname
+git push origin :synced/xy/branchname
+```
+
 ## Troubleshooting
 
 ### `rm: cannot remove`
