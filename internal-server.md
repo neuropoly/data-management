@@ -234,7 +234,7 @@ If you approve and want to commit:
 
 ```
 git checkout master
-git pull --ff-only xy/branchname # or use git pull --squash xy/branchname
+git merge --ff-only xy/branchname # or use git pull --squash xy/branchname
 git push
 ```
 
