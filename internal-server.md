@@ -27,6 +27,7 @@ Table of Contents
   * [Add users](#add-users)
   * [Permissions](#permissions-1)
   * [Deletion](#deletion-1)
+  * [Debugging](#debugging)
 
 <!-- Added by: kousu, at: Tue 23 Mar 2021 11:54:23 PM EDT -->
 
@@ -61,22 +62,25 @@ Initial setup
 
 ### Inscription
 
-Give your ssh public key -- that is, the contents of `~/.ssh/id_rsa.pub` or `~/.ssh/id_ed25519.pub`, making sure to use the **.pub** file -- to one of the server admins and ask for their consent to granting you access.
-    * A pubkey should look like
-      ```
-      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDE+b5vj+WvS5l6j56NF/leMpC2xT7JUCMUWDAqvWoVmNZ7UR3dGXQeTPTlmPmxPGD2Hk9/zFzxO2kYOt9o4lHQ0QQSKLUmTyuieyJE26wL1ZiLilmTgvgMxxkxvInF/Vr78V5Ll72zAmXzUxVSvuDGY2GRjnLreYheiqg1F3xTuD68uWInX8ZwA7NDtKpoZ7Aat063vD79WBrtiCfvAMbM8QhC3294zxqAjjy9fxs+TMTqAxtKdaWCA/eCs7sx9uvtFcj2Q9jxCMB3br5HyPLotgJMoIMt+fywj+vQG907LODRcqm9J0+ih+38/3Y6aqECMkHA9WWIfFywwjeA7EGr your.name@polymtl.ca
-      ```
-      or
-      ```
-      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJwsjlem+acuTOZGyNQKjyI7kJe9ULkhZo7N04QfC/tA your.name@polymtl.ca
-      ```
+Send your ssh public key -- that is, the contents of `~/.ssh/id_rsa.pub` or `~/.ssh/id_ed25519.pub` (the **.pub** file) -- to one of the server admins and ask them to create your account.
+
+A pubkey should look like
+
+```
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDE+b5vj+WvS5l6j56NF/leMpC2xT7JUCMUWDAqvWoVmNZ7UR3dGXQeTPTlmPmxPGD2Hk9/zFzxO2kYOt9o4lHQ0QQSKLUmTyuieyJE26wL1ZiLilmTgvgMxxkxvInF/Vr78V5Ll72zAmXzUxVSvuDGY2GRjnLreYheiqg1F3xTuD68uWInX8ZwA7NDtKpoZ7Aat063vD79WBrtiCfvAMbM8QhC3294zxqAjjy9fxs+TMTqAxtKdaWCA/eCs7sx9uvtFcj2Q9jxCMB3br5HyPLotgJMoIMt+fywj+vQG907LODRcqm9J0+ih+38/3Y6aqECMkHA9WWIfFywwjeA7EGr your.name@polymtl.ca
+```
+
+or
+
+```
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJwsjlem+acuTOZGyNQKjyI7kJe9ULkhZo7N04QfC/tA your.name@polymtl.ca
+```
+
 Current server admins are:
 
-    * jcohen@polymtl.ca
-    * alexandru.foias@polymtl.ca
-    * nick.guenther@polymtl.ca
-
-These people have their personal ssh keys in `~root/.ssh/authorized_keys` (i.e. they can `ssh root@data.neuro.polymtl.ca`); they also have the _shared_ root password in their password managers, which should never be needed but for low-level rescue maintenance on the system.
+* jcohen@polymtl.ca
+* alexandru.foias@polymtl.ca
+* nick.guenther@polymtl.ca
 
 The admins should follow [Admin Guide > Add Users](#add-users) to create your account.
 
@@ -381,6 +385,12 @@ git add -u . && git push
 
 You can also delete any repo [using `D`](#deletion).
 
+
+### Debugging
+
+If the server is doing something strange, contact someone with sysadmin-access to the server (what luck: as of 2021-03 at least, *the admins and the sysadmins are the same set: Julien, Alex and Nick*).
+
+These people can help investigate by following the gitolote guide in the [sysadmin docs](TODO).
 
 Further reading:
 
