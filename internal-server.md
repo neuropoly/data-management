@@ -347,7 +347,7 @@ Datasets are stored as git repositories on the server, with the bulk of their da
 
 ### Add users
 
-To grant access to a lab member, [as above](#add-secondary-devices), ask the lab member to generate an ssh key using `ssh-keygen` and have them send you the *public key*. Save it to a file `id_rsa.zamboni.pub` and add them with
+To grant access to a lab member, [as above](#add-extra-devices), ask the lab member to generate an ssh key using `ssh-keygen` and have them send you the *public key*. Save it to a file `id_rsa.zamboni.pub` and add them with
 
 ```
 cat id_rsa.zamboni.pub | ssh git@data.neuro.polymtl.ca keys add zamboni
