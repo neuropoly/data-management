@@ -22,7 +22,8 @@ Table of Contents
   * [rm: cannot remove](#rm-cannot-remove)
 * [Admin Guide](#admin-guide)
   * [Add users](#add-users)
-  * [Manage Repos](#manage-repos)
+  * [Permissions](#admin-permissions)
+  * [Deletion](#admin-deletion)
 
 <!-- Added by: kousu, at: Tue 23 Mar 2021 11:54:23 PM EDT -->
 
@@ -292,6 +293,16 @@ git push origin :xy/branchname
 git push origin :synced/xy/branchname
 ```
 
+### Deletion
+
+If you created or own a repo and decide it is no longer necessary:
+
+```
+ssh git@data.neuro.polymtl.ca D trash repo
+```
+
+The "trash" is cleaned out after a week.
+
 ## Troubleshooting
 
 ### `rm: cannot remove`
@@ -341,10 +352,18 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID11N3hQpJP4Okivd5xO3N0CuO24ioMwXYv+l/1PM/+z
 Added SHA256:hwil2tmaw/prgIBX5odO8vOAj2i38gPrUGjGZnnkVvo : zamboni.pub
 ```
 
-### Manage Repos
+### Permissions {#admin-permissions}
 
-As admin, you can also delete user's repos (using `D`), revoke or add permissions to their repos (using `perms`)
-[TODO]
+As admin, you can add or revoke any permissions to any repo (using `perms`)[#permissions].
+
+You can inspect active permissions on a repo with
+
+```
+ssh git@data.neuro.polymtl.ca perms <repo> -l
+```
+
+There is unfortunately no way to view permissions *as another user* so you will need to rely on people sending you screenshots if they are having problems.
+
 
 If you need to add new namespaces or finer grained permissions, first, reconsider if the extra complexity and the _risk of locking yourself out_ is worth it. Everything you should need to manage the lab should be doable via `ssh git@data.neuro.polymtl.ca help`. If you are sure, then review [gitolite's permissions model](https://gitolite.com/gitolite/conf.html) and [official docs for this use case](https://gitolite.com/gitolite/fool_proof_setup.html#administration-tasks), then:
 
@@ -355,6 +374,11 @@ vi conf/gitolite.conf  # optional: investigate/change the repo definitions
 ls -R keydir/          # optional: investigate/change who has access; this *should* be unnecessary, use `keys` as above instead.
 git add -u . && git push
 ```
+
+### Deletion {#admin-deletion}
+
+You can also delete any repo [using `D`](#deletion).
+
 
 Further reading:
 
