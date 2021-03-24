@@ -346,7 +346,7 @@ ssh git@data.neuro.polymtl.ca D rm datasets/<dataset>
 
 Backups are automatically made to MIC-UNF's servers.
 
-*exception they're not, yet: https://github.com/neuropoly/data-management/issues/20*
+*except they're not, yet: https://github.com/neuropoly/data-management/issues/20*
 
 You can access these if you need to recover by:
 
