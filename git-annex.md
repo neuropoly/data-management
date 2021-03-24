@@ -7,29 +7,35 @@ We are using it because
 1. We have datasets we need to trace but they are too large for plain git to handle them well
 1. It is compatible with [`datalad`](https://datalad.org) which gaining popularity in the neuroimaging community
 
-It has about a thousand variants and options.
+It has about a thousand variants and options. This covers only the parts we use.
+
+`git-annex` brings with it all the power of `git`. You should be somewhat familiar with branches, tags,. Please read [the git book](https://git-scm.com/book/en/v2). The [datalad handbook](https://handbook.datalad.org/) also has useful perspective, though not all of it is relevant to how we do things.
 
 ## Installation
 
-0. You must have a unix OS. `git-annex` is simply not compatible with anything else.
+### Requirements
 
-    * **Linux**
-    * **macOS**
-    * if **Windows**, either
-        * [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or
-        * A Linux virtual machine using e.g. [VirtualBox](https://virtualbox.org/)
+You must have a unix OS. `git-annex` is simply not compatible with anything else.
 
-1. To install
-    * **Linux**
-        * **Arch**: `pacman -Sy git-annex`
-        * **Fedora/RedHat/CentOS**: `dnf install git-annex`
-        * **Debian/Ubuntu**: `apt-get install git-annex`, but **you must be using Ubuntu 20.04** or **Debian Testing** or higher.
-        * if on an older system and can't upgrade, you can try [installing `conda`](https://docs.conda.io/en/latest/miniconda.html) and then `conda install -f conda-forge git-annex`.
-    * **macOS**: `brew install git-annex`
-    * **WSL**:
-        * **Ubuntu-20.04**: `apt install git-annex`
-        * The [other distros](https://docs.microsoft.com/en-us/windows/wsl/install-manual#downloading-distributions) are untested.
+  * **Linux**
+  * **macOS**
+  * if **Windows**, either
+    * [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or
+    * A Linux virtual machine using e.g. [VirtualBox](https://virtualbox.org/)
 
+### Download
+
+  * **Linux**
+      * **Arch**: `pacman -Sy git-annex`
+      * **Fedora/RedHat/CentOS**: `dnf install git-annex`
+      * **Debian/Ubuntu**: `apt-get install git-annex`, but **you must be using Ubuntu 20.04** or **Debian Testing** or higher.
+      * if on an older system and can't upgrade, you can try [installing `conda`](https://docs.conda.io/en/latest/miniconda.html) and then `conda install -f conda-forge git-annex`.
+  * **macOS**: `brew install git-annex`
+  * **WSL**:
+      * **Ubuntu-20.04**: `apt install git-annex`
+      * The [other distros](https://docs.microsoft.com/en-us/windows/wsl/install-manual#downloading-distributions) are untested.
+
+### Verify
 
 Check that `git-annex version` reports version 8 or higher! It should look like:
 
@@ -45,11 +51,12 @@ supported repository versions: 8
 upgrade supported from repository versions: 0 1 2 3 4 5 6 7
 ```
 
+### Global `git-annex` config
 
-For smooth operation, everyone should do:
+For smooth operation, everyone should do on all of their machines:
 
 ```
-git config --global annex.thin true # save disk space by avoiding duplicating
+git config --global annex.thin true # save disk space by de-duplicating checked out and annexed copies
 ```
 
 ## New repo
