@@ -22,8 +22,8 @@ Table of Contents
   * [rm: cannot remove](#rm-cannot-remove)
 * [Admin Guide](#admin-guide)
   * [Add users](#add-users)
-  * [Permissions](#admin-permissions)
-  * [Deletion](#admin-deletion)
+  * [Permissions](#permissions-1)
+  * [Deletion](#deletion-1)
 
 <!-- Added by: kousu, at: Tue 23 Mar 2021 11:54:23 PM EDT -->
 
@@ -352,8 +352,8 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID11N3hQpJP4Okivd5xO3N0CuO24ioMwXYv+l/1PM/+z
 Added SHA256:hwil2tmaw/prgIBX5odO8vOAj2i38gPrUGjGZnnkVvo : zamboni.pub
 ```
 
-<!-- the #hrefs conflict, so fall back to explicit HTML on this header -->
-<h3 id="admin-permissions">Permissions</h3>
+
+### Permissions
 
 As admin, you can add or revoke any permissions to any repo [using `perms`](#permissions).
 
@@ -375,8 +375,7 @@ git add -u . && git push
 ```
 
 
-<!-- the #hrefs conflict, so fall back to explicit HTML on this header -->
-<h3 id="admin-deletion">Deletion</h3>
+### Deletion
 
 You can also delete any repo [using `D`](#deletion).
 
