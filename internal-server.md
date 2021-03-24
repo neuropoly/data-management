@@ -28,7 +28,8 @@ Table of Contents
   * [Add users](#add-users)
   * [Permissions](#permissions-1)
   * [Deletion](#deletion-1)
-  * [Troubleshooting](#troubleshooting-1)
+  * [Backups](#backups)
+  * [Troubleshooting](#troubleshooting)
   * [References](#references)
 
 
@@ -359,7 +360,7 @@ TODO
 
 If the server is doing something strange, contact someone with sysadmin-access to the server (what luck: as of 2021-03 at least, *the admins and the sysadmins are the same set: Julien, Alex and Nick*).
 
-These people can help investigate by following the gitolote guide in the [sysadmin docs](TODO).
+These people can investigate by following the gitolote guide in the [sysadmin docs](https://github.com/neuropoly/management/blob/master/docs/gitolite.md).
 
 ### References
 
