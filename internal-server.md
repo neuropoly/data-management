@@ -352,7 +352,8 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID11N3hQpJP4Okivd5xO3N0CuO24ioMwXYv+l/1PM/+z
 Added SHA256:hwil2tmaw/prgIBX5odO8vOAj2i38gPrUGjGZnnkVvo : zamboni.pub
 ```
 
-### Permissions {#admin-permissions}
+<!-- the #hrefs conflict, so fall back to explicit HTML on this header -->
+<h3 id="admin-permissions">Permissions</h3>
 
 As admin, you can add or revoke any permissions to any repo (using `perms`)[#permissions].
 
@@ -375,7 +376,9 @@ ls -R keydir/          # optional: investigate/change who has access; this *shou
 git add -u . && git push
 ```
 
-### Deletion {#admin-deletion}
+
+<!-- the #hrefs conflict, so fall back to explicit HTML on this header -->
+<h3 id="admin-deletion">Deletion</h3>
 
 You can also delete any repo [using `D`](#deletion).
 
