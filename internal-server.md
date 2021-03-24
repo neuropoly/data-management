@@ -38,21 +38,21 @@ Initial setup
 ### Prerequisites
 
 0. You must have a unix OS. `git-annex` is simply not compatible with anything else.
-    * _Linux_
-    * _BSD_
-    * _macOS_
-    * if *Windows*, either
-	* use [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
-        * install a Linux virtual machine using e.g. [VirtualBox](https://virtualbox.org/)
+    * **Linux**
+    * **macOS**
+    * if **Windows**, either
+	* [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or
+        * A Linux virtual machine using e.g. [VirtualBox](https://virtualbox.org/)
 1. Make sure you have `git` and `git-annex>=8` installed.
-    Make sure `git-annex version` reports version 8 or higher!
+
+    Check that `git-annex version` reports version 8 or higher!
     * **Linux**
         * **Arch**: `pacman -Sy git-annex`
         * **Fedora/RedHat/CentOS**: `dnf install git-annex`
         * **Debian/Ubuntu**: `apt-get install git-annex`, but **you must be using Ubuntu 20.04** or **Debian Testing** or higher.
         * if on an older system and can't upgrade, you can try [installing `conda`](https://docs.conda.io/en/latest/miniconda.html) and then `conda install -f conda-forge git-annex`.
     * **macOS**: `brew install git-annex`
-    * **[WSL](https://docs.microsoft.com/en-us/windows/wsl/)**:
+    * **WSL**:
         * **Ubuntu-20.04**: `apt install git-annex`
         * The [other distros](https://docs.microsoft.com/en-us/windows/wsl/install-manual#downloading-distributions) are untested.
 
