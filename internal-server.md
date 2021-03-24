@@ -28,7 +28,7 @@ Table of Contents
   * [Add users](#add-users)
   * [Permissions](#permissions-1)
   * [Deletion](#deletion-1)
-  * [Debugging](#debugging)
+  * [Troubleshooting](#troubleshooting-1)
   * [References](#references)
 
 
@@ -392,8 +392,27 @@ git add -u . && git push
 
 You can also delete any repo [using `D`](#deletion).
 
+You can also get rid of a dataset immediately by:
 
-### Debugging
+```
+ssh git@data.neuro.polymtl.ca D unlock datasets/<dataset>
+ssh git@data.neuro.polymtl.ca D rm datasets/<dataset>
+```
+
+### Backups
+
+Backups are automatically made to MIC-UNF's servers.
+
+*exception they're not, yet: https://github.com/neuropoly/data-management/issues/20*
+
+You can access these if you need to recover by:
+
+```
+TODO
+```
+
+
+### Troubleshooting
 
 If the server is doing something strange, contact someone with sysadmin-access to the server (what luck: as of 2021-03 at least, *the admins and the sysadmins are the same set: Julien, Alex and Nick*).
 
