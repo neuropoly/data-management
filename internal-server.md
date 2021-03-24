@@ -120,7 +120,7 @@ $ git annex get .
 ### Upload
 
 Despite not being hosted on Github, we are still using a [pull-request workflow](https://guides.github.com/introduction/flow/).
-So, to make changes to a dataset, make a working branch and work there:
+So, to make changes to a dataset, first ask its owner to [grant you upload rights](#permissions), then make a working branch for your changes:
 
 ```
 $ git checkout -b working-branch
@@ -128,11 +128,24 @@ $ # edit your files, add new ones, etc
 $ git add -p
 $ git add path/to/new/file
 $ git commit # and write a useful commit message
+```
+
+The *first* time before uploading, verify you have access with `info`. You need "W" (for "Write") permission, like this:
+
+```
+$ ssh git@localhost info datasets/uk-biobank
+hello zamboni, this is git@data running gitolite3 3.6.11-2 (Debian) on git 2.27.0
+
+ R W    datasets/uk-biobank
+```
+
+Once you have access you can:
+
+```
 $ git annex sync --content
 ```
 
-Then ask one of that dataset's reviewers to [look at your pull request](#Reviewing-Pull-Requests).
-
+Finally, ask one of that dataset's reviewers to [look at your pull request](#Reviewing-Pull-Requests).
 
 
 ### Add secondary devices
@@ -189,11 +202,23 @@ $ git push origin
 
 ### Permissions
 
-You can grant others permissions to your repositories by:
+You can grant others permissions to your repositories with `perms`.
 
 ```
-TODO
+ssh git@data.neuro.polymtl.ca perms datasets/my-new-repo + WRITERS someone # grant someone upload rights
+ssh git@data.neuro.polymtl.ca perms datasets/my-new-repo - WRITERS someone # revoke someone's upload rights
+ssh git@data.neuro.polymtl.ca perms datasets/my-new-repo + OWNERS researcher2 # grant someone rights to add (and remove) others
+ssh git@data.neuro.polymtl.ca perms datasets/my-new-repo -l # view users
+ssh git@data.neuro.polymtl.ca perms datasets/my-new-repo -lr # view access rules
 ```
+
+Use
+
+```
+ssh git@data.neuro.polymtl.ca perms -h
+```
+
+and see https://gitolite.com/gitolite/user#setget-additional-permissions-for-repos-you-created for full details.
 
 
 ### Submodules:
