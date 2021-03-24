@@ -28,6 +28,8 @@ Table of Contents
   * [Permissions](#permissions-1)
   * [Deletion](#deletion-1)
   * [Debugging](#debugging)
+  * [References](#references)
+
 
 <!-- Added by: kousu, at: Tue 23 Mar 2021 11:54:23 PM EDT -->
 
@@ -392,6 +394,6 @@ If the server is doing something strange, contact someone with sysadmin-access t
 
 These people can help investigate by following the gitolote guide in the [sysadmin docs](TODO).
 
-Further reading:
+### References
 
 * Patel, Hiren - [Wildrepos in Gitolite](https://caesr.uwaterloo.ca/wildrepos-in-gitolite/) -- detailing how a research lab manages their code and publications collaboratively through `gitolite`
