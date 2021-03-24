@@ -17,20 +17,12 @@ Table of Contents
   * [Add secondary devices](#add-secondary-devices)
   * [New repository](#new-repository)
   * [Permissions](#permissions)
-  * [Submodules:](#submodules)
   * [Reviewing Pull Requests](#reviewing-pull-requests)
 * [Troubleshooting](#troubleshooting)
   * [rm: cannot remove](#rm-cannot-remove)
 * [Admin Guide](#admin-guide)
 * [Add users](#add-users)
   * [Manage Repos](#manage-repos)
-* [Sysadmin Guide](#sysadmin-guide)
-  * [Infrastructure](#infrastructure)
-  * [Notifications](#notifications)
-  * [Monitoring](#monitoring)
-  * [Gitolite](#gitolite)
-  * [Backups](#backups)
-  * [dataset repo configuration](#dataset-repo-configuration)
 
 <!-- Added by: kousu, at: Tue 23 Mar 2021 11:54:23 PM EDT -->
 
@@ -252,9 +244,6 @@ ssh git@data.neuro.polymtl.ca perms -h
 and see https://gitolite.com/gitolite/user#setget-additional-permissions-for-repos-you-created for full details.
 
 
-### Submodules:
-(Ref: the datalad handbook)
-
 ### Reviewing Pull Requests
 
 If someone asks you to review their changes on branch `xy/branchname`:
@@ -370,97 +359,3 @@ git add -u . && git push
 Further reading:
 
 * Patel, Hiren - [Wildrepos in Gitolite](https://caesr.uwaterloo.ca/wildrepos-in-gitolite/) -- detailing how a research lab manages their code and publications collaboratively through `gitolite`
-
-
-
-Sysadmin Guide
---------------
-
-In case something goes wrong, here are some notes about getting underneath gitolite to fix things up.
-
-
-### Infrastructure
-
-`data.neuro.polymtl.ca` should have IP address `132.207.65.204`. It is a virtual machine running on polymtl.ca's on-premises Xen cluster. dge.informatique@polymtl.ca manages this cluster, including its backups, and can help you out in an emergency.
-
-
-### Notifications
-
-You should consider adding your email to `~root/.forward` so that you receive OS notifications from the system:
-
-```
-sudo sh -c 'echo your.email@example.com >> ~root/.forward'
-```
-
-
-
-### Monitoring
-
-We're running [netdata](https://netdata.cloud) which provides useful charts and history. Netdata [does not have built in authentication](https://github.com/netdata/netdata/issues/70#issuecomment-220866829), and there are many firewalls at Polytechnique anyway, so the best way to access it is:
-
-1. Log in
-```
-ssh -L 19999:localhost:19999 data.neuro.polymtl.ca
-```
-2. Visit https://localhost:19999
-
-Netdata is currently configured to keep 1 week of history.
-
-Netdata will send an email to `root@` if something is amiss; this is why it is a good idea to get yourself in `~root/.forward`.
-
-### Gitolite
-
-gitolite is the main application on this server.
-
-gitolite keeps its configuration in two places: the baseline system in `~git/.gitolite.rc`, and repo definitions and permissions in the repository. Gitolite considers a "gitolite admin" to be anyone with write access to, so to nominate new admins you need to edit.
-
-To edit
-
-If 
-
-To investigate the state of the git server, ssh in (as or sudo'ing to root) and run
-
-```
-root@data:~# sudo -u git -i bash
-```
-
-Which will let you look around at the underlying state. The actual repositories are in `~git/repositories`; this folder is a 1TB virtual disk. Again, the primary config is `~git/.gitolite.rc`, and the site config is in a git repo in
-
-Normally, gitolite builds its deployment out of its `gitolite-admin` repo on changes, but if working on the same server you need to use `gitolite push` instead of `git push` because, as far as I can tell, the receive hook has a bug. That is, to manage the deployment, what you should do is:
-
-```
-cd $(mktemp -d); # optional: keep changes isolated
-git clone ~git/repositories/gitolite-admin
-cd gitolite-admin
-vi conf/gitolite.conf  # optional: investigate/change the repo definitions
-ls -R keydir/          # optional: investigate/change who has access; this *should* be unnecessary, use `keys` as above instead.
-git add -u && gitolite push  # this is the difference
-```
-
-[`keys`](https://github.com/kousu/gitolite-mods/blob/master/keys) is a combination and simplification of [`sskm`](https://gitolite.com/gitolite/contrib/sskm.html) and [`ukm`](https://gitolite.com/gitolite/contrib/ukm.html), written by nick.guenther@polymtl.ca.
-
-
-References
-
-* [gitolite: help for emergencies](https://gitolite.com/gitolite/emergencies.html)
-
-
-
-### Backups
-
-We have no backup plan in place yet. For now, just make sure to take a complete.
-
-Not totally true! We're backing up to `sftp://neuropoly-backup@elm.criugm.qc.ca`. watch this space.
-
-
-
-
-
-
-### dataset repo configuration
-
-`git-annex` has a lot of options, many of which are already considered legacy; datalad has even more, which is part of why we are ignoring it. For optimal data management, it is important that these options are configured in each repo:
-
-
-```
-```
