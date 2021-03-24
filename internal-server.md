@@ -5,6 +5,9 @@ Much of our data is under medical ethics protections, and needs to be kept off t
 
 URL: git+ssh://data.neuro.polymtl.ca
 
+Table of Contents
+-----------------
+
 <!--ts-->
 * [Initial setup](#initial-setup)
 * [Usage](#usage)
