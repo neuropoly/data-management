@@ -3,7 +3,7 @@
 
 Much of our data is under medical ethics protections, and needs to be kept off the general internet. We have a custom server, locked down behind a VPN, with 1 terabyte of storage available. `git-annex` (and therefore `datalad`) can store and retrieve data from it.
 
-URL: git+ssh://data.neuro.polymtl.ca
+URL: [git+ssh://data.neuro.polymtl.ca](git+ssh://data.neuro.polymtl.ca)
 
 Table of Contents
 -----------------
