@@ -355,16 +355,14 @@ Added SHA256:hwil2tmaw/prgIBX5odO8vOAj2i38gPrUGjGZnnkVvo : zamboni.pub
 <!-- the #hrefs conflict, so fall back to explicit HTML on this header -->
 <h3 id="admin-permissions">Permissions</h3>
 
-As admin, you can add or revoke any permissions to any repo (using `perms`)[#permissions].
+As admin, you can add or revoke any permissions to any repo [using `perms`](#permissions).
 
-You can inspect active permissions on a repo with
+There is unfortunately no way to view permissions *as another user* so you will need to rely on people sending you screenshots if they are having problems
+but you can at least inspect the active sets of permissions on a repo with
 
 ```
 ssh git@data.neuro.polymtl.ca perms <repo> -l
 ```
-
-There is unfortunately no way to view permissions *as another user* so you will need to rely on people sending you screenshots if they are having problems.
-
 
 If you need to add new namespaces or finer grained permissions, first, reconsider if the extra complexity and the _risk of locking yourself out_ is worth it. Everything you should need to manage the lab should be doable via `ssh git@data.neuro.polymtl.ca help`. If you are sure, then review [gitolite's permissions model](https://gitolite.com/gitolite/conf.html) and [official docs for this use case](https://gitolite.com/gitolite/fool_proof_setup.html#administration-tasks), then:
 
