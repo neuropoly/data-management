@@ -10,6 +10,9 @@ Table of Contents
 
 <!--ts-->
 * [Initial setup](#initial-setup)
+  * [Prerequisites](#prerequisites)
+  * [Inscription](#inscription)
+  * [Connection](#connection)
 * [Usage](#usage)
   * [List](#list)
   * [Download](#download)
@@ -32,7 +35,7 @@ Table of Contents
 Initial setup
 -------------
 
-**Prerequisites**
+### Prerequisites
 
 0. You must have a unix OS. `git-annex` is simply not compatible with anything else.
     * _Linux_
@@ -57,7 +60,9 @@ Initial setup
 2. Make sure you have an ssh key.
     * If not, run `ssh-keygen`. Your keys will be in the hidden folder `~/.ssh/`.
 
-3. Give your ssh public key -- that is, the contents of `~/.ssh/id_rsa.pub` or `~/.ssh/id_ed25519.pub`, making sure to use the **.pub** file -- to one of the server admins and ask for their consent to granting you access.
+### Inscription
+
+Give your ssh public key -- that is, the contents of `~/.ssh/id_rsa.pub` or `~/.ssh/id_ed25519.pub`, making sure to use the **.pub** file -- to one of the server admins and ask for their consent to granting you access.
     * A pubkey should look like
       ```
       ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDE+b5vj+WvS5l6j56NF/leMpC2xT7JUCMUWDAqvWoVmNZ7UR3dGXQeTPTlmPmxPGD2Hk9/zFzxO2kYOt9o4lHQ0QQSKLUmTyuieyJE26wL1ZiLilmTgvgMxxkxvInF/Vr78V5Ll72zAmXzUxVSvuDGY2GRjnLreYheiqg1F3xTuD68uWInX8ZwA7NDtKpoZ7Aat063vD79WBrtiCfvAMbM8QhC3294zxqAjjy9fxs+TMTqAxtKdaWCA/eCs7sx9uvtFcj2Q9jxCMB3br5HyPLotgJMoIMt+fywj+vQG907LODRcqm9J0+ih+38/3Y6aqECMkHA9WWIfFywwjeA7EGr user@laptop
@@ -66,12 +71,19 @@ Initial setup
       ```
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJwsjlem+acuTOZGyNQKjyI7kJe9ULkhZo7N04QfC/tA user@laptop
       ```
-    * Current server admins are:
-        * jcohen@polymtl.ca
-        * alexandru.foias@polymtl.ca
-        * nick.guenther@polymtl.ca
-	* These people have their personal ssh keys in `~root/.ssh/authorized_keys` (i.e. they can `ssh root@data.neuro.polymtl.ca`); they also have the _shared_ root password in their password managers, which should never be needed but for low-level rescue maintenance on the system.
-    * The admins should follow [Admins > Adding Users](#add-users).
+Current server admins are:
+
+    * jcohen@polymtl.ca
+    * alexandru.foias@polymtl.ca
+    * nick.guenther@polymtl.ca
+
+These people have their personal ssh keys in `~root/.ssh/authorized_keys` (i.e. they can `ssh root@data.neuro.polymtl.ca`); they also have the _shared_ root password in their password managers, which should never be needed but for low-level rescue maintenance on the system.
+
+The admins should follow [Admin Guide > Add Users](#add-users) to create your account.
+
+### Connection
+
+Because this server contains private medical data, you need to be on campus, connected to the VPN, or working from a server on campus, like `joplin` or `rosenberg` to access it.
 
 4. *If connecting from off-campus*, connect to [polyvpn](http://www.polymtl.ca/si/reseaux/acces-securise-rvp-ou-vpn).
     * Verify connectivity by `ping data.neuro.polymtl.ca`. If **you cannot** then you need to double-check your VPN connection; make sure it is connected, and *ask the Poly network admins* if you are firewalled from this server.
@@ -98,6 +110,8 @@ Initial setup
 
 Usage
 -----
+
+During daily usage, you will need to be [*on the polyvpn network*](#connection).
 
 ### List
 
