@@ -96,24 +96,24 @@ Because this server contains private medical data, you need to be on campus, con
  
 Verify you can use the server by `ssh git@data.neuro.polymtl.ca help`. If it hangs, triple-check again your VPN. If it rejects you, your account is not created yet, or you have switched machines. A successful connection looks like:
 
-    ```
-    $ ssh git@data.neuro.polymtl.ca help
-    Enter passphrase for key '/home/kousu/.ssh/id_ed25519.neuropoly': 
-    hello yourusername, this is git@data running gitolite3 3.6.11-2 (Debian) on git 2.27.0
-    
-    list of remote commands available:
-    
-    	D
-    	create
-    	desc
-    	git-annex-shell
-    	help
-    	info
-    	keys
-    	perms
-    	readme
-    	writable
-    ```
+```
+$ ssh git@data.neuro.polymtl.ca help
+Enter passphrase for key '/home/kousu/.ssh/id_ed25519.neuropoly': 
+hello yourusername, this is git@data running gitolite3 3.6.11-2 (Debian) on git 2.27.0
+
+list of remote commands available:
+
+	D
+	create
+	desc
+	git-annex-shell
+	help
+	info
+	keys
+	perms
+	readme
+	writable
+```
 
 Usage
 -----
