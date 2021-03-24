@@ -71,21 +71,7 @@ Initial setup
         * alexandru.foias@polymtl.ca
         * nick.guenther@polymtl.ca
 	* These people have their personal ssh keys in `~root/.ssh/authorized_keys` (i.e. they can `ssh root@data.neuro.polymtl.ca`); they also have the _shared_ root password in their password managers, which should never be needed but for low-level rescue maintenance on the system.
-
-  The admin will then add the key as follows:
-  ```
-  ssh git@data.neuro.polymtl.ca keys add @STATION
-  ```
-  Example: STATION could be "joplin"
-  when prompted, enter the entire passkey, exemple:
-  ```
-  ssh-rsa AAABS663728....XXXSIH p101317@joplin
-  ```
-  Then, press CTRL+D
-  You should see the message:
-  ```
-  Added SHA256:En0CCSS...DoMzc : USERNAME@joplin.pub
-  ```
+    * The admins should follow [Admins > Adding Users](#add-users).
 
 4. *If connecting from off-campus*, connect to [polyvpn](http://www.polymtl.ca/si/reseaux/acces-securise-rvp-ou-vpn).
     * Verify connectivity by `ping data.neuro.polymtl.ca`. If **you cannot** then you need to double-check your VPN connection; make sure it is connected, and *ask the Poly network admins* if you are firewalled from this server.
