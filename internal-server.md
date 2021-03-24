@@ -50,11 +50,7 @@ Initial setup
         * **Arch**: `pacman -Sy git-annex`
         * **Fedora/RedHat/CentOS**: `dnf install git-annex`
         * **Debian/Ubuntu**: `apt-get install git-annex`, but **you must be using Ubuntu 20.04** or **Debian Testing** or higher.
-        * if on an older system and can't upgrade, you can try [installing `conda`](https://docs.conda.io/en/latest/miniconda.html) and then `conda install git-annex`.
-    * **BSD**:
-        * OpenBSD: _untested_
-        * FreeBSD: _untested_
-        * NetBSD: _untested_
+        * if on an older system and can't upgrade, you can try [installing `conda`](https://docs.conda.io/en/latest/miniconda.html) and then `conda install -f conda-forge git-annex`.
     * **macOS**: `brew install git-annex`
 
 2. Make sure you have an ssh key.
