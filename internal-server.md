@@ -41,7 +41,7 @@ Initial setup
     * **Linux**
     * **macOS**
     * if **Windows**, either
-	* [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or
+        * [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or
         * A Linux virtual machine using e.g. [VirtualBox](https://virtualbox.org/)
 1. Make sure you have `git` and `git-annex>=8` installed.
 
