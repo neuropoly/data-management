@@ -92,7 +92,7 @@ Because this server contains private medical data, you need to be on campus, con
 
 *If connecting from off-campus*, connect to [polyvpn](http://www.polymtl.ca/si/reseaux/acces-securise-rvp-ou-vpn).
 
-    * Verify connectivity by `ping data.neuro.polymtl.ca`. If **you cannot ping** then you need to double-check your VPN connection; make sure it is connected, make sure you can reach `joplin`, and if it still isn't working *ask the [Poly network admins](dge.informatique@polymtl.ca)* to unblock your account from this server.
+> 🏚️ Verify connectivity by `ping data.neuro.polymtl.ca`. If **you cannot ping** then you need to double-check your VPN connection; make sure it is connected, make sure you can reach `joplin`, and if it still isn't working *ask the [Poly network admins](dge.informatique@polymtl.ca)* to unblock your account from this server.
  
 Verify you can use the server by `ssh git@data.neuro.polymtl.ca help`. If it hangs, triple-check again your VPN. If it rejects you, your account is not created yet, or you have switched machines. A successful connection looks like:
 
