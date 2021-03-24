@@ -5,6 +5,34 @@ Much of our data is under medical ethics protections, and needs to be kept off t
 
 URL: git+ssh://data.neuro.polymtl.ca
 
+<!--ts-->
+* [Initial setup](#initial-setup)
+* [Usage](#usage)
+  * [List](#list)
+  * [Download](#download)
+  * [Upload](#upload)
+  * [Add secondary devices](#add-secondary-devices)
+  * [New repository](#new-repository)
+  * [Permissions](#permissions)
+  * [Submodules:](#submodules)
+  * [Reviewing Pull Requests](#reviewing-pull-requests)
+* [Troubleshooting](#troubleshooting)
+  * [rm: cannot remove](#rm-cannot-remove)
+* [Admin Guide](#admin-guide)
+* [Add users](#add-users)
+  * [Manage Repos](#manage-repos)
+* [Sysadmin Guide](#sysadmin-guide)
+  * [Infrastructure](#infrastructure)
+  * [Notifications](#notifications)
+  * [Monitoring](#monitoring)
+  * [Gitolite](#gitolite)
+  * [Backups](#backups)
+  * [dataset repo configuration](#dataset-repo-configuration)
+
+<!-- Added by: kousu, at: Tue 23 Mar 2021 11:54:23 PM EDT -->
+
+<!--te-->
+
 Initial setup
 -------------
 
