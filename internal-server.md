@@ -17,10 +17,11 @@ Table of Contents
   * [List](#list)
   * [Download](#download)
   * [Upload](#upload)
-  * [Add secondary devices](#add-secondary-devices)
+  * [Reviewing Pull Requests](#reviewing-pull-requests)
   * [New repository](#new-repository)
   * [Permissions](#permissions)
-  * [Reviewing Pull Requests](#reviewing-pull-requests)
+  * [Deletion](#deletion)
+  * [Add extra devices](#add-extra-devices)
 * [Troubleshooting](#troubleshooting)
   * [rm: cannot remove](#rm-cannot-remove)
 * [Admin Guide](#admin-guide)
@@ -179,20 +180,52 @@ $ git annex sync --content
 Finally, ask one of that dataset's reviewers to [look at your pull request](#Reviewing-Pull-Requests).
 
 
-### Add secondary devices
+### Reviewing Pull Requests
 
-Like with Github, you can authorize any number of secondary devices.
-
-For example, to authorize yourself from `server2`, log in to `server2` and make an ssh key if one doesn't exist (`ssh-keygen`), copy it (`~/.ssh/id_rsa.pub`) to a device that is already authenticated (e.g. as `~/id_rsa.server2.pub`), then authorize yourself by:
+If someone asks you to review their changes on branch `xy/branchname`:
 
 ```
-cat ~/id_rsa-server2.pub | ssh git@data.neuro.polymtl.ca keys add @server2
+git annex sync --content
+git checkout xy/branchname
 ```
 
-Test it by running, from `server2`
+Then look at the branch to see if it looks right to you.
+
+To investigate what changed:
 
 ```
-ssh git@data.neuro.polymtl.ca info
+git log --stat master..HEAD # to see filenames
+git log -p master..HEAD     # to see content, commit-by-commit
+git diff master..HEAD       # to see content, overall
+```
+
+Also, it's a good idea to run:
+
+```
+git annex whereis
+```
+
+To check that all the annexed files have been uploaded.
+
+
+**NB** `git-annex` is not well-suited to a pull-request flow. It is mostly designed for a single person to share data among many computers, not for multiple people to share data between a few computers. We can make it work but it needs some care.
+
+
+If you approve and want to commit:
+
+```
+git checkout master
+git merge --ff-only xy/branchname # or use git pull --squash xy/branchname
+git push
+```
+
+(Optional) Clean up the branch:
+
+```
+git branch -d xy/branchname
+git branch -d synced/xy/branchname   # redundancy
+git push origin :xy/branchname
+git push origin :synced/xy/branchname
 ```
 
 
@@ -252,53 +285,6 @@ ssh git@data.neuro.polymtl.ca perms -h
 and see https://gitolite.com/gitolite/user#setget-additional-permissions-for-repos-you-created for full details.
 
 
-### Reviewing Pull Requests
-
-If someone asks you to review their changes on branch `xy/branchname`:
-
-```
-git annex sync --content
-git checkout xy/branchname
-```
-
-Then look at the branch to see if it looks right to you.
-
-To investigate what changed:
-
-```
-git log --stat master..HEAD # to see filenames
-git log -p master..HEAD     # to see content, commit-by-commit
-git diff master..HEAD       # to see content, overall
-```
-
-Also, it's a good idea to run:
-
-```
-git annex whereis
-```
-
-To check that all the annexed files have been uploaded.
-
-
-**NB** `git-annex` is not well-suited to a pull-request flow. It is mostly designed for a single person to share data among many computers, not for multiple people to share data between a few computers. We can make it work but it needs some care.
-
-
-If you approve and want to commit:
-
-```
-git checkout master
-git merge --ff-only xy/branchname # or use git pull --squash xy/branchname
-git push
-```
-
-(Optional) Clean up the branch:
-
-```
-git branch -d xy/branchname
-git branch -d synced/xy/branchname   # redundancy
-git push origin :xy/branchname
-git push origin :synced/xy/branchname
-```
 
 ### Deletion
 
@@ -308,7 +294,25 @@ If you created or own a repo and decide it is no longer necessary:
 ssh git@data.neuro.polymtl.ca D trash repo
 ```
 
-The "trash" is cleaned out after a week.
+The "trash" is cleaned out after a week. *Except it's not, yet: https://github.com/neuropoly/data-management/issues/54*
+
+
+### Add extra devices
+
+Like with Github, you can authorize any number of secondary devices.
+
+For example, to authorize yourself from `server2`, log in to `server2` and make an ssh key if one doesn't exist (`ssh-keygen`), copy it (`~/.ssh/id_rsa.pub`) to a device that is already authenticated (e.g. as `~/id_rsa.server2.pub`), then authorize yourself by:
+
+```
+cat ~/id_rsa-server2.pub | ssh git@data.neuro.polymtl.ca keys add @server2
+```
+
+Test it by running, from `server2`
+
+```
+ssh git@data.neuro.polymtl.ca info
+```
+
 
 ## Troubleshooting
 
