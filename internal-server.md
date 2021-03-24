@@ -52,6 +52,9 @@ Initial setup
         * **Debian/Ubuntu**: `apt-get install git-annex`, but **you must be using Ubuntu 20.04** or **Debian Testing** or higher.
         * if on an older system and can't upgrade, you can try [installing `conda`](https://docs.conda.io/en/latest/miniconda.html) and then `conda install -f conda-forge git-annex`.
     * **macOS**: `brew install git-annex`
+    * **[WSL](https://docs.microsoft.com/en-us/windows/wsl/)**:
+        * **Ubuntu-20.04**: `apt install git-annex`
+        * The [other distros](https://docs.microsoft.com/en-us/windows/wsl/install-manual#downloading-distributions) are untested.
 
 2. Make sure you have an ssh key.
     * If not, run `ssh-keygen`. Your keys will be in the hidden folder `~/.ssh/`.
