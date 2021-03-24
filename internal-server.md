@@ -41,7 +41,7 @@ Initial setup
 
 ### Prerequisites
 
-0. You must have a \*nix OS with `git-annex>=8` installed. See [](./git-annex.md#installation).
+0. You must have a \*nix OS with `git-annex>=8` installed. See [`git-annex` installation](./git-annex.md#installation).
 2. Make sure you have an ssh key.
     * If not, run `ssh-keygen -t ed25519 -C your.name@polymtl.ca`. Your keys will be in the hidden folder `~/.ssh/`.
 
