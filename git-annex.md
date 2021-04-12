@@ -38,7 +38,7 @@ You must have a unix OS. `git-annex` is simply not compatible with anything else
 
 ### Verify
 
-Check that `git-annex version` reports version 8 or higher! It should look like:
+> ⚠️ ‎ Check that `git-annex version` reports version 8 or higher! It should look like:
 
 ```
 $ git annex version
