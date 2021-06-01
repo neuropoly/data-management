@@ -5,7 +5,7 @@ import argparse
 
 
 def get_parameters():
-    parser = argparse.ArgumentParser(description='This script is curating dataset msseg_challenge_2021 to BIDS')
+    parser = argparse.ArgumentParser(description='This script is curating dataset Delbono Wakehealth to BIDS')
     parser.add_argument("-d", "--data",
                         help="Path to folder containing the dataset to be curated",
                         required=True)
