@@ -125,7 +125,7 @@ def main(root_data):
 
     # Create participants.json
     data_json = {"participant_id": {
-        "Description": "Unique ID",
+        "Description": "Unique Participant ID",
         "LongName": "Participant ID"
     }}
 
