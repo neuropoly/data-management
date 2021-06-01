@@ -134,7 +134,7 @@ def main(root_data):
 
     # Create samples.json
     data_json = {"participant_id": {
-        "Description": "Unique ID",
+        "Description": "Unique Participant ID",
         "LongName": "Participant ID"
          },
         "sample_id": {
