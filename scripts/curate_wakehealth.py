@@ -138,7 +138,7 @@ def main(root_data):
         "LongName": "Participant ID"
          },
         "sample_id": {
-            "Description": "Unique ID",
+            "Description": "Sample ID",
             "LongName": "Sample ID"
         },
         "sample_type": {
