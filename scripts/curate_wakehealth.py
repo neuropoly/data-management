@@ -58,7 +58,7 @@ def main(root_data):
             path_item_in = os.path.join(path_dataset, item)
             counter_file_in = counter_file_in + 1
             sub_id_bids = 'sub-' + sub_id_initial
-            sample_id_bids = 'sample- ' + sub_id_initial
+            sample_id_bids = 'sample-' + sub_id_initial
             path_folder_sub_id_bids = os.path.join(output_data, sub_id_bids, 'microscopy')
             if not os.path.isdir(path_folder_sub_id_bids):
                 os.makedirs(path_folder_sub_id_bids)
