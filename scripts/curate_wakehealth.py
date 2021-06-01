@@ -5,7 +5,7 @@ import argparse
 
 
 def get_parameters():
-    parser = argparse.ArgumentParser(description='This script is curating dataset msseg_challenge_2021 to BIDS')
+    parser = argparse.ArgumentParser(description='This script is curating dataset Delbono Wakehealth to BIDS')
     parser.add_argument("-d", "--data",
                         help="Path to folder containing the dataset to be curated",
                         required=True)
@@ -60,7 +60,7 @@ def main(root_data):
             path_item_in = os.path.join(path_dataset, item)
             counter_file_in = counter_file_in + 1
             sub_id_bids = 'sub-' + sub_id_initial
-            sample_id_bids = 'sample- ' + sub_id_initial
+            sample_id_bids = 'sample-' + sub_id_initial
             path_folder_sub_id_bids = os.path.join(output_data, sub_id_bids, 'microscopy')
             if not os.path.isdir(path_folder_sub_id_bids):
                 os.makedirs(path_folder_sub_id_bids)
@@ -127,7 +127,7 @@ def main(root_data):
 
     # Create participants.json
     data_json = {"participant_id": {
-        "Description": "Unique ID",
+        "Description": "Unique Participant ID",
         "LongName": "Participant ID"
     }}
 
@@ -136,11 +136,11 @@ def main(root_data):
 
     # Create samples.json
     data_json = {"participant_id": {
-        "Description": "Unique ID",
+        "Description": "Unique Participant ID",
         "LongName": "Participant ID"
          },
         "sample_id": {
-            "Description": "Unique ID",
+            "Description": "Sample ID",
             "LongName": "Sample ID"
         },
         "sample_type": {
