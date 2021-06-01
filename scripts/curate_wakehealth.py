@@ -27,7 +27,7 @@ def create_json_sidecar(path_folder_sub_id_bids, item_out):
 
 
 def main(root_data):
-    output_data = os.path.join(root_data + '_curated')
+    output_data = os.path.join(root_data + '_bids')
 
     # Remove macOS .DS_Store
     os.system("find " + root_data + " -name '.DS_Store' -type f -delete")
@@ -37,6 +37,8 @@ def main(root_data):
     os.makedirs(output_data)
 
     subdatasets = os.listdir(root_data)
+    [subdatasets.remove(item) for item in subdatasets if not os.path.isdir(os.path.join(root_data,item))]
+    [subdatasets.remove(item) for item in subdatasets if not item.endswith('_extracts')]
     counter_move = 0
     counter_file_in = 0
 
