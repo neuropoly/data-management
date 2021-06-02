@@ -11,6 +11,10 @@ def get_parameters():
     parser.add_argument("-d", "--data",
                         help="Path to folder containing the dataset to be curated",
                         required=True)
+    parser.add_argument("-o", "--outputdata",
+                        help="Path to output folder",
+                        required=True,
+                        )
     arguments = parser.parse_args()
     return arguments
 
@@ -28,12 +32,13 @@ def create_json_sidecar(path_folder_sub_id_bids, item_out):
         json.dump(data_json, json_file, indent=4)
 
 
-def main(root_data):
-    output_data = os.path.join(root_data + '_bids')
+def main(root_data, output_data):
+    # output_data = os.path.join(root_data + '_bids')
 
     # Remove macOS .DS_Store
     os.system("find " + root_data + " -name '.DS_Store' -type f -delete")
 
+    # Remove output_data if exists to start clean
     if os.path.isdir(output_data):
         shutil.rmtree(output_data)
     os.makedirs(output_data)
@@ -159,4 +164,4 @@ def main(root_data):
 
 if __name__ == "__main__":
     args = get_parameters()
-    main(args.data)
+    main(args.data, args.outputdata)
