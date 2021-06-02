@@ -3,14 +3,16 @@ import shutil
 import json
 import argparse
 
+FOLDERS_TO_CURATE = ['20210308_extracts', '20210512_extracts', '20210520_extracts']
+
 
 def get_parameters():
     parser = argparse.ArgumentParser(description='This script is curating dataset Delbono Wakehealth to BIDS')
     parser.add_argument("-d", "--data",
                         help="Path to folder containing the dataset to be curated",
                         required=True)
-    args = parser.parse_args()
-    return args
+    arguments = parser.parse_args()
+    return arguments
 
 
 def create_json_sidecar(path_folder_sub_id_bids, item_out):
@@ -36,14 +38,11 @@ def main(root_data):
         shutil.rmtree(output_data)
     os.makedirs(output_data)
 
-    subdatasets = os.listdir(root_data)
-    [subdatasets.remove(item) for item in subdatasets if not os.path.isdir(os.path.join(root_data,item))]
-    [subdatasets.remove(item) for item in subdatasets if not item.endswith('_extracts')]
     counter_move = 0
     counter_file_in = 0
 
     # Loop across subdirectories
-    for ds in subdatasets:
+    for ds in FOLDERS_TO_CURATE:
         path_dataset = os.path.join(root_data, ds)
         contents_ds = os.listdir(path_dataset)
         contents_ds.sort()
@@ -55,8 +54,9 @@ def main(root_data):
             sub_id_initial = item.split(' - ')[0]
             if sub_id_initial.find('_'):
                 sub_id_initial = sub_id_initial.split('_')[0]
-            sub_id_initial = sub_id_initial.replace(' ', '')
+                sub_id_initial = sub_id_initial.split(' ')[0]
             sub_id_initial = sub_id_initial.replace('-', '')
+            print (sub_id_initial)
             path_item_in = os.path.join(path_dataset, item)
             counter_file_in = counter_file_in + 1
             sub_id_bids = 'sub-' + sub_id_initial
@@ -67,7 +67,7 @@ def main(root_data):
 
             # Curate ROI
             if sub_id_bids == previous_sub_id_bids:
-                if (len(item.split('_z0_')) > 1):
+                if len(item.split('_z0_')) > 1:
                     item_out = sub_id_bids + '_' + sample_id_bids + '_chunk-' + str(roi_no) + '_BF.tif'
                     roi_no = roi_no + 1
             else:
@@ -155,6 +155,7 @@ def main(root_data):
     # Create README
     with open(output_data + '/README', 'w') as readme_file:
         readme_file.write('Dataset for Delbono Wakehealth.')
+
 
 if __name__ == "__main__":
     args = get_parameters()
