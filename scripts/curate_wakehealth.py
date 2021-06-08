@@ -3,8 +3,7 @@ import shutil
 import json
 import argparse
 
-FOLDERS_TO_CURATE = ['20210308_extracts', '20210512_extracts', '20210520_extracts']
-
+FOLDERS_TO_CURATE = ['20210308_extracts', '20210512_extracts', '20210520_extracts', '20210602_extracts']
 
 def get_parameters():
     parser = argparse.ArgumentParser(description='This script is curating dataset Delbono Wakehealth to BIDS')
