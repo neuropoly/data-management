@@ -98,7 +98,7 @@ with open(output_data + '/participants.json', 'w') as json_file:
 
 # Create dataset_description.json
 dataset_description = {"BIDSVersion": "BIDS 1.6.0",
-                       "Name": "Basel"
+                       "Name": "basel-mp2rage"
                        }
 
 with open(output_data + '/dataset_description.json', 'w') as json_file:
