@@ -47,7 +47,7 @@ def main(root_data, output_data):
                     path_subid_bids_dir_out = os.path.join(output_data, subid_bids, 'anat')
                 if not os.path.isdir(path_subid_bids_dir_out):
                     os.makedirs(path_subid_bids_dir_out)
-                if flag_der is False:
+                if not flag_der:
                     path_file_out = os.path.join(path_subid_bids_dir_out, subid_bids + dict_images[file])
                 else:
                     path_file_out = os.path.join(path_subid_bids_dir_out, subid_bids + dict_der[file])
