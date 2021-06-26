@@ -131,8 +131,7 @@ To download an existing repository use `git clone`:
 ```
 $ git clone git@data.neuro.polymtl.ca:datasets/data-single-subject
 $ cd data-single-subject
-$ git annex init
-$ git annex sync --content
+$ git annex get .
 ```
 
 ### Upload
@@ -160,7 +159,8 @@ hello zamboni, this is git@data running gitolite3 3.6.11-2 (Debian) on git 2.27.
 Once you have access you can:
 
 ```
-$ git annex sync --content
+$ git annex copy --to origin
+$ git push
 ```
 
 Finally, ask one of that dataset's reviewers to [look at your pull request](#Reviewing-Pull-Requests).
@@ -172,7 +172,7 @@ If someone asks you to review their changes on branch `xy/branchname`:
 
 ```
 git checkout xy/branchname
-git annex sync --content
+git annex get .
 ```
 
 Then look at the branch to see if it looks right to you.
