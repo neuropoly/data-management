@@ -118,10 +118,14 @@ def main(root_data, output_data):
         json.dump(dataset_description_derivatives, json_file, indent=4)
 
     # Create participants.json
-    data_json = {"participant_id": {
-        "Description": "Unique Participant ID",
-        "LongName": "Participant ID"
-    }}
+    data_json = {
+    "participant_id": {
+        "Description": "Unique participant ID"
+    },
+    "species": {
+        "Description": "Binomial species name from the NCBI Taxonomy (https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi)"
+    }
+}
 
     with open(output_data + '/participants.json', 'w') as json_file:
         json.dump(data_json, json_file, indent=4)
