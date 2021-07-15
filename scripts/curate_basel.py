@@ -32,16 +32,16 @@ def main(root_data, output_data):
 
     for dirs, subdirs, files in os.walk(root_data):
         for file in files:
-            if file.endswith('.nii.gz') and file in dict_images or file in dict_der:
+            if file.endswith('.nii.gz') and file in images or file in der:
                 path_file_in = os.path.join(dirs, file)
                 path = os.path.normpath(path_file_in)
                 subid_bids = 'sub-' + (path.split(os.sep))[5]
                 if file.endswith('lesion_mask_sc.nii.gz'):
                     path_subid_bids_dir_out = os.path.join(output_data, 'derivatives', 'labels', subid_bids, 'anat')
-                    path_file_out = os.path.join(path_subid_bids_dir_out, subid_bids + dict_der[file])
+                    path_file_out = os.path.join(path_subid_bids_dir_out, subid_bids + der[file])
                 else:
                     path_subid_bids_dir_out = os.path.join(output_data, subid_bids, 'anat')
-                    path_file_out = os.path.join(path_subid_bids_dir_out, subid_bids + dict_images[file])
+                    path_file_out = os.path.join(path_subid_bids_dir_out, subid_bids + images[file])
                 if not os.path.isdir(path_subid_bids_dir_out):
                     os.makedirs(path_subid_bids_dir_out)
                 shutil.copy(path_file_in, path_file_out)
