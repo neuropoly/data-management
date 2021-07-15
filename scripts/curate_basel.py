@@ -23,7 +23,7 @@ def get_parameters():
 def main(root_data, output_data):
     if os.path.isdir(output_data):
         shutil.rmtree(output_data)
-    os.makedirs(output_data)
+    os.makedirs(output_data, exist_ok=True)
 
     dict_images = {
         "MP2RAGE_UNI_Images.nii.gz": "_UNIT1.nii.gz"
