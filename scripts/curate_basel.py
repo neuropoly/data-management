@@ -10,7 +10,7 @@ def get_parameters():
                         help="Path to folder containing the dataset to convert to BIDS",
                         required=True)
     parser.add_argument("-o", "--outputdata",
-                        help="Path to output folder",
+                        help="Path to the output BIDS folder",
                         required=True,
                         )
     arguments = parser.parse_args()
