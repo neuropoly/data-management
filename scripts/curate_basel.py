@@ -26,7 +26,7 @@ def main(root_data, output_data):
         "MP2RAGE_UNI_Images.nii.gz": "_UNIT1.nii.gz"
     }
 
-    dict_der = {
+    der = {
         "lesion_mask_sc.nii.gz": "_UNIT1_lesion-manual.nii.gz"
     }
 
