@@ -35,7 +35,7 @@ def main(root_data, output_data):
 
     for dirs, subdirs, files in os.walk(root_data):
         for file in files:
-            if file.endswith('.nii.gz') and file in dict_images.keys() or file in dict_der.keys():
+            if file.endswith('.nii.gz') and file in dict_images or file in dict_der:
                 path_file_in = os.path.join(dirs, file)
                 path = os.path.normpath(path_file_in)
                 subid_bids = 'sub-' + (path.split(os.sep))[5]
