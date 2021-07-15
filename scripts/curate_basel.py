@@ -3,9 +3,6 @@ import shutil
 import json
 import argparse
 
-root_data = '/Users/alex/data/basel-mp2rage_raw'
-output_data = '/Users/alex/data/basel-mp2rage_raw_curated'
-
 
 def get_parameters():
     parser = argparse.ArgumentParser(description='This script is curating dataset Delbono Wakehealth to BIDS')
