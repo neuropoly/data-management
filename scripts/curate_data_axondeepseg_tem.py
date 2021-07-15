@@ -107,6 +107,16 @@ def main(root_data, output_data):
     with open(output_data + '/dataset_description.json', 'w') as json_file:
         json.dump(dataset_description, json_file, indent=4)
 
+    # Create dataset_description.json for derivatives/labels
+    dataset_description_derivatives= {"Name": "data_axondeepseg_tem labels",
+                                      "BIDSVersion": "1.6.0 - BEP031 v0.0.4",
+                                      "PipelineDescription": {
+                                          "Name": "Axon and myelin manual segmentation labels"
+                                      }}
+
+    with open(output_data + '/derivatives/labels/dataset_description.json', 'w') as json_file:
+        json.dump(dataset_description_derivatives, json_file, indent=4)
+
     # Create participants.json
     data_json = {"participant_id": {
         "Description": "Unique Participant ID",
