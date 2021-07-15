@@ -131,19 +131,17 @@ def main(root_data, output_data):
         json.dump(data_json, json_file, indent=4)
 
     # Create samples.json
-    data_json = {"participant_id": {
-        "Description": "Unique Participant ID",
-        "LongName": "Participant ID"
+    data_json = {
+    "sample_id": {
+        "Description": "Sample ID"
     },
-        "sample_id": {
-            "Description": "Sample ID",
-            "LongName": "Sample ID"
-        },
-        "sample_type": {
-            "Description": "Sample type",
-            "LongName": "Sample type"
-        }
+    "participant_id": {
+        "Description": "Participant ID from whom tissue samples have been acquired"
+    },
+    "sample_type": {
+        "Description": "Type of sample from ENCODE Biosample Type (https://www.encodeproject.org/profiles/biosample_type)"
     }
+}
 
     with open(output_data + '/samples.json', 'w') as json_file:
         json.dump(data_json, json_file, indent=4)
