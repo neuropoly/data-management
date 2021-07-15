@@ -22,7 +22,7 @@ def main(root_data, output_data):
         shutil.rmtree(output_data)
     os.makedirs(output_data, exist_ok=True)
 
-    dict_images = {
+    images = {
         "MP2RAGE_UNI_Images.nii.gz": "_UNIT1.nii.gz"
     }
 
