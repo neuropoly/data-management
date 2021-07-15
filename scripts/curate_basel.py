@@ -7,7 +7,7 @@ import argparse
 def get_parameters():
     parser = argparse.ArgumentParser(description='Convert dataset to BIDS format.')
     parser.add_argument("-d", "--data",
-                        help="Path to folder containing the dataset to be curated",
+                        help="Path to folder containing the dataset to convert to BIDS",
                         required=True)
     parser.add_argument("-o", "--outputdata",
                         help="Path to output folder",
