@@ -1,17 +1,20 @@
+import glob
 import os
 import shutil
 import json
 import argparse
+import subprocess
+import csv
 
 images = {
     "image.png": "_TEM.png"
-    }
+}
 
 der = {
     "mask.png": "_TEM_seg-axonmyelin-manual.png",
     "mask_seg-axon-manual.png": "_TEM_seg-axon-manual.png",
     "mask_seg-myelin-manual.png": "_TEM_seg-myelin-manual.png"
-    }
+}
 
 
 def get_parameters():
@@ -40,10 +43,7 @@ def create_json_sidecar(path_folder_sub_id_bids, item_out):
         json.dump(data_json, json_file, indent=4)
 
 
-
-
 def main(root_data, output_data):
-
     # Remove macOS .DS_Store
     subprocess.run(["find", root_data, "-name", ".DS_Store", "-type", "f", "-delete"], check=True)
 
@@ -79,39 +79,24 @@ def main(root_data, output_data):
     sub_list.remove('derivatives')
     sub_list.sort()
 
-    # Write additional files
-    import csv
-    participants = []
-    samples = []
-    for subject in sub_list:
-        row_sub = []
-        row_sub.append(subject)
-        participants.append(row_sub)
-        subject_samples = []
-        for sample in os.listdir(os.path.join(output_data, subject, 'microscopy')):
-            if sample.endswith('.png'):
-                list_samples.append(sample)
-        list_samples.sort()
-        for file_sample in list_samples:
-            row_sub_samples = []
-            row_sub_samples.append(subject)
-            row_sub_samples.append(file_sample.split('_')[1])
-            row_sub_samples.append('tissue')
-            samples.append(row_sub_samples)
-
-    # Create participants.tsv
-    with open(output_data + '/participants.tsv', 'w') as tsv_file:
-        tsv_writer = csv.writer(tsv_file, delimiter='\t', lineterminator='\n')
-        tsv_writer.writerow(["participant_id"])
-        for item in participants:
-            tsv_writer.writerow(item)
-
-    # Create samples.tsv
-    with open(output_data + '/samples.tsv', 'w') as tsv_file:
-        tsv_writer = csv.writer(tsv_file, delimiter='\t', lineterminator='\n')
-        tsv_writer.writerow(["participant_id", "sample_id", "sample_type"])
-        for item in samples:
-            tsv_writer.writerow(item)
+    # Create participants.tsv and samples.tsv
+    with open(output_data + '/samples.tsv', 'w') as samples, \
+            open(output_data + '/participants.tsv', 'w') as participants:
+        tsv_writer_samples = csv.writer(samples, delimiter='\t', lineterminator='\n')
+        tsv_writer_samples.writerow(["participant_id"])
+        tsv_writer_participants = csv.writer(participants, delimiter='\t', lineterminator='\n')
+        tsv_writer_participants.writerow(["participant_id", "sample_id", "sample_type"])
+        for subject in sub_list:
+            row_sub = []
+            row_sub.append(subject)
+            tsv_writer_participants.writerow(row_sub)
+            subject_samples = sorted(glob.glob(os.path.join(output_data, subject, 'microscopy', '*.png')))
+            for file_sample in subject_samples:
+                row_sub_samples = []
+                row_sub_samples.append(subject)
+                row_sub_samples.append(file_sample.split('_')[1])
+                row_sub_samples.append('tissue')
+                tsv_writer_samples.writerow(row_sub_samples)
 
     # Create dataset_description.json
     dataset_description = {"Name": "data_axondeepseg_tem",
@@ -135,7 +120,7 @@ def main(root_data, output_data):
     data_json = {"participant_id": {
         "Description": "Unique Participant ID",
         "LongName": "Participant ID"
-         },
+    },
         "sample_id": {
             "Description": "Sample ID",
             "LongName": "Sample ID"
