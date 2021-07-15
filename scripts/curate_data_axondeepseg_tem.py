@@ -70,7 +70,7 @@ def main(root_data, output_data):
             if file in images:
                 path_sub_id_dir_out = os.path.join(output_data, sub_id, 'microscopy')
                 path_file_out = os.path.join(path_sub_id_dir_out, sub_bids_full + images[file])
-                create_path_sub_id_dir_out(path_sub_id_dir_out)
+                os.makedirs(path_sub_id_dir_out, exist_ok=True)
                 create_json_sidecar(path_sub_id_dir_out, sub_id + '_TEM.png')
             if file in der:
                 path_sub_id_dir_out = os.path.join(output_data, 'derivatives', 'labels', sub_id, 'microscopy')
