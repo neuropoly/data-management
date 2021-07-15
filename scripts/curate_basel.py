@@ -17,10 +17,10 @@ def get_parameters():
     return arguments
 
 
-def main(root_data, output_data):
-    if os.path.isdir(output_data):
-        shutil.rmtree(output_data)
-    os.makedirs(output_data, exist_ok=True)
+def main(path_input, path_output):
+    if os.path.isdir(path_output):
+        shutil.rmtree(path_output)
+    os.makedirs(path_output, exist_ok=True)
 
     images = {
         "MP2RAGE_UNI_Images.nii.gz": "_UNIT1.nii.gz"
@@ -30,23 +30,23 @@ def main(root_data, output_data):
         "lesion_mask_sc.nii.gz": "_UNIT1_lesion-manual.nii.gz"
     }
 
-    for dirs, subdirs, files in os.walk(root_data):
+    for dirs, subdirs, files in os.walk(path_input):
         for file in files:
             if file.endswith('.nii.gz') and file in images or file in der:
                 path_file_in = os.path.join(dirs, file)
                 path = os.path.normpath(path_file_in)
                 subid_bids = 'sub-' + (path.split(os.sep))[5]
                 if file.endswith('lesion_mask_sc.nii.gz'):
-                    path_subid_bids_dir_out = os.path.join(output_data, 'derivatives', 'labels', subid_bids, 'anat')
+                    path_subid_bids_dir_out = os.path.join(path_output, 'derivatives', 'labels', subid_bids, 'anat')
                     path_file_out = os.path.join(path_subid_bids_dir_out, subid_bids + der[file])
                 else:
-                    path_subid_bids_dir_out = os.path.join(output_data, subid_bids, 'anat')
+                    path_subid_bids_dir_out = os.path.join(path_output, subid_bids, 'anat')
                     path_file_out = os.path.join(path_subid_bids_dir_out, subid_bids + images[file])
                 if not os.path.isdir(path_subid_bids_dir_out):
                     os.makedirs(path_subid_bids_dir_out)
                 shutil.copy(path_file_in, path_file_out)
 
-        for dirName, subdirList, fileList in os.walk(output_data):
+        for dirName, subdirList, fileList in os.walk(path_output):
             for file in fileList:
                 if file.endswith('.nii.gz'):
                     originalFilePath = os.path.join(dirName, file)
@@ -63,7 +63,7 @@ def main(root_data, output_data):
                         else:
                             os.system('touch ' + jsonSidecarPath)
 
-    sub_list = os.listdir(output_data)
+    sub_list = os.listdir(path_output)
     sub_list.remove('derivatives')
 
     sub_list.sort()
@@ -79,7 +79,7 @@ def main(root_data, output_data):
         participants.append(row_sub)
 
     print(participants)
-    with open(output_data + '/participants.tsv', 'w') as tsv_file:
+    with open(path_output + '/participants.tsv', 'w') as tsv_file:
         tsv_writer = csv.writer(tsv_file, delimiter='\t', lineterminator='\n')
         tsv_writer.writerow(["participant_id", "sex", "age"])
         for item in participants:
@@ -99,7 +99,7 @@ def main(root_data, output_data):
             "LongName": "Participant age"}
     }
 
-    with open(output_data + '/participants.json', 'w') as json_file:
+    with open(path_output + '/participants.json', 'w') as json_file:
         json.dump(data_json, json_file, indent=4)
 
     # Create dataset_description.json
@@ -107,14 +107,14 @@ def main(root_data, output_data):
                            "Name": "basel-mp2rage"
                            }
 
-    with open(output_data + '/dataset_description.json', 'w') as json_file:
+    with open(path_output + '/dataset_description.json', 'w') as json_file:
         json.dump(dataset_description, json_file, indent=4)
 
     # Create README
-    with open(output_data + '/README', 'w') as readme_file:
+    with open(path_output + '/README', 'w') as readme_file:
         readme_file.write('Dataset for basel-mp2rage.')
 
 
 if __name__ == "__main__":
     args = get_parameters()
-    main(args.data, args.outputdata)
+    main(args.path_input, args.path_output)
