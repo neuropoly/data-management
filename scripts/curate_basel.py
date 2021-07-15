@@ -58,7 +58,7 @@ def main(root_data, output_data):
                 if file.endswith('.nii.gz'):
                     originalFilePath = os.path.join(dirName, file)
                     jsonSidecarPath = os.path.join(dirName, file.split(".")[0] + '.json')
-                    if os.path.exists(jsonSidecarPath) is False:
+                    if not os.path.exists(jsonSidecarPath):
                         print("Missing: " + jsonSidecarPath)
                         if file.endswith('lesion-manual.nii.gz'):
                             data_json_label = {}
