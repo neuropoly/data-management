@@ -40,9 +40,6 @@ def create_json_sidecar(path_folder_sub_id_bids, item_out):
         json.dump(data_json, json_file, indent=4)
 
 
-def create_path_sub_id_dir_out(path_sub_id_dir_out):
-    if not os.path.isdir(path_sub_id_dir_out):
-        os.makedirs(path_sub_id_dir_out)
 
 
 def main(root_data, output_data):
