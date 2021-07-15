@@ -83,18 +83,19 @@ def main(root_data, output_data):
     with open(output_data + '/samples.tsv', 'w') as samples, \
             open(output_data + '/participants.tsv', 'w') as participants:
         tsv_writer_samples = csv.writer(samples, delimiter='\t', lineterminator='\n')
-        tsv_writer_samples.writerow(["participant_id"])
+        tsv_writer_samples.writerow(["sample_id", "participant_id", "sample_type"])
         tsv_writer_participants = csv.writer(participants, delimiter='\t', lineterminator='\n')
-        tsv_writer_participants.writerow(["participant_id", "sample_id", "sample_type"])
+        tsv_writer_participants.writerow(["participant_id", "species"])
         for subject in sub_list:
             row_sub = []
             row_sub.append(subject)
+            row_sub.append('mus musculus')
             tsv_writer_participants.writerow(row_sub)
             subject_samples = sorted(glob.glob(os.path.join(output_data, subject, 'microscopy', '*.png')))
             for file_sample in subject_samples:
                 row_sub_samples = []
+                row_sub_samples.append(os.path.basename(file_sample).split('_')[1])
                 row_sub_samples.append(subject)
-                row_sub_samples.append(file_sample.split('_')[1])
                 row_sub_samples.append('tissue')
                 tsv_writer_samples.writerow(row_sub_samples)
 
@@ -108,56 +109,56 @@ def main(root_data, output_data):
         json.dump(dataset_description, json_file, indent=4)
 
     # Create dataset_description.json for derivatives/labels
-    dataset_description_derivatives= {"Name": "data_axondeepseg_tem labels",
-                                      "BIDSVersion": "1.6.0 - BEP031 v0.0.4",
-                                      "PipelineDescription": {
-                                          "Name": "Axon and myelin manual segmentation labels"
-                                      }}
+    dataset_description_derivatives = {"Name": "data_axondeepseg_tem labels",
+                                       "BIDSVersion": "1.6.0 - BEP031 v0.0.4",
+                                       "PipelineDescription": {
+                                           "Name": "Axon and myelin manual segmentation labels"
+                                       }}
 
     with open(output_data + '/derivatives/labels/dataset_description.json', 'w') as json_file:
         json.dump(dataset_description_derivatives, json_file, indent=4)
 
     # Create participants.json
     data_json = {
-    "participant_id": {
-        "Description": "Unique participant ID"
-    },
-    "species": {
-        "Description": "Binomial species name from the NCBI Taxonomy (https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi)"
+        "participant_id": {
+            "Description": "Unique participant ID"
+        },
+        "species": {
+            "Description": "Binomial species name from the NCBI Taxonomy (https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi)"
+        }
     }
-}
 
     with open(output_data + '/participants.json', 'w') as json_file:
         json.dump(data_json, json_file, indent=4)
 
     # Create samples.json
     data_json = {
-    "sample_id": {
-        "Description": "Sample ID"
-    },
-    "participant_id": {
-        "Description": "Participant ID from whom tissue samples have been acquired"
-    },
-    "sample_type": {
-        "Description": "Type of sample from ENCODE Biosample Type (https://www.encodeproject.org/profiles/biosample_type)"
+        "sample_id": {
+            "Description": "Sample ID"
+        },
+        "participant_id": {
+            "Description": "Participant ID from whom tissue samples have been acquired"
+        },
+        "sample_type": {
+            "Description": "Type of sample from ENCODE Biosample Type (https://www.encodeproject.org/profiles/biosample_type)"
+        }
     }
-}
 
     with open(output_data + '/samples.json', 'w') as json_file:
         json.dump(data_json, json_file, indent=4)
 
-    # Create README
-    readme_text ="""- TEM dataset for AxonDeepSeg (https://axondeepseg.readthedocs.io/) \n
-- 158 brain (splenium) samples from 20 mice with axon and myelin manual segmentation labels. \n
-- 20160718_nyu_mouse_25_0002 was omitted because it contained incomplete data in the folder /duke/projects/axondeepseg/raw_data/data_TEM/3_done/ \n
-- Original source files are located in duke/histology/mouse/20160718_nyu_mouse \n
-- Our original paper (Zaimi et al. 2018), the FOV was reported to be 6x9 um^2. This is because 1) these original values were reported in the original data reference (below), and 2) our images here are slightly cropped at the bottom relative to the original data in order to remove the scale bar. \n
-- Our original paper (Zaimi et al. 2018) reported the resolution as being 0.002 micrometer, which was (for an unknown reason) rounded in the paper from the true value of 0.00236 micrometer, as reported in the original data reference (below). \n
-- Reference for the origin of the dataset: Jelescu, I. O. et al. In vivo quantification of demyelination and recovery using compartment-specific diffusion MRI metrics validated by electron microscopy. Neuroimage 132, 104–114 (2016). \n
-- BIDS version 1.6.0 - Microscopy BEP031 version 0.0.4 (2021-07-13T15:14:00) \n"""
-
-    with open(output_data + '/README', 'w') as readme_file:
-        print(readme_text, file=readme_file)
+        # Create README
+        with open(output_data + '/README', 'w') as readme_file:
+            print("""
+    - TEM dataset for AxonDeepSeg (https://axondeepseg.readthedocs.io/) 
+    - 158 brain (splenium) samples from 20 mice with axon and myelin manual segmentation labels. 
+    - 20160718_nyu_mouse_25_0002 was omitted because it contained incomplete data in the folder smb://duke.neuro.polymtl.ca/projects/axondeepseg/raw_data/data_TEM/3_done/ 
+    - Original source files are located in smb://duke.neuro.polymtl.ca/histology/mouse/20160718_nyu_mouse 
+    - Our original paper (Zaimi et al. 2018), the FOV was reported to be 6x9 um^2. This is because 1) these original values were reported in the original data reference (below), and 2) our images here are slightly cropped at the bottom relative to the original data in order to remove the scale bar. 
+    - Our original paper (Zaimi et al. 2018) reported the resolution as being 0.002 micrometer, which was (for an unknown reason) rounded in the paper from the true value of 0.00236 micrometer, as reported in the original data reference (below). 
+    - Reference for the origin of the dataset: Jelescu, I. O. et al. In vivo quantification of demyelination and recovery using compartment-specific diffusion MRI metrics validated by electron microscopy. Neuroimage 132, 104–114 (2016). 
+    - BIDS version 1.6.0 - Microscopy BEP031 version 0.0.4 (2021-07-13T15:14:00) 
+    """, file=readme_file)
 
 
 if __name__ == "__main__":
