@@ -87,7 +87,7 @@ def main(root_data, output_data):
         row_sub = []
         row_sub.append(subject)
         participants.append(row_sub)
-        list_samples = []
+        subject_samples = []
         for sample in os.listdir(os.path.join(output_data, subject, 'microscopy')):
             if sample.endswith('.png'):
                 list_samples.append(sample)
