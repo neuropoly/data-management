@@ -153,7 +153,7 @@ def main(root_data, output_data):
 - 158 brain (splenium) samples from 20 mice with axon and myelin manual segmentation labels. \n
 - 20160718_nyu_mouse_25_0002 was omitted because it contained incomplete data in the folder /duke/projects/axondeepseg/raw_data/data_TEM/3_done/ \n
 - Original source files are located in duke/histology/mouse/20160718_nyu_mouse \n
-- Our original paper (Aldo et al. 2018), the FOV was reported to be 6x9 um^2. This is because 1) these original values were reported in the original data reference (below), and 2) our images here are slightly cropped at the bottom relative to the original data in order to remove the scale bar. \n
+- Our original paper (Zaimi et al. 2018), the FOV was reported to be 6x9 um^2. This is because 1) these original values were reported in the original data reference (below), and 2) our images here are slightly cropped at the bottom relative to the original data in order to remove the scale bar. \n
 - Our original paper (Zaimi et al. 2018) reported the resolution as being 0.002 micrometer, which was (for an unknown reason) rounded in the paper from the true value of 0.00236 micrometer, as reported in the original data reference (below). \n
 - Reference for the origin of the dataset: Jelescu, I. O. et al. In vivo quantification of demyelination and recovery using compartment-specific diffusion MRI metrics validated by electron microscopy. Neuroimage 132, 104–114 (2016). \n
 - BIDS version 1.6.0 - Microscopy BEP031 version 0.0.4 (2021-07-13T15:14:00) \n"""
