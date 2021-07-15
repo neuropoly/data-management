@@ -45,7 +45,7 @@ def create_json_sidecar(path_folder_sub_id_bids, item_out):
 def main(root_data, output_data):
 
     # Remove macOS .DS_Store
-    os.system("find " + root_data + " -name '.DS_Store' -type f -delete")
+    subprocess.run(["find", root_data, "-name", ".DS_Store", "-type", "f", "-delete"], check=True)
 
     # Remove output_data if exists to start clean
     if os.path.isdir(output_data):
