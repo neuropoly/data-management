@@ -154,7 +154,7 @@ def main(root_data, output_data):
 
     # Create README
     with open(output_data + '/README', 'w') as readme_file:
-        readme_file.write('Dataset for data_axondeepseg_tem.')
+        print('Dataset for data_axondeepseg_tem.', file=readme_file)
 
 
 if __name__ == "__main__":
