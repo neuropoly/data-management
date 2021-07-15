@@ -75,7 +75,7 @@ def main(root_data, output_data):
             if file in der:
                 path_sub_id_dir_out = os.path.join(output_data, 'derivatives', 'labels', sub_id, 'microscopy')
                 path_file_out = os.path.join(path_sub_id_dir_out, sub_bids_full + der[file])
-                create_path_sub_id_dir_out(path_sub_id_dir_out)
+                os.makedirs(path_sub_id_dir_out, exist_ok=True)
             shutil.copy(path_file_in, path_file_out)
 
     sub_list = os.listdir(output_data)
