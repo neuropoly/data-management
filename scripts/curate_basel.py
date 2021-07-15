@@ -57,7 +57,7 @@ def main(root_data, output_data):
             for file in fileList:
                 if file.endswith('.nii.gz'):
                     originalFilePath = os.path.join(dirName, file)
-                    jsonSidecarPath = os.path.join(dirName, file.split(".")[0] + '.json')
+                    jsonSidecarPath = os.path.join(dirName, os.path.splitext(file)[0] + '.json')
                     if not os.path.exists(jsonSidecarPath):
                         print("Missing: " + jsonSidecarPath)
                         if file.endswith('lesion-manual.nii.gz'):
