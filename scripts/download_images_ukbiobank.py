@@ -1,6 +1,15 @@
 # Info on ukbiobank download data: https://docs.google.com/document/d/1fqAxMm46GhxeW3O6ELlkl7CXztbQawJFoXHWFkQuet8/edit?usp=sharing
 # https://biobank.ctsu.ox.ac.uk/~bbdatan/Accessing_UKB_data_v2.3.pdf
 
+
+
+# module avail python
+# module load python/3.9.6
+# virtualenv --no-download ENV
+# pip install --no-index --upgrade pip
+# pip install pandas
+# chmod +x ukbfetch
+
 import os
 import pandas as pd
 import shutil
@@ -13,12 +22,12 @@ def check_authkey(output_subject_folder,path_key,new_authkey_path):
         flag_authkey = True
     return flag_authkey
 
-PATH_DUKE = '/Volumes/'
+PATH_DUKE = '/home/alfoi/'
 
-path_scripts = PATH_DUKE + 'projects/ukbiobank/scripts/ukbfetch'
-path_main_csv_data = PATH_DUKE+ 'mri/ukbiobank/selected_subjects.csv'
-path_key = PATH_DUKE + 'projects/ukbiobank/main_dataset_40796/unsplit_data/k54531r40796.key'
-path_output_folder = PATH_DUKE + 'mri/uk_biobank'
+path_scripts = PATH_DUKE + 'code/ukbfetch'
+path_main_csv_data = PATH_DUKE+ 'code/selected_subjects.csv'
+path_key = PATH_DUKE + 'code/k54531r40796.key'
+path_output_folder = PATH_DUKE + 'projects/def-jcohen/ukbiobank'
 
 # Generate list of subjects that have T1, T2 and dwi images
 
