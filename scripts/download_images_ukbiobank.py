@@ -30,9 +30,9 @@ def check_authkey(output_subject_folder,path_key,new_authkey_path):
 
 PATH_DUKE = expanduser("~")
 
-path_scripts = PATH_DUKE + '/code/ukbfetch'
-path_main_csv_data = PATH_DUKE+ '/code/selected_subjects.csv'
-path_key = PATH_DUKE + '/code/k54531r40796.key'
+path_scripts = PATH_DUKE + '/projects/def-jcohen/ukbiobank/data-in/ukbfetch'
+path_main_csv_data = PATH_DUKE+ '/projects/def-jcohen/ukbiobank/data-in/selected_subjects.csv'
+path_key = PATH_DUKE + '/projects/def-jcohen/ukbiobank/data-in/k54531r40796.key'
 path_output_folder = PATH_DUKE + '/projects/def-jcohen/ukbiobank'
 
 # Generate list of subjects that have T1, T2 and dwi images
