@@ -6,6 +6,8 @@
 # 
 #
 
+HERE=$(cd $(dirname $0); pwd)
+
 set() {
     # 'cast' the input stream to a set
     sort "$@" | uniq
@@ -19,14 +21,14 @@ complement() {
 partition() {
 server="$1"
 if [ "$server" = "duke" ]; then
-  cut -f 2 -d ',' <(tail -n +2 duke_downloaded_subjects.csv) # static list of pre-downloaded subjects
+  cut -f 2 -d ',' <(tail -n +2 $HERE/duke_downloaded_subjects.csv) # static list of pre-downloaded subjects
 else
 awk -v server="$server" '
 server == "cedar" && NR%4 == 0
 server == "graham" && NR%4 == 1
 server == "beluga" && NR%4 == 2
 server == "beluga" && NR%4 == 3
-' <(complement <(cut -f 1 -d ',' <(tail -n +2 selected_subjects.csv)) <(partition "duke"))
+' <(complement <(cut -f 1 -d ',' <(tail -n +2 $HERE/selected_subjects.csv)) <(partition "duke"))
 fi
 }
 
