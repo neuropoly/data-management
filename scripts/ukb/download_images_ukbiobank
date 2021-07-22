@@ -23,7 +23,7 @@ Installation and usage:
 
     ```
     git clone https://github.com/neuropoly/data-management && (cd data-management && git checkout af/download_ukbiobank)
-    export PATH=$(realpath data-management/scripts):$PATH
+    export PATH=$(realpath data-management/scripts/ukb):$PATH
     ```
 
 3. (if running on computecanada.ca) enable the right version of python
@@ -38,7 +38,9 @@ Installation and usage:
   a. Place it into the current directory as 'k54531r40796.key', or
   b. if elsewhere, it may be more convenient to `export UBK_KEY=$(realpath path/to/auth.key)`
 
-3. download_images_ukbiobank subjectid [subjectid subjectid ...]
+3. `cd` to the place you want to download to.
+
+4. download_images_ukbiobank subjectid [subjectid subjectid ...]
 """
 
 import sys
@@ -58,7 +60,7 @@ def download(subject, key, authkey=AUTHKEY):
 
     if '/' in subject: raise ValueError("subject must be a single folder name")
     subject = os.path.relpath(os.path.join('/', subject), '/') # prevent directory traversals
-    zips = f'subject/{subject}/zip'
+    zips = f'{subject}/zip'
 
     os.makedirs(zips, exist_ok=True)
 
