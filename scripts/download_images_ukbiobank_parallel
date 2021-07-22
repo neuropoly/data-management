@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# 1. Install gnu parallel
+# 2. Install this repo as described in the comment in download_images_ukbiobank
+# 3. Get a file (or script) that has a list of subjects, one ID per line
+# 3. cat $subjects | ./download_images_ukbiobank_parallel [jobs]
+#    jobs is the number of jobs to run in parallel
+
+JOBS=${1:-25}; shift
+
+PIPE=$(mktemp -d)/pipe # this is lets us both stream and count the data at the same time
+                       # which lets us tune the batch size -n to ensure we only ever need to boot one of each worker
+cat - | tee "$PIPE" | parallel --ungroup -j "$JOBS" -n $(($(wc -l < "$PIPE")/"$JOBS" + 1)) ./download_images_ukbiobank
+rm $PIPE
+rmdir $(dirname $PIPE)
