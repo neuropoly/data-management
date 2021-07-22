@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Info on ukbiobank download data: https://docs.google.com/document/d/1fqAxMm46GhxeW3O6ELlkl7CXztbQawJFoXHWFkQuet8/edit?usp=sharing
 # https://biobank.ctsu.ox.ac.uk/~bbdatan/Accessing_UKB_data_v2.3.pdf
 
