@@ -9,5 +9,5 @@
 JOBS=${1:-25}
 
 PIPE=$(mktemp) # this lets us count the data which lets us tune the batch size -n to ensure we only ever need to boot one of each worker
-cat - > $PIPE && cat $PIPE | parallel --ungroup -j "$JOBS" -n $(($(wc -l < "$PIPE")/$JOBS + 1)) ./download_images_ukbiobank
+cat - > $PIPE && cat $PIPE | parallel --ungroup -j "$JOBS" -n $(($(wc -l < "$PIPE")/$JOBS + 1)) download_images_ukbiobank
 rm $PIPE
