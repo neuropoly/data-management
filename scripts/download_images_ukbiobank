@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+"""
+Download the slice of data on subjects from the UK Biobank bioinformatics data archive
+that interest the Neuropoly lab.
+
+Reference:
+
+* https://biobank.ctsu.ox.ac.uk/~bbdatan/Accessing_UKB_data_v2.3.pdf
+* https://docs.google.com/document/d/1fqAxMm46GhxeW3O6ELlkl7CXztbQawJFoXHWFkQuet8/edit?usp=sharing
+
+Installation and usage:
+
+1. Install ukbfetch
+
+    ```
+    mkdir -p ~/.local/bin && ( cd ~/.local/bin && wget -nd https://biobank.ctsu.ox.ac.uk/ukb/util/ukbfetch && chmod +x ukbfetch )
+    export PATH=~/.local/bin:$PATH
+    ```
+
+    You can install to a different path, just ensure that it is on PATH.
+
+2. Install this script by
+
+    ```
+    git clone https://github.com/neuropoly/data-management && (cd data-management && git checkout af/download_ukbiobank)
+    export PATH=$(realpath data-management/scripts):$PATH
+    ```
+
+3. (if running on computecanada.ca) enable the right version of python
+
+    ```
+    module avail python
+    module load python/3.9.6
+    ```
+
+2. Get the the UKB authkey file as described in Accessing_UKB_data_v2.3.pdf.
+
+  a. Place it into the current directory as 'k54531r40796.key', or
+  b. if elsewhere, it may be more convenient to `export UBK_KEY=$(realpath path/to/auth.key)`
+
+3. download_images_ukbiobank subjectid [subjectid subjectid ...]
+"""
+
+import sys
+import os.path
+from subprocess import run
+
+AUTHKEY = os.environ.get('UKB_KEY', 'k54531r40796.key')
+
+
+def download(subject, key, authkey=AUTHKEY):
+    """
+    Download dataset
+    subject: a subject ID, like 100032
+    key: a data key, e.g. 20253_2_0 for the first item from the 2nd instance of the subject's T2 FLAIR structural brain images; see the appendix in Accessing_UKB_data_v2.3.pdf for all the codes.
+    authkey: the path to the UK Biobank authkey; the credential to enable downloading.
+    """
+
+    if '/' in subject: raise ValueError("subject must be a single folder name")
+    subject = os.path.relpath(os.path.join('/', subject), '/') # prevent directory traversals
+    zips = f'subject/{subject}/zip'
+
+    os.makedirs(zips, exist_ok=True)
+
+    _orig = os.getcwd()
+    os.chdir(zips) # ukbfetch *only* supports downloading to the current directory
+    authkey = os.path.relpath(authkey, zips) # because we chdir() we need to make sure ukbfetch can find the key
+    try:
+        if os.path.exists(f'{subject}_{key}.zip'): return
+        run(['ukbfetch', f'-a{authkey}', '-o/dev/null', f'-e{subject}', f'-d{key}'], check=True)
+    finally:
+        os.chdir(_orig)
+
+
+def main():
+    """
+    Loop across subjects and check what has been downloaded on duke/mri
+    If the subject/images are not there it will download the images
+    """
+    for subject in sys.argv[1:]:
+        print('Checking subject: '+str(subject))
+
+        print('Download T1w:')
+        download(subject, '20252_2_0')
+        print("done T1w")
+
+        print('Download T2w:')
+        download(subject, '20253_2_0')
+        print("done T2w")
+
+        print('Download dwi:')
+        download(subject, '20218_2_0')
+        print("Done dwi")
+
+        print('#####################################')
+
+
+if __name__ == '__main__':
+    main()
