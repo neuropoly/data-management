@@ -6,10 +6,8 @@
 # 3. cat $subjects | ./download_images_ukbiobank_parallel [jobs]
 #    jobs is the number of jobs to run in parallel
 
-JOBS=${1:-25}; shift
+JOBS=${1:-25}
 
-PIPE=$(mktemp -d)/pipe # this is lets us both stream and count the data at the same time
-                       # which lets us tune the batch size -n to ensure we only ever need to boot one of each worker
-cat - | tee "$PIPE" | parallel --ungroup -j "$JOBS" -n $(($(wc -l < "$PIPE")/"$JOBS" + 1)) ./download_images_ukbiobank
+PIPE=$(mktemp) # this lets us count the data which lets us tune the batch size -n to ensure we only ever need to boot one of each worker
+cat - > $PIPE && cat $PIPE | parallel --ungroup -j "$JOBS" -n $(($(wc -l < "$PIPE")/"$JOBS" + 1)) ./download_images_ukbiobank
 rm $PIPE
-rmdir $(dirname $PIPE)
