@@ -13,7 +13,7 @@ It has about a thousand variants and options. This covers only the parts we use.
 
 ## Installation
 
-### Requirements
+### Requirements 
 
 You must have a unix OS. `git-annex` is simply not compatible with anything else.
 
