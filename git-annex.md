@@ -58,7 +58,7 @@ upgrade supported from repository versions: 0 1 2 3 4 5 6 7
 For smooth operation, everyone should do on all of their machines:
 
 ```
-git config --global core.autocrlf true
+git config --global core.autocrlf true  # This ignores the '^M' added at the end of TSV files (eg: when doing an export from Apple Numbers to UTF-8 TSV format)
 git config --global push.default current
 ```
 
