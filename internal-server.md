@@ -117,7 +117,6 @@ $ ssh git@data.neuro.polymtl.ca info
 hello zamboni, this is git@data running gitolite3 3.6.11-2 (Debian) on git 2.27.0
  R W C  CREATOR/..*
  R W C  datasets/..*
- R W    datasets/data-single-subject
  R W    datasets/sct-testing-large
  R W    datasets/uk-biobank
 ```
@@ -129,8 +128,8 @@ You are identified to the server by your ssh keys, butNotice that this tells you
 To download an existing repository use `git clone`:
 
 ```
-$ git clone git@data.neuro.polymtl.ca:datasets/data-single-subject
-$ cd data-single-subject
+$ git clone git@data.neuro.polymtl.ca:datasets/sct-testing-large
+$ cd sct-testing-large
 $ git annex get .
 ```
 
