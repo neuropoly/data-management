@@ -159,7 +159,7 @@ hello zamboni, this is git@data running gitolite3 3.6.11-2 (Debian) on git 2.27.
 Once you have access you can:
 
 ```
-$ git annex copy --to origin
+$ git annex copy --to=origin
 $ git push
 ```
 
