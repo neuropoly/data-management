@@ -239,6 +239,15 @@ git push origin :xy/branchname
 git push origin :synced/xy/branchname
 ```
 
+### Updating
+
+To sync up with the latest dataset after a pull request is merged,
+
+```
+git checkout master       
+git pull                  # update metadata files
+git annex get .           # update image files
+```
 
 ### New repository
 
