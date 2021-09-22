@@ -58,7 +58,6 @@ upgrade supported from repository versions: 0 1 2 3 4 5 6 7
 For smooth operation, everyone should do on all of their machines:
 
 ```
-git config --global core.autocrlf true
 git config --global push.default current
 ```
 
@@ -72,35 +71,47 @@ See [below](#hardlinks) to understand what this setting offers.
 
 ## New repo
 
-For our purposes, we need to make sure repos are configured with
+Use this recipe to make new datasets:
 
 ```
-# .gitattributes
+mkdir my-new-repo
+cd my-new-repo
+
+git init
+vi README # write something useful in this
+git add README && git commit -m "Initial commit"
+
+cat <<EOF > .gitignore
+.DS_Store
+EOF
+
+cat <<EOF > .gitattributes
+# Normalize line-endings to \n
+*             text=auto
+
+# Configure filetypes stored by git-annex.
+# by default git-annex sets * filter=annex, but that is very slow:
+# it copies even non-annexed files through git-annex even though it will decide not to handle them.
+# this overrides that behaviour so that only annexed files must be processed.
 *             annex.largefiles=anything
 *.nii.gz      filter=annex
 *.nii         filter=annex
 *.tif         filter=annex
+EOF
+
+git add .gitignore .gitattributes && git commit -m "Configure git-annex"
+
+git annex init
+git annex dead here # make sure *this* copy isn't shared to others; the repo should be shared via the server
+
+# Here, copy in or create initial files, wherever they are from:
+# rsync, wget, curl, tar, dropbox, etc <...>
+
+git add .
+git commit -m "Initial data"
 ```
 
-Please use this recipe to make new datasets:
-
-```
-$ mkdir my-new-repo
-$ cd my-new-repo
-$ git init
-$ vi README # write something useful in this
-$ git add README; git commit -m "Initial commit"
-$ (echo ".DS_Store") > .gitignore
-$ (echo "*   annex.largefiles=anything"; echo "*.nii.gz   filter=annex"; echo "*.nii   filter=annex"; echo "*.tif   filter=annex") > .gitattributes
-$ git add .gitignore .gitattributes; git commit -m "Configure git-annex"
-$ git annex init
-$ git annex dead here # make sure *this* copy isn't shared to others; the repo should be shared via the server
-$ # copy in or create initial files
-$ git add .
-$ git commit -m "Initial data"
-```
-
-This ensures we don't commit useless files (`.gitignore`), and saves a lot of time by only processing NIfTI images (`.gitattributes`) -- by default, git-annex reads all files even if it doesn't ultimately decide to annex them.
+If you are working on a private, internal dataset, continue by [uploading to `data.neuro.polymtl.ca`](./internal-server.md#new-repository).
 
 ## Troubleshooting
 

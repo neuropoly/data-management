@@ -118,7 +118,6 @@ $ ssh git@data.neuro.polymtl.ca info
 hello zamboni, this is git@data running gitolite3 3.6.11-2 (Debian) on git 2.27.0
  R W C  CREATOR/..*
  R W C  datasets/..*
- R W    datasets/data-single-subject
  R W    datasets/sct-testing-large
  R W    datasets/uk-biobank
 ```
@@ -130,10 +129,15 @@ You are identified to the server by your ssh keys, butNotice that this tells you
 To download an existing repository use `git clone`:
 
 ```
-$ git clone git@data.neuro.polymtl.ca:datasets/data-single-subject
-$ cd data-single-subject
-$ git annex init
-$ git annex sync --content
+$ git clone git@data.neuro.polymtl.ca:datasets/sct-testing-large # download folders and metadata
+$ cd sct-testing-large
+$ git annex get .                                                # download images
+```
+
+If you just want to explore, you can opt for a portion of the image files by specifying paths instead of the last step, for example:
+
+```
+$ git annex get sub-karo*                                        # download images under any of sub-karo*/*
 ```
 
 ### Upload
@@ -161,7 +165,8 @@ hello zamboni, this is git@data running gitolite3 3.6.11-2 (Debian) on git 2.27.
 Once you have access you can:
 
 ```
-$ git annex sync --content
+$ git annex copy --to=origin
+$ git push
 ```
 
 Finally, ask one of that dataset's reviewers to [look at your pull request](#Reviewing-Pull-Requests).
@@ -173,7 +178,7 @@ If someone asks you to review their changes on branch `xy/branchname`:
 
 ```
 git checkout xy/branchname
-git annex sync --content
+git annex get .
 ```
 
 Then look at the branch to see if it looks right to you.
@@ -243,7 +248,9 @@ Then, to upload it, pick a name under `datasets/`, e.g. "my-new-repo", and do
 
 ```
 $ git remote add origin git@data.neuro.polymtl.ca:datasets/my-new-repo
-$ git annex sync --content origin
+$ git push origin                           # initialize remote and upload metadata
+$ git annex sync --cleanup -a --no-content  # initialize remote annex
+$ git annex copy --to origin                # upload images to remote annex
 $ # verify your .nii.gz files were annexed and uploaded
 $ git annex whereis
 ```
