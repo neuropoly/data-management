@@ -265,7 +265,7 @@ $ git push origin
 
 ### Releases
 
-To make a release, use a [annotated git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging#_annotated_tags). Use tag name as the name of the release, and the annotation for the release notes. Our naming convention for datasets is "rYYYYMMDD".
+To make a release, use an [annotated git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging#_annotated_tags). Use tag name as the name of the release, and the annotation for the release notes. Our naming convention for datasets is "rYYYYMMDD".
 
 For example, if today is September 8th, 2019, then to create a release do:
 
