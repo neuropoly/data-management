@@ -44,10 +44,6 @@ def create_json_sidecar(path_folder_sub_id_bids, item_out):
 
 
 def main(root_data, output_data):
-    # Remove output_data if exists to start clean
-    if os.path.isdir(output_data):
-        shutil.rmtree(output_data)
-    os.makedirs(output_data, exist_ok=True)
 
     contents_ds = [subdir for subdir in os.listdir(root_data) if os.path.isdir(os.path.join(root_data, subdir))]
     contents_ds.sort()
@@ -75,9 +71,7 @@ def main(root_data, output_data):
                 continue
             shutil.copy(path_file_in, path_file_out)
 
-    sub_list = os.listdir(output_data)
-    sub_list.remove('derivatives')
-    sub_list.sort()
+    sub_list = sorted(d for d in os.listdir(output_data) if d.startswith("sub-"))
 
     # Create participants.tsv and samples.tsv
     with open(output_data + '/samples.tsv', 'w') as samples, \
