@@ -1,3 +1,7 @@
+"""
+This script is meant to curate smb://duke.neuro.polymtl.ca/projects/axondeepseg/20210708_default_datasets_mask_curation/TEM_dataset/ into BIDS format.
+"""
+
 import glob
 import os
 import shutil
