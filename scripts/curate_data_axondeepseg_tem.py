@@ -30,7 +30,11 @@ def get_parameters():
     return arguments
 
 
-def create_json_sidecar(path_folder_sub_id_bids, item_out):
+def create_json_sidecar(output_data, sub_id):
+
+    path_folder_sub_id_bids = os.path.join(output_data, sub_id, 'microscopy')
+    item_out = sub_id + "_TEM.json"
+
     data_json = {"PixelSize": [0.00236, 0.00236],
                  "FieldOfView": [8.88, 5.39],
                  "BodyPart": "BRAIN",
@@ -38,7 +42,6 @@ def create_json_sidecar(path_folder_sub_id_bids, item_out):
                  "SampleFixation": "2% paraformaldehyde, 2.5% glutaraldehyde",
                  "Environment": "exvivo"
                  }
-    item_out = item_out.replace('_TEM.png', '_TEM.json')
     with open(os.path.join(path_folder_sub_id_bids, item_out), 'w') as json_file:
         json.dump(data_json, json_file, indent=4)
 
@@ -58,20 +61,25 @@ def main(root_data, output_data):
         for file in contents_subdir:
             path_file_in = os.path.join(path_subdir, file)
             if file in images:
+                # most files go into the subject's data folder
                 path_sub_id_dir_out = os.path.join(output_data, sub_id, 'microscopy')
                 path_file_out = os.path.join(path_sub_id_dir_out, sub_bids_full + images[file])
-                os.makedirs(path_sub_id_dir_out, exist_ok=True)
-                create_json_sidecar(path_sub_id_dir_out, sub_id + '_TEM.png')
             elif file in der:
+                # derivatives go somewhere else
                 path_sub_id_dir_out = os.path.join(output_data, 'derivatives', 'labels', sub_id, 'microscopy')
                 path_file_out = os.path.join(path_sub_id_dir_out, sub_bids_full + der[file])
-                os.makedirs(path_sub_id_dir_out, exist_ok=True)
             else:
                 # not a file we recognize
                 continue
+
+            os.makedirs(os.path.dirname(path_file_out), exist_ok=True)
             shutil.copyfile(path_file_in, path_file_out)
 
     sub_list = sorted(d for d in os.listdir(output_data) if d.startswith("sub-"))
+
+    # now that everything is curated, fill in the metadata
+    for sub_id in sub_list:
+        create_json_sidecar(output_data, sub_id)
 
     # Create participants.tsv and samples.tsv
     with open(output_data + '/samples.tsv', 'w') as samples, \
