@@ -69,7 +69,7 @@ def main(root_data, output_data):
             else:
                 # not a file we recognize
                 continue
-            shutil.copy(path_file_in, path_file_out)
+            shutil.copyfile(path_file_in, path_file_out)
 
     sub_list = sorted(d for d in os.listdir(output_data) if d.startswith("sub-"))
 
