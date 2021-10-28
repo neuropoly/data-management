@@ -113,6 +113,8 @@ git commit -m "Initial data"
 
 If you are working on a private, internal dataset, continue by [uploading to `data.neuro.polymtl.ca`](./internal-server.md#new-repository).
 
+Here is a [README](./template_git_repo_README.md) example.
+
 ## Troubleshooting
 
 ### version problems
