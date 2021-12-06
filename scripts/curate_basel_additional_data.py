@@ -1,3 +1,4 @@
+#Raw data on duke/mri/basel/20210922_Katrin.zip
 import os
 import shutil
 import json
