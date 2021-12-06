@@ -21,8 +21,7 @@ def main(path_input, path_output):
     if os.path.isdir(path_output):
         shutil.rmtree(path_output)
     os.makedirs(path_output, exist_ok=True)
-    input_files = os.listdir(path_input)
-    input_files.sort()
+    input_files = sorted(os.listdir(path_input))
     for file in input_files:
         sub_no = file.split('.')[0].split('_')[2]
         path_file_in = os.path.join(path_input,file)
