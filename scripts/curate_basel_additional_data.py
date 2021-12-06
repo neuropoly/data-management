@@ -29,8 +29,7 @@ def main(path_input, path_output):
         path_subid_bids_dir_out = os.path.join(path_output, 'derivatives', 'labels', subid_bids, 'anat')
         path_file_out = os.path.join(path_output,'derivatives')
         path_file_out = os.path.join(path_subid_bids_dir_out, subid_bids + '_UNIT1_lesion-manual2.nii.gz')
-        if not os.path.isdir(path_subid_bids_dir_out):
-            os.makedirs(path_subid_bids_dir_out)
+        os.makedirs(path_subid_bids_dir_out, exist_ok=True)
 
         shutil.copy(path_file_in,path_file_out)
 
