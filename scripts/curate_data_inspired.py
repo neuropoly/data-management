@@ -160,6 +160,12 @@ def get_parameters():
 
 
 def main(path_input, path_output):
+    # Make sure that input args are absolute paths
+    if os.path.isdir(path_input):
+        path_input = os.path.abspath(path_input)
+    if os.path.isdir(path_output):
+        path_output = os.path.abspath(path_output)
+
     # Check if input path is valid
     if not os.path.isdir(path_input):
         print(f'ERROR - {path_input} does not exist.')
