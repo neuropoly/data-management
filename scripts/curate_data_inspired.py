@@ -231,12 +231,20 @@ def main(path_input, path_output):
                             for mpm_file in glob.glob(os.path.join(mpm_raw_folder_path, '*.nii*')):
                                 # Get SeriesDescription, FlipAngle, and EchoTime for each MPM file
                                 # Note: re.sub has to be used instead of .replace to match both '.nii' and '.nii.gz'
-                                series_description, flip_angle, echo_time = read_json_file(re.sub('.nii(.gz)*', '.json', mpm_file))
-                                # Collect SeriesDescription, FlipAngle, and EchoTime across all MPM files
-                                mpm_files_dict[series_description, flip_angle, echo_time] = mpm_file
+                                json_file = re.sub('.nii(.gz)*', '.json', mpm_file)
+                                # Make sure json sidecar exist
+                                if os.path.isfile(json_file):
+                                    series_description, flip_angle, echo_time = read_json_file(json_file)
+                                    # Collect SeriesDescription, FlipAngle, and EchoTime across all MPM files
+                                    mpm_files_dict[series_description, flip_angle, echo_time] = mpm_file
 
                             # Construct BIDS compliant filename for MPM images
-                            construct_mpm_bids_filename(mpm_files_dict, path_output, subject_out)
+                            if bool(mpm_files_dict):
+                                construct_mpm_bids_filename(mpm_files_dict, path_output, subject_out)
+                            # In some cases, there are no json sidecars for MPM images, thus mpm_files_dict is empty
+                            else:
+                                print(f'WARNING: There are no json sidecars in {mpm_raw_folder_path}. '
+                                      f'Skipping this subject.')
 
 
 if __name__ == "__main__":
