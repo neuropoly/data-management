@@ -121,11 +121,11 @@ def construct_mpm_bids_filename(mpm_files_dict, path_output, subject_out):
     for echo_idx, echo_time in enumerate(unique_EchoTime, start=1):
         for flip_idx, flip_angle in enumerate(unique_FlipAngle, start=1):
             for series_description in unique_SeriesDescription:
-                if '_mt_' in series_description:
+                if '_mt_' in series_description or '_MT_' in series_description:
                     BIDS_label = 'acq-MTw' + '_echo-' + str(echo_idx) + '_flip-' + str(flip_idx) + '_mt-on_MPM'
-                elif '_pd_' in series_description:
+                elif '_pd_' in series_description or '_PD_' in series_description:
                     BIDS_label = 'acq-PDw' + '_echo-' + str(echo_idx) + '_flip-' + str(flip_idx) + '_mt-off_MPM'
-                elif '_t1_' in series_description:
+                elif '_t1_' in series_description or '_T1_' in series_description:
                     BIDS_label = 'acq-T1w' + '_echo-' + str(echo_idx) + '_flip-' + str(flip_idx) + '_mt-off_MPM'
                 # Find original MPM filename
                 if (series_description, flip_angle, echo_time) in mpm_files_dict.keys():
