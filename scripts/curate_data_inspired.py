@@ -15,6 +15,7 @@
 import os
 import re
 import sys
+import csv
 import shutil
 import json
 import glob
@@ -154,6 +155,22 @@ def construct_mpm_bids_filename(mpm_files_dict, path_output, subject_out):
         copy_file(re.sub('.nii(.gz)*', '.json', path_file_in), path_dir_out, file_out.replace('.nii.gz', '.json'))
 
 
+def write_participants_tsv(participants_tsv_list, path_output):
+    """
+    Write participants.tsv file
+    :param participants_tsv_list: list containing [subject_out, pathology_out, subject_in, centre_in, centre_out],
+    example:[sub-torontoDCM001, DCM, 001, 01, toronto]
+    :param path_output: path to the output BIDS folder
+    :return:
+    """
+    with open(os.path.join(path_output + '/participants.tsv'), 'w') as tsv_file:
+        tsv_writer = csv.writer(tsv_file, delimiter='\t', lineterminator='\n')
+        tsv_writer.writerow(['participant_id', 'pathology', 'data_id', 'institution_id', 'institution'])
+        for item in participants_tsv_list:
+            tsv_writer.writerow(item)
+        logger.info(f'participants.tsv created in {path_output}')
+
+
 def get_parameters():
     parser = argparse.ArgumentParser(description='Convert dataset to BIDS format.')
     parser.add_argument("-i", "--path-input",
@@ -193,6 +210,9 @@ def main(path_input, path_output):
 
     # Print current time and date to log file
     logger.info('\nAnalysis started at {}'.format(datetime.datetime.now()))
+
+    # Initialize list for participants.tsv
+    participants_tsv_list = list()
 
     # Loop across centers (01, 02)
     for centre_in, centre_out in centres_conv_dict.items():
@@ -265,6 +285,10 @@ def main(path_input, path_output):
                             else:
                                 logger.warning(f'WARNING: There are no json sidecars in {mpm_raw_folder_path}. '
                                                f'Skipping this subject.')
+
+                participants_tsv_list.append([subject_out, pathology_out, subject_in.split(sep='/')[-1], centre_in, centre_out])
+
+    write_participants_tsv(participants_tsv_list, path_output)
 
 
 if __name__ == "__main__":
