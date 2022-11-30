@@ -19,6 +19,14 @@ import shutil
 import json
 import glob
 import argparse
+import logging
+import datetime
+
+# Initialize logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)  # default: logging.DEBUG, logging.INFO
+hdlr = logging.StreamHandler(sys.stdout)
+logging.root.addHandler(hdlr)
 
 prefix = 'sub-'
 
@@ -73,7 +81,7 @@ def copy_file(path_file_in, path_dir_out, file_out):
             os.makedirs(path_dir_out, exist_ok=True)
         # Construct path to the output file
         path_file_out = os.path.join(path_dir_out, file_out)
-        print(f'Copying {path_file_in} to {path_file_out}')
+        logger.info(f'Copying {path_file_in} to {path_file_out}')
         shutil.copyfile(path_file_in, path_file_out)
         # Create a dummy json sidecar for all files except of MPM (for MPM we copy original .json sidecars)
         if 'MPM' not in file_out:
@@ -175,6 +183,17 @@ def main(path_input, path_output):
         shutil.rmtree(path_output)
     os.makedirs(path_output, exist_ok=True)
 
+    FNAME_LOG = os.path.join(path_output, 'bids_conversion.log')
+    # Dump log file there
+    if os.path.exists(FNAME_LOG):
+        os.remove(FNAME_LOG)
+    fh = logging.FileHandler(os.path.join(os.path.abspath(os.curdir), FNAME_LOG))
+    logging.root.addHandler(fh)
+    print("INFO: log file will be saved to {}".format(FNAME_LOG))
+
+    # Print current time and date to log file
+    logger.info('\nAnalysis started at {}'.format(datetime.datetime.now()))
+
     # Loop across centers (01, 02)
     for centre_in, centre_out in centres_conv_dict.items():
         # Loop across pathologies (hc, csm, sci)
@@ -184,6 +203,7 @@ def main(path_input, path_output):
                                                    start=1):
                 # If the input subject folder is .tar.gz, extract it
                 if subject_in.endswith('.tar.gz'):
+                    logger.info(f'Unpacking tar archive for {subject_in}...')
                     os.system("tar -xf " + subject_in + " --directory " + os.path.join(path_input, centre_in, pathology_in))
                     # TODO - consider what to do with extracted folders once the BIDS conversion is done.
                     #  Delete them and keep only original .tar.gz files?
@@ -243,8 +263,8 @@ def main(path_input, path_output):
                                 construct_mpm_bids_filename(mpm_files_dict, path_output, subject_out)
                             # In some cases, there are no json sidecars for MPM images, thus mpm_files_dict is empty
                             else:
-                                print(f'WARNING: There are no json sidecars in {mpm_raw_folder_path}. '
-                                      f'Skipping this subject.')
+                                logger.warning(f'WARNING: There are no json sidecars in {mpm_raw_folder_path}. '
+                                               f'Skipping this subject.')
 
 
 if __name__ == "__main__":
