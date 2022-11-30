@@ -117,7 +117,7 @@ def construct_mpm_bids_filename(mpm_files_dict, path_output, subject_out):
     Construct BIDS compliant filename for MPM images, e.g. 'acq-T1w_echo-1_flip-1_mt-off_MPM'
     Then, call function to copy the input non-BIDS MPM file to BIDS compliant MPM file
     :param mpm_files_dict: dict with SeriesDescription, FlipAngle, and EchoTime across all MPM files
-    :param path_output: path to output BIDS folder
+    :param path_output: path to the output BIDS folder
     :param subject_out: output BIDS subjectID containing centre name and pathology, e.g., 'sub-torontoDCM001'
     :return:
     """
@@ -234,6 +234,7 @@ def main(path_input, path_output):
                     # Construct output subjectID containing centre name and pathology, e.g., 'sub-torontoDCM001'
                     subject_out = prefix + centre_out + pathology_out + f"{sub_index:03d}"
                     if region == 'cord':
+                        # Process spinal cord anatomical and DWI data
                         # Loop across files
                         for image_in, image_out in images_spine_conv_dict.items():
                             # Construct path to the input file
@@ -249,6 +250,7 @@ def main(path_input, path_output):
                             # Copy file and create a dummy json sidecar if does not exist
                             copy_file(path_file_in, path_dir_out, file_out)
                     elif region == 'brain':
+                        # Process DWI brain files
                         # Loop across files
                         for image_in, image_out in images_brain_conv_dict.items():
                             # Construct path to the input file
@@ -262,7 +264,7 @@ def main(path_input, path_output):
                             # Copy file and create a dummy json sidecar if does not exist
                             copy_file(path_file_in, path_dir_out, file_out)
 
-                        # Process raw MPM images
+                        # Process raw MPM images (located in brain/mpm_raw folder)
                         mpm_raw_folder_path = os.path.join(path_input, centre_in, pathology_in, subject_in, 'bl',
                                                            region, 'mpm_raw')
                         if os.path.isdir(mpm_raw_folder_path):
