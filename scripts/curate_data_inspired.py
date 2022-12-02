@@ -155,7 +155,7 @@ def construct_mpm_bids_filename(mpm_files_dict, path_output, subject_out):
         copy_file(re.sub('.nii(.gz)*', '.json', path_file_in), path_dir_out, file_out.replace('.nii.gz', '.json'))
 
 
-def write_participants_tsv(participants_tsv_list, path_output):
+def create_participants_tsv(participants_tsv_list, path_output):
     """
     Write participants.tsv file
     :param participants_tsv_list: list containing [subject_out, pathology_out, subject_in, centre_in, centre_out],
@@ -163,12 +163,92 @@ def write_participants_tsv(participants_tsv_list, path_output):
     :param path_output: path to the output BIDS folder
     :return:
     """
-    with open(os.path.join(path_output + '/participants.tsv'), 'w') as tsv_file:
+    with open(os.path.join(path_output, 'participants.tsv'), 'w') as tsv_file:
         tsv_writer = csv.writer(tsv_file, delimiter='\t', lineterminator='\n')
         tsv_writer.writerow(['participant_id', 'pathology', 'data_id', 'institution_id', 'institution'])
         for item in participants_tsv_list:
             tsv_writer.writerow(item)
         logger.info(f'participants.tsv created in {path_output}')
+
+
+def create_participants_json(path_output):
+    """
+    Create participants.json file
+    :param path_output: path to the output BIDS folder
+    :return:
+    """
+    # Create participants.json
+    data_json = {
+        "participant_id": {
+            "Description": "Unique Participant ID",
+            "LongName": "Participant ID"
+        },
+        "pathology": {
+            "Description": "Pathology",
+            "LongName": "Pathology name"
+        },
+        "data_id": {
+            "Description": "Subject ID as under duke/mri/",
+            "LongName": "Subject ID"
+        },
+        "institution_id": {
+            "Description": "Institution ID as under duke/mri/",
+            "LongName": "Institution ID"
+        },
+        "institution_": {
+            "Description": "Institution ID after conversion to BIDS",
+            "LongName": "BIDS Institution ID"
+        }
+    }
+    with open(os.path.join(path_output, 'participants.json'), 'w') as json_participants:
+        json.dump(data_json, json_participants, indent=4)
+        logger.info(f'participants.json created in {path_output}')
+
+
+def create_dataset_description(path_output):
+    """
+    Create dataset_description.json file
+    :param path_output: path to the output BIDS folder
+    :return:
+    """
+    dataset_description = {"BIDSVersion": "BIDS 1.8.0",
+                           "Name": "inspired"
+                           }
+    with open(os.path.join(path_output, 'dataset_description.json'), 'w') as json_dataset_description:
+        json.dump(dataset_description, json_dataset_description, indent=4)
+        logger.info(f'dataset_description.json created in {path_output}')
+
+
+def create_README(path_output):
+    """
+    Create README file
+    :param path_output: path to the output BIDS folder
+    :return:
+    """
+    with open(os.path.join(path_output, 'README'), 'w') as readme_file:
+        readme_file.write(f'# INSPIRED\n\nThis is an MRI dataset for the INSPIRED project.\n\n## dataset structure\n\n'
+                          f'The dataset contains data from two centers (Toronto, Zurich) across three pathologies ('
+                          f'DCM, SCI, HC). The following images are included:\n\nSpinal cord MRI data:\n- DWI (A-P and '
+                          f'P-A phase encoding)\n- T1w sag\n- T1w sag\n- T1w sag\n- T2star tra\nBrain MRI data:\n- DWI '
+                          f'(A-P and P-A phase encoding)\n- MPM (multi-parameter mapping)\n\n## naming convention\n\n'
+                          f'sub-<site><pathology>XXX\n\nexample:\nsub-zurichDCM001\n\nNote: the label `bp-cspine` is '
+                          f'used to differentiate spine images from brain.')
+        logger.info(f'README created in {path_output}')
+
+
+def copy_script(path_output):
+    """
+    Copy the script itself to the path_output/code folder
+    :param path_output: path to the output BIDS folder
+    :return:
+    """
+    path_script_in = sys.argv[0]
+    path_code = os.path.join(path_output, 'code')
+    if not os.path.isdir(path_code):
+        os.makedirs(path_code, exist_ok=True)
+    path_script_out = os.path.join(path_code, sys.argv[0].split(sep='/')[-1])
+    logger.info(f'Copying {path_script_in} to {path_script_out}')
+    shutil.copyfile(path_script_in, path_script_out)
 
 
 def get_parameters():
@@ -290,7 +370,11 @@ def main(path_input, path_output):
 
                 participants_tsv_list.append([subject_out, pathology_out, subject_in.split(sep='/')[-1], centre_in, centre_out])
 
-    write_participants_tsv(participants_tsv_list, path_output)
+    create_participants_tsv(participants_tsv_list, path_output)
+    create_participants_json(path_output)
+    create_dataset_description(path_output)
+    create_README(path_output)
+    copy_script(path_output)
 
 
 if __name__ == "__main__":
