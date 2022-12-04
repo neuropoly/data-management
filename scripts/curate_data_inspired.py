@@ -372,6 +372,10 @@ def main(path_input, path_output):
                                                f'Skipping this subject.')
 
                 participants_tsv_list.append([subject_out, pathology_out, subject_in.split(sep='/')[-1], centre_in, centre_out])
+                # Remove uncompressed subject dir (i.e., keep only .tar.gz).
+                # (but first, make sure that .tar.gz subject exists)
+                if os.path.isfile(subject_in + '.tar.gz'):
+                    shutil.rmtree(subject_in)
 
     create_participants_tsv(participants_tsv_list, path_output)
     create_participants_json(path_output)
