@@ -198,7 +198,7 @@ def create_participants_json(path_output):
             "Description": "Institution ID as under duke/mri/",
             "LongName": "Institution ID"
         },
-        "institution_": {
+        "institution": {
             "Description": "Institution ID after conversion to BIDS",
             "LongName": "BIDS Institution ID"
         }
@@ -302,7 +302,7 @@ def main(path_input, path_output):
         # Loop across pathologies (hc, csm, sci)
         for pathology_in, pathology_out in pathologies_conv_dict.items():
             # Loop across subjects (001, ...)
-            for sub_index, subject_in in enumerate(glob.glob(os.path.join(path_input, centre_in, pathology_in, '*')),
+            for sub_index, subject_in in enumerate(sorted(glob.glob(os.path.join(path_input, centre_in, pathology_in, '*'))),
                                                    start=1):
                 # If the input subject folder is .tar.gz, extract it
                 if subject_in.endswith('.tar.gz'):
