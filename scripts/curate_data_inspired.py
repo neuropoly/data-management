@@ -104,7 +104,10 @@ def read_json_file(path_to_file):
     :param path_to_file: path to input json file
     :return:
     """
-    with open(path_to_file) as p:
+    # Note: open command returned error for the `02/hc/008/bl/brain/mpm_raw/s837313-0004-00001-000880-05.json` file:
+    #   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe4 in position 1340: invalid continuation byte
+    # Thus, `encoding="ISO-8859-1"` has to be used. Source: https://stackoverflow.com/a/19706723
+    with open(path_to_file, encoding="ISO-8859-1") as p:
         loaded_json = json.load(p)
         series_description = loaded_json['acqpar'][0]['SeriesDescription']
         flip_angle = loaded_json['acqpar'][0]['FlipAngle']
