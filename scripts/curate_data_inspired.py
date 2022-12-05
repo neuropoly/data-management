@@ -306,10 +306,8 @@ def main(path_input, path_output):
                                                    start=1):
                 # If the input subject folder is .tar.gz, extract it
                 if subject_in.endswith('.tar.gz'):
-                    logger.info(f'Unpacking tar archive for {subject_in}...')
+                    logger.info(f'Unpacking tar archive {subject_in}...')
                     os.system("tar -xf " + subject_in + " --directory " + os.path.join(path_input, centre_in, pathology_in))
-                    # TODO - consider what to do with extracted folders once the BIDS conversion is done.
-                    #  Delete them and keep only original .tar.gz files?
                     # Remove '.tar.gz' from the subject_in variable
                     subject_in = subject_in.replace('.tar.gz', '')
                 # Loop across regions (brain or cord)
