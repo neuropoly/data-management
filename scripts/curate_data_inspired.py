@@ -10,6 +10,9 @@
 #       - DWI (A-P and P-A phase encoding)
 #       - MPM (multi-parameter mapping)
 #
+# USAGE:
+#       python3 <PATH_TO_THIS_SCRIPT>/curate_data_inspired.py -i <INPUT_DATASET_PATH>/INSPIRED -o <OUTPUT_DATASET_PATH>/INSPIRED_bids
+#
 # Authors: Jan Valosek
 
 import os
