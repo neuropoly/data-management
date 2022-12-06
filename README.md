@@ -110,7 +110,7 @@ The `participants.tsv` is a TSV file and should include the following columns:
 - `data_id` -  subject ID used to locate the unprocessed data as under `duke/mri/`
 - `institution_id` - institution ID used to locate the unprocessed data as under `duke/mri/`
 - `institution` - human-friendly institution name
-- others - if available, include also demographic characteristics such as `age`, `sex`, [additional columns](https://bids-specification.readthedocs.io/en/stable/03-modality-agnostic-files.html#participants-file).
+- others - if available, include also demographic characteristics such as `age`, `sex`, `height`, `weight`, `researcher`, and [additional columns](https://bids-specification.readthedocs.io/en/stable/03-modality-agnostic-files.html#participants-file).
 
 ❗️Indicate missing values with `n/a` (for "not available"), not by empty cells!
 
