@@ -73,7 +73,7 @@ Convention for derivatives JSON metadata:
 
 {
   "Author": "Firstname Lastname",
-  "Date": "YEAR-MM-DD HH:MM:SS"
+  "Date": "YYYY-MM-DD HH:MM:SS"
 }
 
 ## <IF DATA ARE MISSING FOR SOME SUBJECT(S)>missing data
