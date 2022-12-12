@@ -304,14 +304,14 @@ def main(path_input, path_output):
         for pathology_in, pathology_out in pathologies_conv_dict.items():
             # Loop across subjects (001, ...)
             for subject_in in sorted(glob.glob(os.path.join(path_input, centre_in, pathology_in, '*'))):
-                # Get subjectID (e.g., 001)
-                subject_id = subject_in.split(sep='/')[-1]
                 # If the input subject folder is .tar.gz, extract it
                 if subject_in.endswith('.tar.gz'):
                     logger.info(f'Unpacking tar archive {subject_in}...')
                     os.system("tar -xf " + subject_in + " --directory " + os.path.join(path_input, centre_in, pathology_in))
                     # Remove '.tar.gz' from the subject_in variable
                     subject_in = subject_in.replace('.tar.gz', '')
+                # Get subjectID (e.g., 001)
+                subject_id = subject_in.split(sep='/')[-1]
                 # Loop across regions (brain or cord)
                 for region in ['brain', 'cord']:
                     # Construct output subjectID containing centre name and pathology, e.g., 'sub-torontoDCM001'
