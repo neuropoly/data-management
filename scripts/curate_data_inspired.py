@@ -225,23 +225,6 @@ def create_dataset_description(path_output):
         logger.info(f'dataset_description.json created in {path_output}')
 
 
-def create_README(path_output):
-    """
-    Create README file
-    :param path_output: path to the output BIDS folder
-    :return:
-    """
-    with open(os.path.join(path_output, 'README'), 'w') as readme_file:
-        readme_file.write(f'# INSPIRED\n\nThis is an MRI dataset for the INSPIRED project.\n\n## dataset structure\n\n'
-                          f'The dataset contains data from two centers (Toronto, Zurich) across three pathologies ('
-                          f'DCM, SCI, HC). The following images are included:\n\nSpinal cord MRI data:\n- DWI (A-P and '
-                          f'P-A phase encoding)\n- T1w sag\n- T1w sag\n- T1w sag\n- T2star tra\nBrain MRI data:\n- DWI '
-                          f'(A-P and P-A phase encoding)\n- MPM (multi-parameter mapping)\n\n## naming convention\n\n'
-                          f'sub-<site><pathology>XXX\n\nexample:\nsub-zurichDCM001\n\nNote: the label `bp-cspine` is '
-                          f'used to differentiate spine images from brain.')
-        logger.info(f'README created in {path_output}')
-
-
 def copy_script(path_output):
     """
     Copy the script itself to the path_output/code folder
@@ -381,7 +364,6 @@ def main(path_input, path_output):
     create_participants_tsv(participants_tsv_list, path_output)
     create_participants_json(path_output)
     create_dataset_description(path_output)
-    create_README(path_output)
     copy_script(path_output)
 
 
