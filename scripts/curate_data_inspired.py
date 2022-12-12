@@ -288,8 +288,9 @@ def main(path_input, path_output):
         # Loop across pathologies (hc, csm, sci)
         for pathology_in, pathology_out in pathologies_conv_dict.items():
             # Loop across subjects (001, ...)
-            for sub_index, subject_in in enumerate(sorted(glob.glob(os.path.join(path_input, centre_in, pathology_in, '*'))),
-                                                   start=1):
+            for subject_in in sorted(glob.glob(os.path.join(path_input, centre_in, pathology_in, '*'))):
+                # Get subjectID (e.g., 001)
+                subject_id = subject_in.split(sep='/')[-1]
                 # If the input subject folder is .tar.gz, extract it
                 if subject_in.endswith('.tar.gz'):
                     logger.info(f'Unpacking tar archive {subject_in}...')
@@ -299,7 +300,7 @@ def main(path_input, path_output):
                 # Loop across regions (brain or cord)
                 for region in ['brain', 'cord']:
                     # Construct output subjectID containing centre name and pathology, e.g., 'sub-torontoDCM001'
-                    subject_out = prefix + centre_out + pathology_out + f"{sub_index:03d}"
+                    subject_out = prefix + centre_out + pathology_out + subject_id
                     if region == 'cord':
                         # Process spinal cord anatomical and DWI data
                         # Loop across files
@@ -355,7 +356,7 @@ def main(path_input, path_output):
                                 logger.warning(f'WARNING: There are no json sidecars in {mpm_raw_folder_path}. '
                                                f'Skipping this subject.')
 
-                participants_tsv_list.append([subject_out, pathology_out, subject_in.split(sep='/')[-1], centre_in, centre_out])
+                participants_tsv_list.append([subject_out, pathology_out, subject_id, centre_in, centre_out])
                 # Remove uncompressed subject dir (i.e., keep only .tar.gz).
                 # (but first, make sure that .tar.gz subject exists)
                 if os.path.isfile(subject_in + '.tar.gz'):
