@@ -225,6 +225,21 @@ def create_dataset_description(path_output):
         logger.info(f'dataset_description.json created in {path_output}')
 
 
+def create_bidsignore_file(path_output):
+    """
+    Create .bidsignore file defining files that should be ignored by the bids-validator.
+    We want to exclude files with `bp-cspine` tag since BEP025
+    (https://docs.google.com/document/d/1chZv7vAPE-ebPDxMktfI9i1OkLNR2FELIfpVYsaZPr4/edit#heading=h.4k1noo90gelw)
+    is not merged to  BIDS yet
+    :param path_output:
+    :return:
+    """
+    bidsignore = "*/*/*_bp-cspine*"
+    with open(os.path.join(path_output, '.bidsignore'), 'w') as bidsignore_file:
+        bidsignore_file.write(f'{bidsignore}\n')
+        logger.info(f'.bidsignore created in {path_output}')
+
+
 def copy_script(path_output):
     """
     Copy the script itself to the path_output/code folder
@@ -365,6 +380,7 @@ def main(path_input, path_output):
     create_participants_tsv(participants_tsv_list, path_output)
     create_participants_json(path_output)
     create_dataset_description(path_output)
+    create_bidsignore_file(path_output)
     copy_script(path_output)
 
 
