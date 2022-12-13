@@ -76,6 +76,8 @@ Convention for derivatives JSON metadata:
   "Date": "YYYY-MM-DD HH:MM:SS"
 }
 
+<NOTE: "Date" is optional. We usually include it when running the manual correction via python scripts.>
+
 ## <IF DATA ARE MISSING FOR SOME SUBJECT(S)>missing data
 
 ```
