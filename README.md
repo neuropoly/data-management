@@ -86,12 +86,15 @@ Convention for derivatives JSON metadata:
 
 The `dataset_description.json` is a JSON file describing the dataset.
 
+❗One `dataset_description.json` file (with `"DatasetType": "raw"`) must be included within the dataset itself, the second `dataset_description.json` file (with `"DatasetType": "derivative"`) must be included within the `derivatives`.
+
 <details><summary>dataset_description.json template:</summary>
 
 ```json
 {
-    "BIDSVersion": "BIDS 1.8.0",
-    "Name": "<dataset_name>"
+    "BIDSVersion": "BIDS X.Y.Z",
+    "Name": "<dataset_name>",
+    "DatasetType": "raw/derivative"
 }
 ```
 
