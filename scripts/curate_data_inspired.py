@@ -48,17 +48,19 @@ pathologies_conv_dict = {
     }
 
 # Dictionary for image filename conversion
-# Note: we use label `bp-cspine` to differentiate spine imaging from brain
-# Details: BIDS BEP025 Proposal (https://docs.google.com/document/d/1chZv7vAPE-ebPDxMktfI9i1OkLNR2FELIfpVYsaZPr4)
+# Note: we use label `acq-cspine` to differentiate spine imaging from brain
+# Note: we use label `acq-cspine` over `bp-cspine` since BIDS BEP025 is not merged yet (and thus does not pass bids-validator)
+# BIDS BEP025 Proposal: https://docs.google.com/document/d/1chZv7vAPE-ebPDxMktfI9i1OkLNR2FELIfpVYsaZPr4
+# Discussion `acq-cspine` vs `bp-cspine`: https://github.com/neuropoly/data-management/pull/185#issuecomment-1347421696
 images_spine_conv_dict = {
-    'dwi.nii.gz': 'dir-AP_bp-cspine_dwi.nii.gz',
-    'dwi.bval': 'dir-AP_bp-cspine_dwi.bval',
-    'dwi.bvec': 'dir-AP_bp-cspine_dwi.bvec',
-    'dwi_reversed_blip.nii.gz': 'dir-PA_bp-cspine_dwi.nii.gz',
-    't1_sag.nii.gz': 'bp-cspine_T1w.nii.gz',
-    't2_sag.nii.gz': 'acq-coronal_bp-cspine_T2w.nii.gz',
-    't2_tra.nii.gz': 'acq-axial_bp-cspine_T2w.nii.gz',
-    'pd_medic.nii.gz': 'bp-cspine_T2star.nii.gz'
+    'dwi.nii.gz': 'dir-AP_acq-cspine_dwi.nii.gz',
+    'dwi.bval': 'dir-AP_acq-cspine_dwi.bval',
+    'dwi.bvec': 'dir-AP_acq-cspine_dwi.bvec',
+    'dwi_reversed_blip.nii.gz': 'dir-PA_acq-cspine_dwi.nii.gz',
+    't1_sag.nii.gz': 'acq-cspine_T1w.nii.gz',
+    't2_sag.nii.gz': 'acq-cspineSagittal_T2w.nii.gz',
+    't2_tra.nii.gz': 'acq-cspineAxial_T2w.nii.gz',
+    'pd_medic.nii.gz': 'acq-cspine_T2star.nii.gz'
     }
 
 # Dictionary for brain image filename conversion
@@ -75,7 +77,7 @@ def copy_file(path_file_in, path_dir_out, file_out):
     Copy file from input non-BIDS dataset to BIDS compliant dataset
     :param path_file_in: path of the input non-BIDS file which will be copied
     :param path_dir_out: path of the output BIDS directory; for example sub-torontoDCM001/dwi
-    :param file_out: filename of the output BIDS file; for example 'sub-torontoDCM001_bp-cspine_dir-AP_dwi.nii.gz'
+    :param file_out: filename of the output BIDS file; for example 'sub-torontoDCM001_dir-AP_acq-cspine_dwi.nii.gz'
     :return:
     """
     # Make sure that the input file exists, if so, copy it
@@ -228,7 +230,7 @@ def create_dataset_description(path_output):
 def create_bidsignore_file(path_output):
     """
     Create .bidsignore file defining files that should be ignored by the bids-validator.
-    We want to exclude files with `bp-cspine` tag since BEP025
+    We want to exclude files with `acq-cspine` tag since BEP025
     (https://docs.google.com/document/d/1chZv7vAPE-ebPDxMktfI9i1OkLNR2FELIfpVYsaZPr4/edit#heading=h.4k1noo90gelw)
     is not merged to  BIDS yet
     :param path_output:
@@ -322,7 +324,7 @@ def main(path_input, path_output):
                         for image_in, image_out in images_spine_conv_dict.items():
                             # Construct path to the input file
                             path_file_in = os.path.join(path_input, centre_in, pathology_in, subject_in, 'bl', region, image_in)
-                            # Construct output filename, e.g., 'sub-torontoDCM001_bp-cspine_dir-AP_dwi.nii.gz'
+                            # Construct output filename, e.g., 'sub-torontoDCM001_dir-AP_acq-cspine_dwi.nii.gz'
                             file_out = subject_out + '_' + image_out
                             # Construct path to the output BIDS compliant directory
                             if 'dwi' in image_in:
@@ -380,7 +382,7 @@ def main(path_input, path_output):
     create_participants_tsv(participants_tsv_list, path_output)
     create_participants_json(path_output)
     create_dataset_description(path_output)
-    create_bidsignore_file(path_output)
+    #create_bidsignore_file(path_output)
     copy_script(path_output)
 
 
