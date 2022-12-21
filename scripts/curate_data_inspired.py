@@ -63,6 +63,14 @@ images_spine_conv_dict = {
     'pd_medic.nii.gz': 'acq-cspine_T2star.nii.gz'
     }
 
+# TODO - include also DWI derivatives
+derivatives_spine_conv_dict = {
+    't2_seg.nii.gz': 'acq-cspineAxial_T2w_seg.nii.gz',
+    # TODO - check which suffix is used for BIDS gm-seg and wm-seg derivatives
+    'gm_seg.nii.gz': 'acq-cspine_T2star_gm-seg.nii.gz',
+    'wm_seg.nii.gz': 'acq-cspine_T2star_wm-seg.nii.gz'
+}
+
 # Dictionary for brain image filename conversion
 images_brain_conv_dict = {
     'dwi.nii.gz': 'dir-AP_dwi.nii.gz',
@@ -286,6 +294,10 @@ def main(path_input, path_output):
         shutil.rmtree(path_output)
     os.makedirs(path_output, exist_ok=True)
 
+    # Construct path to derivatives/labels
+    path_derivatives = os.path.join(path_output, 'derivatives', 'labels')
+    os.makedirs(path_derivatives, exist_ok=True)
+
     FNAME_LOG = os.path.join(path_output, 'bids_conversion.log')
     # Dump log file there
     if os.path.exists(FNAME_LOG):
@@ -334,6 +346,22 @@ def main(path_input, path_output):
 
                             # Copy file and create a dummy json sidecar if does not exist
                             copy_file(path_file_in, path_dir_out, file_out)
+                        # Deal with derivatives (i.e., spinal cord segmentation) located in `sct_processing` folder
+                        path_sct_processing = os.path.join(path_input, centre_in, pathology_in, subject_in, 'bl',
+                                                           region, 'sct_processing')
+                        if os.path.isdir(path_sct_processing):
+                            for image_in, image_out in derivatives_spine_conv_dict.items():
+                                if 't2' in image_in:
+                                    contrast = 't2'
+                                else:
+                                    contrast = 't2s'
+                                # Construct path to the input file
+                                path_file_in = os.path.join(path_sct_processing, contrast, image_in)
+                                # Construct output filename, e.g., 'sub-torontoDCM001_acq-cspineAxial_T2w_seg.nii.gz'
+                                file_out = subject_out + '_' + image_out
+                                # Construct path to the output BIDS compliant derivatives directory
+                                path_dir_out = os.path.join(path_derivatives, subject_out, 'anat')
+                                copy_file(path_file_in, path_dir_out, file_out)
                     elif region == 'brain':
                         # Process DWI brain files
                         # Loop across files
