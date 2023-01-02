@@ -74,7 +74,7 @@ images_conv_dict = {
 # Dictionary for derivatives filename conversion
 # mask-r contains both WM (pixel value 2) and GM (pixel value 1)
 derivatives_conv_dict = {
-    'mask-r': 'desc-manual_mask',
+    'mask-r': 'mask',
     }
 
 
@@ -341,8 +341,8 @@ def main():
         shutil.rmtree(path_output)
     os.makedirs(path_output, exist_ok=True)
 
-    # Construct path to derivatives/labels
-    path_derivatives = os.path.join(path_output, 'derivatives', 'labels')
+    # Construct path to derivatives/manual_masks (SC, WM, GM segs will be saved here)
+    path_derivatives = os.path.join(path_output, 'derivatives', 'manual_masks')
     os.makedirs(path_derivatives, exist_ok=True)
 
     FNAME_LOG = os.path.join(path_output, 'bids_conversion.log')
