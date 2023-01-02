@@ -1,0 +1,22 @@
+{
+    "participant_id": {
+        "Description": "Unique Participant ID",
+        "LongName": "Participant ID"
+    },
+    "source_id": {
+        "Description": "Subject ID in the unprocessed data",
+        "LongName": "Subject ID in the unprocessed data"
+    },
+    "pathology": {
+        "Description": "Pathology",
+        "LongName": "Pathology name"
+    },
+    "institution_id": {
+        "Description": "Institution ID in the unprocessed data",
+        "LongName": "Institution ID in the unprocessed data"
+    },
+    "institution": {
+        "Description": "Human-friendly institution name",
+        "LongName": "BIDS Institution ID"
+    }
+}

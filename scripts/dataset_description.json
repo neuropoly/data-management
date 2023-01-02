@@ -1,0 +1,7 @@
+{
+    "BIDSVersion": "BIDS 1.8.0",
+    "Name": "GmSegChallenge2016",
+    "DatasetType": "raw",
+    "License": "see LICENSE file",
+    "ReferencesAndLinks": "http://niftyweb.cs.ucl.ac.uk/program.php?p=CHALLENGE"
+}
