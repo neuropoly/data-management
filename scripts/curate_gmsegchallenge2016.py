@@ -78,12 +78,13 @@ derivatives_conv_dict = {
     }
 
 
-def copy_file(path_file_in, path_dir_out, file_out):
+def copy_file(path_file_in, path_dir_out, file_out, create_json=False):
     """
     Copy file from input non-BIDS dataset to BIDS compliant dataset
     :param path_file_in: path of the input non-BIDS file which will be copied
     :param path_dir_out: path of the output BIDS directory; for example sub-ucl001/anat
     :param file_out: filename of the output BIDS file; for example 'sub-ucl001_T2star.nii.nii.gz'
+    :param create_json: if true, create json sidecar
     :return:
     """
     # Make sure that the input file exists, if so, copy it
@@ -95,8 +96,9 @@ def copy_file(path_file_in, path_dir_out, file_out):
         path_file_out = os.path.join(path_dir_out, file_out)
         logger.info(f'Copying {path_file_in} to {path_file_out}')
         shutil.copyfile(path_file_in, path_file_out)
-        # Create a dummy json sidecar (for raw images)
-        create_dummy_json_sidecar_if_does_not_exist(path_file_out)
+        if create_json:
+            # Create a dummy json sidecar (for raw images)
+            create_dummy_json_sidecar_if_does_not_exist(path_file_out)
 
 
 def create_wm_seg(path_file_in, path_dir_out, file_out, rater):
@@ -345,6 +347,10 @@ def main():
     path_derivatives = os.path.join(path_output, 'derivatives', 'manual_masks')
     os.makedirs(path_derivatives, exist_ok=True)
 
+    # Construct path to derivatives/manual_labels (txt file with vertebral levels will be saved here)
+    path_derivatives_labels = os.path.join(path_output, 'derivatives', 'manual_labels')
+    os.makedirs(path_derivatives_labels, exist_ok=True)
+
     FNAME_LOG = os.path.join(path_output, 'bids_conversion.log')
     # Dump log file there
     if os.path.exists(FNAME_LOG):
@@ -381,8 +387,13 @@ def main():
                     # Construct output path
                     path_dir_out = os.path.join(path_output, subject_out, 'anat')
 
-                    # Copy file and create a dummy json sidecar if does not exist
-                    copy_file(path_file_in, path_dir_out, file_out)
+                    # Copy nii file and create a dummy json sidecar if does not exist
+                    copy_file(path_file_in, path_dir_out, file_out, create_json=True)
+                    # Copy txt file with vertebral levels
+                    copy_file(os.path.join(path_dataset, subject_in + '-levels.txt'),   # e.g., 'site1-sc01-levels.txt'
+                              os.path.join(path_derivatives_labels, subject_out, 'anat'),
+                              subject_out + '_T2star_label-vertebral-levels.txt',      # e.g., 'sub-ucl001_T2star_label-vertebral-levels.txt'
+                              create_json=False)
             # Loop across derivatives
             for image_in, image_out in derivatives_conv_dict.items():
                 # Loop across 4 raters
@@ -390,7 +401,7 @@ def main():
                     # Construct input filename, e.g., 'site1-sc01-mask-r1.nii.gz'
                     file_in = site_in + '-sc' + f'{index:02d}' + '-' + image_in + str(rater) + '.nii.gz'
                     # Construct input path
-                    # Note: manual labels are available only fot the training dataset
+                    # Note: manual labels are available only for the training dataset
                     path_file_in = os.path.join(path_train, file_in)
 
                     # Construct output SC seg filename, e.g., 'sub-ucl001_T2star_label-SC_desc-manual_mask1.nii.gz'
