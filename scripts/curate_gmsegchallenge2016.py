@@ -394,11 +394,11 @@ def main():
                     path_file_in = os.path.join(path_train, file_in)
 
                     # Construct output SC seg filename, e.g., 'sub-ucl001_T2star_label-SC_desc-manual_mask1.nii.gz'
-                    file_out_sc = subject_out + 'T2star_label-SC_' + image_out + str(rater) + '.nii.gz'
+                    file_out_sc = subject_out + '_T2star_label-SC_' + image_out + str(rater) + '.nii.gz'
                     # Construct output GM seg filename, e.g., 'sub-ucl001_T2star_label-GM_desc-manual_mask1.nii.gz'
-                    file_out_gm = subject_out + 'T2star_label-GM_' + image_out + str(rater) + '.nii.gz'
+                    file_out_gm = subject_out + '_T2star_label-GM_' + image_out + str(rater) + '.nii.gz'
                     # Construct output WM seg filename, e.g., 'sub-ucl001_T2star_label-WM_desc-manual_mask1.nii.gz'
-                    file_out_wm = subject_out + 'T2star_label-WM_' + image_out + str(rater) + '.nii.gz'
+                    file_out_wm = subject_out + '_T2star_label-WM_' + image_out + str(rater) + '.nii.gz'
                     # Construct output derivatives path
                     path_dir_out = os.path.join(path_derivatives, subject_out, 'anat')
                     create_sc_seg(path_file_in, path_dir_out, file_out_sc, rater_to_name[rater])
