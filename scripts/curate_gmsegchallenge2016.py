@@ -267,7 +267,7 @@ def create_dataset_description(path_output, datasettype):
         "Name": "GmSegChallenge2016",
         "DatasetType": datasettype,
         "License": "see LICENSE file",
-        "ReferencesAndLinks": "http://niftyweb.cs.ucl.ac.uk/program.php?p=CHALLENGE"
+        "ReferencesAndLinks": ["http://niftyweb.cs.ucl.ac.uk/program.php?p=CHALLENGE"]
     }
     write_json(path_output, 'dataset_description.json', data_json)
 
