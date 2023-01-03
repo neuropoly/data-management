@@ -58,6 +58,14 @@ sites_conv_dict = {
     'site4': 'vdb'      # Vanderbilt University
     }
 
+# Details: http://niftyweb.cs.ucl.ac.uk/program.php?p=CHALLENGE
+site_to_scanner = {
+    'ucl': {'Manufacturer': 'Philips', 'ManufacturersModelName': 'Achieva'},
+    'epm': {'Manufacturer': 'Siemens', 'ManufacturersModelName': 'TIM Trio'},
+    'uhz': {'Manufacturer': 'Siemens', 'ManufacturersModelName': 'Skyra'},
+    'vdb': {'Manufacturer': 'Philips', 'ManufacturersModelName': 'Achieva'}
+    }
+
 # Raters name (based on https://www.sciencedirect.com/science/article/pii/S1053811917302185#s0025)
 rater_to_name = {
     1: 'Marios C. Yiannakas',
@@ -78,7 +86,7 @@ derivatives_conv_dict = {
     }
 
 
-def copy_file(path_file_in, path_dir_out, file_out, create_json=False):
+def copy_file(path_file_in, path_dir_out, file_out, site_out, create_json=False):
     """
     Copy file from input non-BIDS dataset to BIDS compliant dataset
     :param path_file_in: path of the input non-BIDS file which will be copied
@@ -96,9 +104,15 @@ def copy_file(path_file_in, path_dir_out, file_out, create_json=False):
         path_file_out = os.path.join(path_dir_out, file_out)
         logger.info(f'Copying {path_file_in} to {path_file_out}')
         shutil.copyfile(path_file_in, path_file_out)
+        # Create a json sidecar
         if create_json:
-            # Create a dummy json sidecar (for raw images)
-            create_dummy_json_sidecar_if_does_not_exist(path_file_out)
+            data_json = {
+                    'Modality': 'MR',
+                    'MagneticFieldStrength': 3,
+                    'Manufacturer': site_to_scanner[site_out]['Manufacturer'],
+                    'ManufacturersModelName': site_to_scanner[site_out]['ManufacturersModelName']
+                    }
+            write_json(path_dir_out, file_out.replace('.nii.gz', '.json'), data_json)
 
 
 def create_wm_seg(path_file_in, path_dir_out, file_out, rater):
@@ -177,19 +191,6 @@ def create_gm_seg(path_file_in, path_dir_out, file_out, rater):
             "Label": "GM-seg-manual"
             }
         write_json(path_dir_out, file_out.replace('.nii.gz', '.json'), data_json)
-
-
-def create_dummy_json_sidecar_if_does_not_exist(path_file_out):
-    """
-    Create an empty json sidecar
-    :param path_file_out:
-    :return:
-    """
-    # Work only with .nii.gz
-    if path_file_out.endswith('.nii.gz'):
-        path_json_sidecar = path_file_out.replace('.nii.gz', '.json')
-        if not os.path.exists(path_json_sidecar):
-            os.system('touch ' + path_json_sidecar)
 
 
 def write_json(path_output, json_filename, data_json):
@@ -384,11 +385,12 @@ def main():
                     path_dir_out = os.path.join(path_output, subject_out, 'anat')
 
                     # Copy nii file and create a dummy json sidecar if does not exist
-                    copy_file(path_file_in, path_dir_out, file_out, create_json=True)
+                    copy_file(path_file_in, path_dir_out, file_out, site_out, create_json=True)
                     # Copy txt file with vertebral levels
                     copy_file(os.path.join(path_dataset, subject_in + '-levels.txt'),   # e.g., 'site1-sc01-levels.txt'
                               os.path.join(path_derivatives, subject_out, 'anat'),
                               subject_out + '_T2star_label-vertebral-levels.txt',      # e.g., 'sub-ucl001_T2star_label-vertebral-levels.txt'
+                              site_out,
                               create_json=False)
             # Loop across derivatives
             for image_in, image_out in derivatives_conv_dict.items():
