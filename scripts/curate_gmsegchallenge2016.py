@@ -343,13 +343,9 @@ def main():
         shutil.rmtree(path_output)
     os.makedirs(path_output, exist_ok=True)
 
-    # Construct path to derivatives/manual_masks (SC, WM, GM segs will be saved here)
-    path_derivatives = os.path.join(path_output, 'derivatives', 'manual_masks')
+    # Construct path to derivatives/manual_labels
+    path_derivatives = os.path.join(path_output, 'derivatives', 'manual_labels')
     os.makedirs(path_derivatives, exist_ok=True)
-
-    # Construct path to derivatives/manual_labels (txt file with vertebral levels will be saved here)
-    path_derivatives_labels = os.path.join(path_output, 'derivatives', 'manual_labels')
-    os.makedirs(path_derivatives_labels, exist_ok=True)
 
     FNAME_LOG = os.path.join(path_output, 'bids_conversion.log')
     # Dump log file there
@@ -391,7 +387,7 @@ def main():
                     copy_file(path_file_in, path_dir_out, file_out, create_json=True)
                     # Copy txt file with vertebral levels
                     copy_file(os.path.join(path_dataset, subject_in + '-levels.txt'),   # e.g., 'site1-sc01-levels.txt'
-                              os.path.join(path_derivatives_labels, subject_out, 'anat'),
+                              os.path.join(path_derivatives, subject_out, 'anat'),
                               subject_out + '_T2star_label-vertebral-levels.txt',      # e.g., 'sub-ucl001_T2star_label-vertebral-levels.txt'
                               create_json=False)
             # Loop across derivatives
