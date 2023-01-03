@@ -202,6 +202,8 @@ def write_json(path_output, json_filename, data_json):
     """
     with open(os.path.join(path_output, json_filename), 'w') as json_file:
         json.dump(data_json, json_file, indent=4)
+        # Add last newline
+        json_file.write("\n")
         logger.info(f'{json_filename} created in {path_output}')
 
 
