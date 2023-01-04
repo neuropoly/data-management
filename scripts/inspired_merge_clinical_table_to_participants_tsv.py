@@ -1,7 +1,7 @@
 #
-# Merge table with clinical data for DCM patients (provided Patrick Freund, Balgrist) with INSPIRED participants.tsv
+# Merge the .xlsx table with DCM clinical data (provided by Patrick Freund, Balgrist) with the INSPIRED participants.tsv
 #
-# Note - pandas.read_excel requires openpyxl library (pip install openpyxl or conda install openpyxl)
+# Note: pandas.read_excel requires openpyxl library (pip install openpyxl or conda install openpyxl)
 #
 # Authors: Jan Valosek
 #
@@ -13,12 +13,12 @@ import shutil
 import pandas as pd
 
 # For zurich site, subjectIDs match between clinical table and participants.tsv (i.e., ID 1 in clinical table
-# corresponds to sub-zurichDCM001 in participants.tsv, ID 2 corresponds to sub-zurichDCM002, etc.)
+# corresponds to sub-zurichDCM001 in participants.tsv, ID 2 corresponds to sub-zurichDCM002, etc.).
 # But for toronto site, subjectIDs do not match (i.e., ID 25 in clinical table corresponds to sub-torontoDCM001 in
-# participants.tsv, ID 26 corresponds to sub-torontoDCM005, etc.)
+# participants.tsv, ID 26 corresponds to sub-torontoDCM005, etc.).
 # This dict thus allows the merge of both tables.
-#   - keys are subject ID from clinical table
-#   - values are subject ID for DCM patients from participants.tsv
+#   - keys are subjectIDs from the clinical table
+#   - values are subjectIDs for DCM patients from the participants.tsv
 subject_ID_dict = {
     1: 1,
     2: 2,
