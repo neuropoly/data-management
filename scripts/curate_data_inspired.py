@@ -194,7 +194,7 @@ def create_participants_tsv(participants_tsv_list, path_output):
     """
     with open(os.path.join(path_output, 'participants.tsv'), 'w') as tsv_file:
         tsv_writer = csv.writer(tsv_file, delimiter='\t', lineterminator='\n')
-        tsv_writer.writerow(['participant_id', 'pathology', 'data_id', 'institution_id', 'institution'])
+        tsv_writer.writerow(['participant_id', 'source_id', 'pathology', 'institution_id', 'institution'])
         for item in participants_tsv_list:
             tsv_writer.writerow(item)
         logger.info(f'participants.tsv created in {path_output}')
@@ -212,20 +212,20 @@ def create_participants_json(path_output):
             "Description": "Unique Participant ID",
             "LongName": "Participant ID"
         },
+        "source_id": {
+            "Description": "Subject ID in the unprocessed data",
+            "LongName": "Subject ID in the unprocessed data"
+        },
         "pathology": {
             "Description": "Pathology",
             "LongName": "Pathology name"
         },
-        "data_id": {
-            "Description": "Subject ID as under duke/mri/",
-            "LongName": "Subject ID"
-        },
         "institution_id": {
-            "Description": "Institution ID as under duke/mri/",
-            "LongName": "Institution ID"
+            "Description": "Institution ID in the unprocessed data",
+            "LongName": "Institution ID in the unprocessed data"
         },
         "institution": {
-            "Description": "Institution ID after conversion to BIDS",
+            "Description": "Human-friendly institution name",
             "LongName": "BIDS Institution ID"
         }
     }
@@ -398,7 +398,7 @@ def main(path_input, path_output):
                                 logger.warning(f'WARNING: There are no json sidecars in {mpm_raw_folder_path}. '
                                                f'Skipping this subject.')
 
-                participants_tsv_list.append([subject_out, pathology_out, subject_id, centre_in, centre_out])
+                participants_tsv_list.append([subject_out, subject_id, pathology_out, centre_in, centre_out])
                 # Remove uncompressed subject dir (i.e., keep only .tar.gz).
                 # (but first, make sure that .tar.gz subject exists)
                 if os.path.isfile(subject_in + '.tar.gz'):
