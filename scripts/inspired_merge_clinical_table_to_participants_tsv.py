@@ -114,6 +114,9 @@ def main():
 
     # Rename female to F and male to M
     final_df = final_df.replace({"sex": {'female': 'F', 'male': 'M'}})
+    # Add leading zeros to source_id and institution_id (to match with the original participants.tsv)
+    final_df['source_id'] = final_df['source_id'].astype(str).str.zfill(3)
+    final_df['institution_id'] = final_df['institution_id'].astype(str).str.zfill(2)
 
     # Backup original participants.tsv
     shutil.move(args.participants_file, args.participants_file.replace('.tsv', '_backup.tsv'))
