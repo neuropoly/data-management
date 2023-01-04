@@ -65,10 +65,9 @@ images_spine_conv_dict = {
 
 # TODO - include also DWI derivatives
 derivatives_spine_conv_dict = {
-    't2_seg.nii.gz': 'acq-cspineAxial_T2w_seg.nii.gz',
-    # TODO - check which suffix is used for BIDS gm-seg and wm-seg derivatives
-    'gm_seg.nii.gz': 'acq-cspine_T2star_gm-seg.nii.gz',
-    'wm_seg.nii.gz': 'acq-cspine_T2star_wm-seg.nii.gz'
+    't2_seg.nii.gz': 'acq-cspineAxial_T2w_label-SC_mask.nii.gz',
+    'gm_seg.nii.gz': 'acq-cspine_T2star_label-GM_mask.nii.gz',
+    'wm_seg.nii.gz': 'acq-cspine_T2star_label-WM_mask.nii.gz'
 }
 
 # Dictionary for brain image filename conversion
@@ -357,7 +356,7 @@ def main(path_input, path_output):
                                     contrast = 't2s'
                                 # Construct path to the input file
                                 path_file_in = os.path.join(path_sct_processing, contrast, image_in)
-                                # Construct output filename, e.g., 'sub-torontoDCM001_acq-cspineAxial_T2w_seg.nii.gz'
+                                # Construct output filename, e.g., 'sub-torontoDCM001_acq-cspineAxial_T2w_label-SC_mask.nii.gz'
                                 file_out = subject_out + '_' + image_out
                                 # Construct path to the output BIDS compliant derivatives directory
                                 path_dir_out = os.path.join(path_derivatives, subject_out, 'anat')
