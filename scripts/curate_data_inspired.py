@@ -170,6 +170,20 @@ def construct_mpm_bids_filename(mpm_files_dict, path_output, subject_out):
         copy_file(re.sub('.nii(.gz)*', '.json', path_file_in), path_dir_out, file_out.replace('.nii.gz', '.json'))
 
 
+def write_json(path_output, json_filename, data_json):
+    """
+    :param path_output: path to the output BIDS folder
+    :param json_filename: json filename, for example: participants.json
+    :param data_json: JSON formatted content
+    :return:
+    """
+    with open(os.path.join(path_output, json_filename), 'w') as json_file:
+        json.dump(data_json, json_file, indent=4)
+        # Add last newline
+        json_file.write("\n")
+        logger.info(f'{json_filename} created in {path_output}')
+
+
 def create_participants_tsv(participants_tsv_list, path_output):
     """
     Write participants.tsv file
@@ -215,38 +229,22 @@ def create_participants_json(path_output):
             "LongName": "BIDS Institution ID"
         }
     }
-    with open(os.path.join(path_output, 'participants.json'), 'w') as json_participants:
-        json.dump(data_json, json_participants, indent=4)
-        logger.info(f'participants.json created in {path_output}')
+    write_json(path_output, 'participants.json', data_json)
 
 
-def create_dataset_description(path_output):
+def create_dataset_description(path_output, datasettype):
     """
     Create dataset_description.json file
     :param path_output: path to the output BIDS folder
+    :param datasettype: raw or derivative (https://bids-specification.readthedocs.io/en/stable/glossary.html#datasettype-metadata)
     :return:
     """
-    dataset_description = {"BIDSVersion": "BIDS 1.8.0",
-                           "Name": "inspired"
-                           }
-    with open(os.path.join(path_output, 'dataset_description.json'), 'w') as json_dataset_description:
-        json.dump(dataset_description, json_dataset_description, indent=4)
-        logger.info(f'dataset_description.json created in {path_output}')
-
-
-def create_bidsignore_file(path_output):
-    """
-    Create .bidsignore file defining files that should be ignored by the bids-validator.
-    We want to exclude files with `acq-cspine` tag since BEP025
-    (https://docs.google.com/document/d/1chZv7vAPE-ebPDxMktfI9i1OkLNR2FELIfpVYsaZPr4/edit#heading=h.4k1noo90gelw)
-    is not merged to  BIDS yet
-    :param path_output:
-    :return:
-    """
-    bidsignore = "*/*/*_bp-cspine*"
-    with open(os.path.join(path_output, '.bidsignore'), 'w') as bidsignore_file:
-        bidsignore_file.write(f'{bidsignore}\n')
-        logger.info(f'.bidsignore created in {path_output}')
+    data_json = {
+        "BIDSVersion": "BIDS 1.8.0",
+        "Name": "inspired",
+        "DatasetType": datasettype,
+    }
+    write_json(path_output, 'dataset_description.json', data_json)
 
 
 def copy_script(path_output):
@@ -408,8 +406,8 @@ def main(path_input, path_output):
 
     create_participants_tsv(participants_tsv_list, path_output)
     create_participants_json(path_output)
-    create_dataset_description(path_output)
-    #create_bidsignore_file(path_output)
+    create_dataset_description(path_output, 'raw')
+    create_dataset_description(os.path.join(path_output, 'derivatives'), 'derivative')
     copy_script(path_output)
 
 
