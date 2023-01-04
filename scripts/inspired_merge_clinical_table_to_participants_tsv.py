@@ -120,7 +120,7 @@ def main():
 
     # Save merged pd as .tsv
     print('Saving: {}'.format(args.participants_file))
-    final_df.to_csv(args.participants_file, sep="\t")
+    final_df.to_csv(args.participants_file, sep='\t', na_rep='n/a')
 
 
 if __name__ == "__main__":
