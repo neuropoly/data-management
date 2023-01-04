@@ -92,18 +92,18 @@ def main():
         raise FileNotFoundError(f'{args.clinical_file} not found')
 
     # Insert list of DCM subjectIDs from participants.tsv into clinical table to allow merge
-    # Note: 'data_id' is used to match with column in participants.tsv
-    clinical_df.insert(1, 'data_id', list(subject_ID_dict.values()))
+    # Note: 'source_id' is used to match with column in participants.tsv
+    clinical_df.insert(1, 'source_id', list(subject_ID_dict.values()))
     # Insert a new column with institutions in lower case (toronto, zurich) into clinical table to allow merge
     # Note: 'institution' is used to match with column in participants.tsv
     clinical_df['institution'] = [x.lower() for x in clinical_df['Site']]
 
     # First, merge clinical table to participants.tsv
-    # Note: we work here only with DCM since there is overlap in 'data_id' with other pathologies
+    # Note: we work here only with DCM since there is overlap in 'source_id' with other pathologies
     temp_df = pd.merge(participants_df[participants_df['pathology'] == 'DCM'], clinical_df,
-                       on=['institution', 'data_id'])
+                       on=['institution', 'source_id'])
     # Drop columns from 'temp_df' (they are already included in the participants.tsv)
-    temp_df = temp_df.drop(['pathology', 'data_id', 'institution_id', 'institution', 'ID', 'Site'], axis=1)
+    temp_df = temp_df.drop(['pathology', 'source_id', 'institution_id', 'institution', 'ID', 'Site'], axis=1)
     # Now, merge 'temp_df' back to the participants.tsv
     final_df = pd.merge(participants_df, temp_df, on='participant_id', how='outer')
 
