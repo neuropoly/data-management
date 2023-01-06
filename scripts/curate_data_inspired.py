@@ -292,7 +292,7 @@ def main(path_input, path_output):
     os.makedirs(path_output, exist_ok=True)
 
     # Construct path to derivatives/labels
-    path_derivatives = os.path.join(path_output, 'derivatives', 'labels')
+    path_derivatives = os.path.join(path_output, 'derivatives', 'manual_labels')
     os.makedirs(path_derivatives, exist_ok=True)
 
     FNAME_LOG = os.path.join(path_output, 'bids_conversion.log')
