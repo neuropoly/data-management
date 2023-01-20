@@ -101,6 +101,19 @@ def copy_file(path_file_in, path_dir_out, file_out):
             create_dummy_json_sidecar_if_does_not_exist(path_file_out)
 
 
+def copy_qform_to_sform(path_dir_out, file_out):
+    """
+    Copy qform to sform for to address https://github.com/spinalcordtoolbox/spinalcordtoolbox/issues/3991#issuecomment-1378765661
+    :param path_dir_out:
+    :param file_out:
+    :return:
+    """
+    path_file = os.path.join(path_dir_out, file_out)
+    # Make sure that the input file exists, if so, copy it
+    if os.path.isfile(path_file):
+        os.system('sct_image -i ' + path_file + ' -set-qform-to-sform')
+
+
 # TODO - do we want to create just a empty json sidecar? Or do we want to include some params there?
 def create_dummy_json_sidecar_if_does_not_exist(path_file_out):
     # Work only with .nii.gz (i.e., ignore .bval and .bvec files)
@@ -343,6 +356,9 @@ def main(path_input, path_output):
 
                             # Copy file and create a dummy json sidecar if does not exist
                             copy_file(path_file_in, path_dir_out, file_out)
+                            # Copy qform to sform to address https://github.com/spinalcordtoolbox/spinalcordtoolbox/issues/3991#issuecomment-1378765661
+                            if file_out.endswith('.nii.gz'):
+                                copy_qform_to_sform(path_dir_out, file_out)
                         # Deal with derivatives (i.e., spinal cord segmentation) located in `sct_processing` folder
                         path_sct_processing = os.path.join(path_input, centre_in, pathology_in, subject_in, 'bl',
                                                            region, 'sct_processing')
