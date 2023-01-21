@@ -6,7 +6,7 @@ It contains brain and spinal cord data acquired at two sites centers (Toronto, Z
 - degenerative cervical myelopathy (DCM)
 - spinal cord injury (SCI)
 
-It also contains spinal cord, gray matter and white matter segmentations for T2w axial images.
+It also contains spinal cord segmentation for T2w axial images and gray matter and white matter segmentations for T2star images.
 
 ## Dataset structure
 
