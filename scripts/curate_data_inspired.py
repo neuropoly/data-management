@@ -230,8 +230,13 @@ def create_participants_json(path_output):
             "LongName": "Subject ID in the unprocessed data"
         },
         "pathology": {
-            "Description": "Pathology",
-            "LongName": "Pathology name"
+            "Description": "The diagnosis of pathology of the participant",
+            "LongName": "Pathology name",
+            "Levels": {
+                "HC": "Healthy Control",
+                "DCM": "Degenerative Cervical Myelopathy",
+                "SCI": "Traumatic Spinal Cord Injury"
+            }
         },
         "institution_id": {
             "Description": "Institution ID in the unprocessed data",
