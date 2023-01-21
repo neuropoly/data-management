@@ -65,9 +65,9 @@ images_spine_conv_dict = {
 
 # TODO - include also DWI derivatives
 derivatives_spine_conv_dict = {
-    't2_seg.nii.gz': 'acq-cspineAxial_T2w_label-SC_mask.nii.gz',
-    'gm_seg.nii.gz': 'acq-cspine_T2star_label-GM_mask.nii.gz',
-    'wm_seg.nii.gz': 'acq-cspine_T2star_label-WM_mask.nii.gz'
+    't2_seg.nii.gz': 'acq-cspineAxial_T2w_label-SC_seg.nii.gz',
+    'gm_seg.nii.gz': 'acq-cspine_T2star_label-GM_seg.nii.gz',
+    'wm_seg.nii.gz': 'acq-cspine_T2star_label-WM_seg.nii.gz'
 }
 
 # Dictionary for brain image filename conversion
