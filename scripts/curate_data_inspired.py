@@ -53,10 +53,10 @@ pathologies_conv_dict = {
 # BIDS BEP025 Proposal: https://docs.google.com/document/d/1chZv7vAPE-ebPDxMktfI9i1OkLNR2FELIfpVYsaZPr4
 # Discussion `acq-cspine` vs `bp-cspine`: https://github.com/neuropoly/data-management/pull/185#issuecomment-1347421696
 images_spine_conv_dict = {
-    'dwi.nii.gz': 'dir-AP_acq-cspine_dwi.nii.gz',
-    'dwi.bval': 'dir-AP_acq-cspine_dwi.bval',
-    'dwi.bvec': 'dir-AP_acq-cspine_dwi.bvec',
-    'dwi_reversed_blip.nii.gz': 'dir-PA_acq-cspine_dwi.nii.gz',
+    'dwi.nii.gz': 'acq-cspine_dir-AP_dwi.nii.gz',
+    'dwi.bval': 'acq-cspine_dir-AP_dwi.bval',
+    'dwi.bvec': 'acq-cspine_dir-AP_dwi.bvec',
+    'dwi_reversed_blip.nii.gz': 'acq-cspine_dir-PA_dwi.nii.gz',
     't1_sag.nii.gz': 'acq-cspine_T1w.nii.gz',
     't2_sag.nii.gz': 'acq-cspineSagittal_T2w.nii.gz',
     't2_tra.nii.gz': 'acq-cspineAxial_T2w.nii.gz',
