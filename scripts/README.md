@@ -1,6 +1,6 @@
 # INSPIRED
 
-This is an MRI dataset acquired in the context of the INSPIRED project.
+This is an MRI dataset acquired in the context of the INSPIRED project (https://www.spinalsurgerynews.com/2016/10/inspired-spinal-cord-neuro-imaging-project/14594).
 
 It contains brain and spinal cord data acquired at two sites centers (Toronto, Zurich) from healthy controls (HC) and two pathologies:
 - degenerative cervical myelopathy (DCM)
