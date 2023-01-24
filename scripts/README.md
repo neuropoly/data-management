@@ -29,6 +29,7 @@ Note: BIDS label `acq-cspine` is used to differentiate spine images from brain. 
 
 Note: 01 corresponds to Toronto site, 02 to Zurich site. For details, see https://github.com/neuropoly/data-management/issues/184#issuecomment-1329250514.
 
-## Details
+## Contact Person
 
-https://www.spinalsurgerynews.com/2016/10/inspired-spinal-cord-neuro-imaging-project/14594
+Main PI of the project: Claudia Wheeler Kingshott
+Contact person: Julien Cohen-Adad
