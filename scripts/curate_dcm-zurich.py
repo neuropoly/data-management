@@ -65,7 +65,7 @@ hdlr = logging.StreamHandler(sys.stdout)
 logging.root.addHandler(hdlr)
 
 
-images = {
+IMAGES = {
     "t2_tse_sag_384_25mm": "acq-sagittal_T2w.nii",
     "t2_tse_tra_oben": "acq-axialTop_T2w.nii",
     "t2_tse_tra_unten": "acq-axialBottom_T2w.nii",
@@ -76,7 +76,7 @@ images = {
 # Note: sub 876921 has two t2_tse_tra_unten (t2_tse_tra_unten_0007 and t2_tse_tra_unten_0010) --> we keep t2_tse_tra_unten_0007 (using sorted(glob.glob(...)))
 
 # Note: sub 798435 has different naming convention
-images_798435 = {
+IMAGES_798435 = {
     "t2_tse_sag_384_25mmT2_TSE_SAG_384_25MM_0009": "acq-sagittal_T2w.nii",
     "t2_tse_tra_p2T2_TSE_TRA_P2_0011": "acq-axialTop_T2w.nii",
     "t2_tse_tra_p2T2_TSE_TRA_P2_0012": "acq-axialBottom_T2w.nii",
@@ -272,7 +272,9 @@ def main():
             path_file_in = glob.glob(os.path.join(path_input, subject, sequence, '*'))[0]
             # Deal with different filenames for subject 798435
             if subject == '798435':
-                images = images_798435
+                images = IMAGES_798435
+            else:
+                images = IMAGES
             for image_in, image_out in images.items():
                 if image_in in path_file_in:
                     # Save 'acq-axialTop_T2w.nii.gz' and 'acq-axialBottom_T2w.nii.gz' to 'raw' folder
