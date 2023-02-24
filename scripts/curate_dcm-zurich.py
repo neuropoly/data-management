@@ -279,7 +279,7 @@ def main():
                 if image_in in path_file_in:
                     # Save 'acq-axialTop_T2w.nii.gz' and 'acq-axialBottom_T2w.nii.gz' to 'raw' folder
                     # Check if image_in contains "oben" or "unten"
-                    if "oben" in image_in or "unten" in image_in:
+                    if "Top" in image_out or "Bottom" in image_out:
                         path_subject_folder_out = os.path.join(path_output, 'raw', 'sub-' + subject, 'anat')
                     # Save 'acq-sagittal_T2w.nii.gz' and 'T1w.nii.gz' to root folder
                     else:
