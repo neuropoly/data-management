@@ -4,10 +4,43 @@
 #     - sagittal T2w
 #     - axial T2w (upper (top) FOV)
 #     - axial T2w (lower (bottom) FOV)
-#     - sagittal T1w
+#     - sagittal T1w (not presented for all subjects)
 #
 # Note: axial T2w (upper (top) FOV) and axial T2w (lower (bottom) FOV) are stitched (merged) into one axial T2w file
 # Note: "non-stitched" files (axial T2w (upper (top) FOV) and axial T2w (lower (bottom) FOV)) are included under raw
+#
+# Sample of the input dcm-zurich dataset:
+# ├── 250791
+# │		├── t2_tse_sag_384_25mm_0005
+# │		│	└── s250791-113456-00001-00020-1.nii
+# │		├── t2_tse_tra_oben_0006
+# │		│	└── s250791-113720-00001-00015-1.nii
+# │		└── t2_tse_tra_unten_0007
+# │		    └── s250791-113952-00001-00015-1.nii
+# ...
+#
+# Sample of the output BIDS dataset:
+# ├── code
+# │		 └── curate_dcm-zurich.py
+# ├── dataset_description.json
+# ├── README.md
+# ├── participants.json
+# ├── participants.tsv
+# ├── raw
+# │		 ├── sub-250791
+# │		 │	 └── anat
+# │		 │	     ├── sub-250791_acq-axialBottom_T2w.json
+# │		 │	     ├── sub-250791_acq-axialBottom_T2w.nii.gz
+# │		 │	     ├── sub-250791_acq-axialTop_T2w.json
+# │		 │	     └── sub-250791_acq-axialTop_T2w.nii.gz
+# ...
+# ├── sub-250791
+# │		 └── anat
+# │		     ├── sub-250791_acq-axial_T2w.json
+# │		     ├── sub-250791_acq-axial_T2w.nii.gz
+# │		     ├── sub-250791_acq-sagittal_T2w.json
+# │		     └── sub-250791_acq-sagittal_T2w.nii.gz
+# ...
 #
 # USAGE:
 #       python3 <PATH_TO_THIS_SCRIPT>/curate_dcm-zurich.py -i <INPUT_DATASET_PATH> -o <OUTPUT_DATASET_PATH>
