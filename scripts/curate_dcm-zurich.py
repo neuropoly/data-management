@@ -257,7 +257,9 @@ def main():
             path_subject_folder_out = os.path.join(path_output, 'sub-' + subject, 'anat')
             create_subject_folder_if_not_exists(path_subject_folder_out)
             path_file_stitched = os.path.join(path_subject_folder_out, 'sub-' + subject + '_acq-axial_T2w.nii')
-            os.system('sct_image -i ' + path_file_top + ' ' + path_file_bottom + ' -stitch -o ' + path_file_stitched)
+            path_qc = os.path.join(path_output, 'qc')
+            os.system('sct_image -i ' + path_file_top + ' ' + path_file_bottom + ' -stitch -o ' + path_file_stitched +
+                      ' -qc ' + path_qc + ' -qc-subject sub-' + subject)
             gzip_nii(path_file_stitched)
             create_empty_json_file(path_file_stitched)
         else:
