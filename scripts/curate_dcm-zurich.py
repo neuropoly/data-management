@@ -105,6 +105,17 @@ def create_subject_folder_if_not_exists(path_subject_folder_out):
         logger.info(f'Creating directory: {path_subject_folder_out}')
 
 
+def copy_nii(path_file_in, path_file_out):
+    """
+    Copy nii file from the input dataset to the output dataset
+    :param path_file_in: path to nii file in the input dataset
+    :param path_file_out: path to nii file in the output dataset
+    """
+    shutil.copy(path_file_in, path_file_out)
+    logger.info(f'Copying: {path_file_in} --> {path_file_out}')
+    gzip_nii(path_file_out)
+
+
 def gzip_nii(path_nii):
     """
     Gzip nii file
@@ -289,10 +300,8 @@ def main():
                     create_subject_folder_if_not_exists(path_subject_folder_out)
                     # Construct path for the output file
                     path_file_out = os.path.join(path_subject_folder_out, 'sub-' + subject + '_' + image_out)
-                    # Copy nii and json files to the output dataset
-                    shutil.copy(path_file_in, path_file_out)
-                    logger.info(f'Copying: {path_file_in} --> {path_file_out}')
-                    gzip_nii(path_file_out)
+                    # Copy nii file to the output dataset
+                    copy_nii(path_file_in, path_file_out)
                     # Create an empty json sidecar file
                     create_empty_json_file(path_file_out)
         # Aggregate subjects for participants.tsv
