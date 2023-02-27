@@ -67,8 +67,8 @@ logging.root.addHandler(hdlr)
 
 IMAGES = {
     "t2_tse_sag_384_25mm": "acq-sagittal_T2w.nii",
-    "t2_tse_tra_oben": "acq-axialTop_T2w.nii",
-    "t2_tse_tra_unten": "acq-axialBottom_T2w.nii",
+    "t2_tse_tra_oben": "acq-axialTop_T2w.nii",      # axial T2w (upper (top) FOV) --> will be used for stitching
+    "t2_tse_tra_unten": "acq-axialBottom_T2w.nii",  # axial T2w (lower (bottom) FOV) --> will be used for stitching
     "t1_tse_sag_fit": "T1w.nii",
 }
 # Note: sub 323721 has t2_tse_sag_384_25mm, t2_tse_tra_oben, t2_tse_tra_unten acquired twice --> we keep the first ones (using sorted(glob.glob(...)))
@@ -257,6 +257,7 @@ def main():
     subjects = [os.path.basename(x) for x in glob.glob(os.path.join(path_input, '*'))]
     # Loop across subjects in input dataset
     for subject in subjects:
+        # Deal with axial T2w images
         # Stitch 'acq-axialTop_T2w.nii.gz' and 'acq-axialBottom_T2w.nii.gz' into 'acq-axial_T2w.nii.gz'
         path_file_top_list = sorted(glob.glob(os.path.join(path_input, subject, 't2_tse_tra_oben*', '*')))
         path_file_bottom_list = sorted(glob.glob(os.path.join(path_input, subject, 't2_tse_tra_unten*', '*')))
@@ -273,11 +274,14 @@ def main():
                       ' -qc ' + path_qc + ' -qc-subject sub-' + subject)
             gzip_nii(path_file_stitched)
             create_empty_json_file(path_file_stitched)
+        # Some subjects has only a single axial T2w image --> no stitching needed, just copy the file
         else:
             logger.warning(f'Could not find t2_tse_tra_oben* and t2_tse_tra_unten* for subject {subject}')
             with open(os.path.join(path_output, 'missing_stitched_files.txt'), 'a') as txt_file:
                 txt_file.write(f'sub-{subject}: t2_tse_tra_oben* or t2_tse_tra_unten*\n')
 
+        # Deal with other sequences ('acq-sagittal_T2w.nii.gz' and 'T1w.nii.gz') and save the original non-stitched
+        # images to 'raw' folder as 'acq-axialTop_T2w.nii.gz' and 'acq-axialBottom_T2w.nii.gz'
         # Get all sequences for this subject
         sequences = [os.path.basename(x) for x in sorted(glob.glob(os.path.join(path_input, subject, '*')))]
         for sequence in sequences:
@@ -290,8 +294,8 @@ def main():
                 images = IMAGES
             for image_in, image_out in images.items():
                 if image_in in path_file_in:
-                    # Save 'acq-axialTop_T2w.nii.gz' and 'acq-axialBottom_T2w.nii.gz' to 'raw' folder
-                    # Check if image_in contains "oben" or "unten"
+                    # Save the original non-stitched images to 'raw' folder as 'acq-axialTop_T2w.nii.gz' and
+                    # 'acq-axialBottom_T2w.nii.gz'
                     if "Top" in image_out or "Bottom" in image_out:
                         path_subject_folder_out = os.path.join(path_output, 'raw', 'sub-' + subject, 'anat')
                     # Save 'acq-sagittal_T2w.nii.gz' and 'T1w.nii.gz' to root folder
