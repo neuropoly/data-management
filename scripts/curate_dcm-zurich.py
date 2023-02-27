@@ -259,8 +259,13 @@ def main():
     for subject in subjects:
         # Deal with axial T2w images
         # Stitch 'acq-axialTop_T2w.nii.gz' and 'acq-axialBottom_T2w.nii.gz' into 'acq-axial_T2w.nii.gz'
-        path_file_top_list = sorted(glob.glob(os.path.join(path_input, subject, 't2_tse_tra_oben*', '*')))
-        path_file_bottom_list = sorted(glob.glob(os.path.join(path_input, subject, 't2_tse_tra_unten*', '*')))
+        if subject == '798435':
+            # This subject has a different naming convention
+            path_file_top_list = sorted(glob.glob(os.path.join(path_input, subject, 't2_tse_tra_p2T2_TSE_TRA_P2_0011', '*nii')))
+            path_file_bottom_list = sorted(glob.glob(os.path.join(path_input, subject, 't2_tse_tra_p2T2_TSE_TRA_P2_0012', '*nii')))
+        else:
+            path_file_top_list = sorted(glob.glob(os.path.join(path_input, subject, 't2_tse_tra_oben*', '*nii')))
+            path_file_bottom_list = sorted(glob.glob(os.path.join(path_input, subject, 't2_tse_tra_unten*', '*nii')))
         # Check if path_file_top and path_file_bottom are not empty. If so, we cannot create the stitched file.
         if path_file_top_list and path_file_bottom_list:
             path_file_top = path_file_top_list[0]
