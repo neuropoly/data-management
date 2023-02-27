@@ -306,7 +306,7 @@ def main():
         sequences = [os.path.basename(x) for x in sorted(glob.glob(os.path.join(path_input, subject, '*')))]
         for sequence in sequences:
             # glob.glob returns a list of files --> get the first item
-            path_file_in = glob.glob(os.path.join(path_input, subject, sequence, '*'))[0]
+            path_file_in = glob.glob(os.path.join(path_input, subject, sequence, '*nii'))[0]
             # Deal with different filenames for subject 798435
             if subject == '798435':
                 images = IMAGES_798435
