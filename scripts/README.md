@@ -14,7 +14,7 @@ It contains spinal cord data from degenerative cervical myelopathy (DCM) subject
 Note:
 The axial T2w (top FOV) and the axial T2w (bottom FOV) were stitched together to create a full axial T2w image during the BIDS conversion.
 The original non-stitched images are available in the `raw` folder.
-For details about the stitching, see the curation script  in the `code` folder. 
+For details about the stitching, see the curation script in the `code` folder. 
 
 ## Contact Person
 
