@@ -7,7 +7,8 @@
 #     - sagittal T1w (not presented for all subjects)
 #
 # Note: axial T2w (upper (top) FOV) and axial T2w (lower (bottom) FOV) are stitched (merged) into one axial T2w file
-# Note: "non-stitched" files (axial T2w (upper (top) FOV) and axial T2w (lower (bottom) FOV)) are included under raw
+# Note: "non-stitched" files (axial T2w (upper (top) FOV) and axial T2w (lower (bottom) FOV)) are included under
+# sourcedata
 #
 # Sample of the input dcm-zurich dataset:
 # ├── 250791
@@ -26,7 +27,8 @@
 # ├── README.md
 # ├── participants.json
 # ├── participants.tsv
-# ├── raw
+# ├── sourcedata
+# │		 ├── dataset_description.json
 # │		 ├── sub-250791
 # │		 │	 └── anat
 # │		 │	     ├── sub-250791_acq-axialBottom_T2w.json
@@ -202,6 +204,31 @@ def create_dataset_description(path_output):
     data_json = {
         "BIDSVersion": "BIDS 1.8.0",
         "Name": "dcm-zurich",
+        "DatasetType": "derivative",
+        "GeneratedBy": [
+            {
+                "Name": "Stitching",
+                "CodeURL": "bids::code/curate_dcm-zurich.py"
+            }
+        ],
+        "SourceDatasets": [
+            {
+                "URL": "bids::sourcedata"
+            }
+        ]
+    }
+    write_json(path_output, 'dataset_description.json', data_json)
+
+
+def create_dataset_description_sourcedata(path_output):
+    """
+    Create dataset_description.json file
+    :param path_output: path to the output BIDS folder
+    :return:
+    """
+    data_json = {
+        "BIDSVersion": "BIDS 1.8.0",
+        "Name": "dcm-zurich",
         "DatasetType": "raw"
     }
     write_json(path_output, 'dataset_description.json', data_json)
@@ -301,7 +328,7 @@ def main():
                     txt_file.write(f'sub-{subject}: no t2_tse_tra file found\n')
 
         # Deal with other sequences ('acq-sagittal_T2w.nii.gz' and 'T1w.nii.gz') and save the original non-stitched
-        # images to 'raw' folder as 'acq-axialTop_T2w.nii.gz' and 'acq-axialBottom_T2w.nii.gz'
+        # images to 'sourcedata' folder as 'acq-axialTop_T2w.nii.gz' and 'acq-axialBottom_T2w.nii.gz'
         # Get all sequences for this subject
         sequences = [os.path.basename(x) for x in sorted(glob.glob(os.path.join(path_input, subject, '*')))]
         for sequence in sequences:
@@ -314,10 +341,10 @@ def main():
                 images = IMAGES
             for image_in, image_out in images.items():
                 if image_in in path_file_in:
-                    # Save the original non-stitched images to 'raw' folder as 'acq-axialTop_T2w.nii.gz' and
+                    # Save the original non-stitched images to 'sourcedata' folder as 'acq-axialTop_T2w.nii.gz' and
                     # 'acq-axialBottom_T2w.nii.gz'
                     if "Top" in image_out or "Bottom" in image_out:
-                        path_subject_folder_out = os.path.join(path_output, 'raw', 'sub-' + subject, 'anat')
+                        path_subject_folder_out = os.path.join(path_output, 'sourcedata', 'sub-' + subject, 'anat')
                     # Save 'acq-sagittal_T2w.nii.gz' and 'T1w.nii.gz' to root folder
                     else:
                         path_subject_folder_out = os.path.join(path_output, 'sub-' + subject, 'anat')
@@ -334,6 +361,7 @@ def main():
     create_participants_tsv(participants_tsv_list, path_output)
     create_participants_json(path_output)
     create_dataset_description(path_output)
+    create_dataset_description_sourcedata(os.path.join(path_output, 'sourcedata'))
     copy_script(path_output)
 
 
