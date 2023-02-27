@@ -335,7 +335,6 @@ def main():
     create_participants_json(path_output)
     create_dataset_description(path_output)
     copy_script(path_output)
-    shutil.move(FNAME_LOG, os.path.join(path_output, 'code', 'bids_conversion.log'))
 
 
 if __name__ == "__main__":
