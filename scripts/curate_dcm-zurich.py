@@ -282,8 +282,23 @@ def main():
         # Some subjects has only a single axial T2w image --> no stitching needed, just copy the file
         else:
             logger.warning(f'Could not find t2_tse_tra_oben* and t2_tse_tra_unten* for subject {subject}')
-            with open(os.path.join(path_output, 'missing_stitched_files.txt'), 'a') as txt_file:
-                txt_file.write(f'sub-{subject}: t2_tse_tra_oben* or t2_tse_tra_unten*\n')
+            logger.warning(f'Checking if a single t2_tse_tra file exists for subject {subject}')
+            path_file_in_list = sorted(glob.glob(os.path.join(path_input, subject, 't2_tse_tra*', '*nii')))
+            if path_file_in_list:
+                # Construct path for the output file
+                path_file_in = path_file_in_list[0]
+                path_subject_folder_out = os.path.join(path_output, 'sub-' + subject, 'anat')
+                create_subject_folder_if_not_exists(path_subject_folder_out)
+                path_file_out = os.path.join(path_subject_folder_out, 'sub-' + subject + '_acq-axial_T2w.nii')
+                # Copy nii file to the output dataset
+                copy_nii(path_file_in, path_file_out)
+                # Create an empty json sidecar file
+                create_empty_json_file(path_file_out)
+                with open(os.path.join(path_output, 'no_stitching.log'), 'a') as txt_file:
+                    txt_file.write(f'sub-{subject}: has only a single t2_tse_tra file --> no stitching done\n')
+            else:
+                with open(os.path.join(path_output, 'missing_files.log'), 'a') as txt_file:
+                    txt_file.write(f'sub-{subject}: no t2_tse_tra file found\n')
 
         # Deal with other sequences ('acq-sagittal_T2w.nii.gz' and 'T1w.nii.gz') and save the original non-stitched
         # images to 'raw' folder as 'acq-axialTop_T2w.nii.gz' and 'acq-axialBottom_T2w.nii.gz'
