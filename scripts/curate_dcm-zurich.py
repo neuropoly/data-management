@@ -279,7 +279,7 @@ def main():
                       ' -qc ' + path_qc + ' -qc-subject sub-' + subject)
             gzip_nii(path_file_stitched)
             create_empty_json_file(path_file_stitched)
-        # Some subjects has only a single axial T2w image --> no stitching needed, just copy the file
+        # Some subjects have only a single axial T2w image --> no stitching needed, just copy the file
         else:
             logger.warning(f'Could not find t2_tse_tra_oben* and t2_tse_tra_unten* for subject {subject}')
             logger.warning(f'Checking if a single t2_tse_tra file exists for subject {subject}')
