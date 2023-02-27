@@ -23,6 +23,7 @@ Patrick Freund, Balgrist University Hospital, Zurich, Switzerland.
 ## Missing data
 
 The following subjects have only a single axial T2w image --> no stitching was performed:
+sub-343299
 sub-349399
 sub-351576
 sub-352899
