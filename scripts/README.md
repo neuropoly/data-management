@@ -7,12 +7,11 @@ It contains spinal cord data from degenerative cervical myelopathy (DCM) subject
 ## Dataset structure
 
 - sagittal T2w
-- axial T2w (top FOV)
-- axial T2w (bottom FOV)
+- axial T2w
 - sagittal T1w (not presented for all subjects)
 
 Note:
-The axial T2w (top FOV) and the axial T2w (bottom FOV) were stitched together to create a full axial T2w image during the BIDS conversion.
+The axial T2w image was created by stitching the top and bottom FOV images during the BIDS conversion.
 The original non-stitched images are available in the `sourcedata` folder.
 For details about the stitching, see the curation script in the `code` folder. 
 
