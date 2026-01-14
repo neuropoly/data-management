@@ -8,4 +8,7 @@ We have have general experience [tracking neuroimaging data with git-annex](./gi
 
 For more convenience, you can create a PR with a curation script that you are working on, so that others can give feedback; once the script is validated, you can simply close the PR and delete the branch without merging.
 
-⚠️ See the [intranet wiki](https://intranet.neuro.polymtl.ca/data/dataset-curation.html) for details about dataset curation.
+👉 List of NeuroPoly datasets: https://data.neuro.polymtl.ca/explore/repos
+
+> [!NOTE]  
+> See the [intranet wiki](https://intranet.neuro.polymtl.ca/data/dataset-curation.html) for details about dataset curation.
